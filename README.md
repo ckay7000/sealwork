@@ -12,24 +12,28 @@ An agent's name can stay the same while its code changes. Its old success record
 
 Run the website locally with `npm ci` and `npm run dev`, then open **http://127.0.0.1:5190**. You can browse the product, builds, manifests, and workflow without credentials. A configured deployment also offers sponsored testnet jobs without a visitor wallet.
 
-The working prototype reconciles invoice CSVs against a payment ledger. Deterministic Rust workers use integer minor-unit amounts and six explicit acceptance checks. An optional NEAR AI Cloud hiring agent chooses a reviewed worker using its public, version-specific history. The planning model receives neither financial files nor payment keys; it cannot waive checks or redirect a payment.
+The working prototype handles both explicit invoice ledgers and **private AI matching of messy bank descriptions**. NEAR AI Cloud proposes combined-payment allocations and leaves ambiguous payments for review. After buyer approval, deterministic Rust workers independently check the original records, integer-cent allocations and encrypted report before payment. An optional NEAR AI Cloud hiring agent chooses a reviewed worker using its public, version-specific history. The planning model receives neither financial files nor payment keys; it cannot waive checks or redirect a payment.
 
-1. Hire **Ledgerline 1.0** and use the sample files. The verifier checks invoice completeness, unique identifiers, exact amounts and currencies, normalized vendors, ledger statuses, and the encrypted delivery. Passing work releases the **0.050 NEAR** agent budget.
-2. Hire **Ledgerline 1.1**, the deliberately faulty demo update. It changes one amount. The verifier rejects that output, escrow refunds the budget, and the failure belongs to 1.1's fingerprint. Version 1.0's record stays separate.
+1. Hire **Ledgerline 2.0** and use the sample files. The verifier checks invoice completeness, unique identifiers, exact amounts and currencies, normalized vendors, ledger statuses, and the encrypted delivery. Passing work releases the **0.050 NEAR** agent budget.
+2. Hire **Ledgerline 2.1**, the deliberately faulty demo update. It changes one amount. The verifier rejects that output, escrow refunds the budget, and the failure belongs to 2.1's fingerprint. Version 2.0's record stays separate.
 3. Select **Test a missed deadline**. The job skips execution. After its deadline, request the refund and inspect its permanent timeout receipt.
 4. On a job page, decrypt the private result, download its CSV, export the public receipt, and save a private recovery file. A different browser can inspect the public evidence; it needs the recovery file to open the private delivery.
+
+**[Try private bank matching](https://sealwork.vercel.app/new?task=bank&mode=agent).** The sample $900 payment covers $500 and $400 invoices; an ambiguous $250 payment remains unallocated. The browser checks fresh model hardware evidence and its encrypted response signature. A separate pinned verifier checks the original bank records and proposed allocations. Review matches before funding. [Private AI protocol and limits](docs/PRIVATE_AI.md).
 
 With inference configured, open **[AI hiring](https://sealwork.vercel.app/new?mode=agent)**, choose a hiring priority, and ask the agent to select a worker. Review its reason and approve the six checks. The browser encrypts the files and funds only the exact build in the short-lived hiring permit. The existing independent verifier controls payment. Manual selection remains available for deliberately faulty and timeout demonstrations.
 
 The real NEAR AI Cloud hiring flow passed on October 31, 2026: [AI-selected worker, verified delivery, and settled payment](https://sealwork.vercel.app/jobs/sw_24aa8e6a85d9bc9f74f49d50b678e093). The [sample hiring trace](docs/ai-hiring-example.json) records the model response ID, chosen build, explanation, and prompt/policy/response digests. It excludes signing keys, delivery keys, and the funding permit. This is an offchain planning trace; the worker and verifier have the independent execution evidence.
 
-**[Watch the 50-second narrated demo](https://sealwork.vercel.app/media/sealwork-demo.mp4?v=2)** · [Film transcript and sources](docs/DEMO.md)
+**[Watch the 52-second narrated demo](https://sealwork.vercel.app/media/sealwork-demo.mp4?v=3)** · [Film transcript and sources](docs/DEMO.md)
+
+The new private bank workflow passed on October 31, 2026: [AI analysis and accepted report](https://sealwork.vercel.app/jobs/sw_61d5c23989d10f9d1c7271265fc329ad), [faulty report rejected and refunded](https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1), and [invalid allocation stopped and refunded](https://sealwork.vercel.app/jobs/sw_105b376d09fc4c79f17f115b0c1b9ed0). [Public fictional example and signed model trace](docs/bank-ai-example.json).
 
 ## What is private, and what is public?
 
 | Private                                            | Public on NEAR                                                     |
 | -------------------------------------------------- | ------------------------------------------------------------------ |
-| Original invoice and ledger contents               | Job title, buyer, provider, budget, deadline                       |
+| Original invoice, ledger and bank contents               | Job title, buyer, provider, budget, deadline                       |
 | Plaintext reconciliation result                    | Agent and verifier binary fingerprints                             |
 | Browser-generated delivery key and commitment salt | Salted input/result commitments and acceptance checks              |
 | Decrypted worker inputs and intermediate artifact  | Execution references, encrypted delivery, outcome, transfer status |
@@ -112,7 +116,7 @@ node --env-file=.env.local scripts/deploy-contract.mjs
 node --env-file=.env.local scripts/deploy-contract.mjs --apply
 ```
 
-The first command previews the deployment. `--apply` publishes the OutLayer versions, deploys the fresh dedicated escrow account, registers the three agent builds, and writes public deployment metadata. It refuses to overwrite different existing contract code. Redeploy the website after that metadata changes.
+The `node` command without `--apply` previews the deployment. `--apply` publishes the OutLayer versions, deploys the fresh dedicated escrow account, registers the three agent builds, and writes public deployment metadata. It refuses to overwrite different existing contract code. Redeploy the website after that metadata changes.
 
 Hosted sponsored jobs use only the dedicated testnet buyer account and `SEALWORK_CONTROL_SECRET`. A signed creation challenge, per-job execution capability, request limits, onchain daily allowance, and fixed small budget bound demo usage. The website and server configuration must agree with the deployed verifier before sponsorship is enabled. The signer is an operational trust dependency and must never hold real customer funds in this prototype.
 
@@ -120,15 +124,15 @@ For AI hiring, set `NEAR_AI_API_KEY` in the private local and hosted environment
 
 For inexpensive setup, the [official hackathon guide](https://nearhackathon.com/HACKATHON.md) advertises **$10 in free NEAR AI credits through [NEAR Builders](https://nearbuilders.org/join)**. The selected [model's catalog price](https://docs.near.ai/cloud/models) on October 31, 2026 was $0.08 per million input tokens and $0.50 per million output tokens. A request using 1,000 input and 700 total output tokens costs about $0.00043; $1 is ample for ordinary demo testing if the checkout permits that purchase amount. Actual billed usage can differ. Manual private jobs require no model credits. [OpenRouter free models](https://openrouter.ai/docs/guides/routing/model-variants/free) are another option with usage limits, but this implementation currently connects only to NEAR AI Cloud.
 
-The planner's prompt and policy digests and configured model ID are published in `/api/config`. Its response digest and model response ID are saved with the browser's private recovery material. These describe an offchain procurement decision; they are **not an attestation of the planning model**. Reputation and execution proofs belong to the hired WASM worker. The planner has no NEAR signer or transfer tool. Its API key incurs inference costs separately from the onchain job allowance: use prepaid credits and request limits, and do not assume warm-instance limits are a global billing cap.
+The planner's prompt and policy digests and configured model ID are published in `/api/config`. Its response digest and model response ID are saved with the browser's private recovery material. These describe an offchain procurement decision; they are **not an attestation of the planning model**. Reputation and execution proofs belong to the hired WASM worker. The planner has no NEAR signer or transfer tool. The separate bank-analysis path uses encrypted private financial input and verifies its model signature; inference is billed separately before the conditional report-processing fee is reserved. Its API key incurs inference costs separately from the onchain job allowance: use prepaid credits and request limits, and do not assume warm-instance limits are a global billing cap.
 
 ## Scope and trust
 
-This is a NEAR testnet prototype for work with objective, predetermined acceptance rules. Its invoice checks establish consistency with the supplied files; they do not prove that an invoice reflects a real transaction. The two named agents demonstrate the protocol rather than an open permissionless agent marketplace.
+This is a NEAR testnet prototype for work with objective, predetermined acceptance rules. Its invoice and bank-allocation checks establish consistency with the supplied files; they do not prove that an invoice reflects a real transaction. The two named agents demonstrate the protocol rather than an open permissionless agent marketplace.
 
 An execution attestation proves which binary ran with which input and output in an approved TEE. It does not establish that arbitrary code is honest or that arbitrary AI text is true. Sealwork's proof inspector compares the observed binary fingerprint and shows whether a hardware quote is present. Full quote, collateral, measurement, and execution-binding verification is available in OutLayer's verification dashboard; Sealwork does not label a displayed quote as cryptographically verified locally.
 
-The current OutLayer NEAR runtime supplies the execution transaction hash but can omit the SDK's optional request ID. Sealwork records the real transaction, then resolves the request ID from OutLayer's onchain `execution_requested` event. The resolver checks the calling escrow, buyer, project, job, input commitment, and binary hash before linking an attestation. It never invents a request ID. The [first deployment](deployments/testnet-first.json) and its failed integration receipt remain readable while the current demo runs on a fresh escrow.
+The current OutLayer NEAR runtime supplies the execution transaction hash but can omit the SDK's optional request ID. Sealwork records the real transaction, then resolves the request ID from OutLayer's onchain `execution_requested` event. The resolver checks the calling escrow, buyer, project, job, input commitment, and binary hash before linking an attestation. It never invents a request ID. The [first deployment](deployments/testnet-first.json) and [previous live deployment](deployments/testnet-v1.json) remain readable while the bank-aware verifier runs on a separate escrow, `market.sealwork-ai.testnet`.
 
 The original [execution failure and refund receipt](https://sealwork.vercel.app/jobs/sw_cb5ec29d418a7735559fbf91421cdb4b) is retained, with its [NEAR execution transaction](https://testnet.nearblocks.io/txns/GKUb7nKaXau3fLwHURksyYkotNtHnuXZhwcEKJN3YM9t) available for inspection.
 

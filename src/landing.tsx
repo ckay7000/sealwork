@@ -23,12 +23,13 @@ export function Landing() {
   const [watch, setWatch] = useState(false);
   const { builds, config, jobs } = useData();
   const stable = builds.find(
-    (build) => build.agent_id === "ledgerline" && build.version === "1.0",
+    (build) => build.agent_id === "ledgerline" && build.version.endsWith(".0"),
   );
   const changed = builds.find(
-    (build) => build.agent_id === "ledgerline" && build.version === "1.1",
+    (build) => build.agent_id === "ledgerline" && build.version.endsWith(".1"),
   );
   const receipt = jobs.find((job) => job.outcome === "accepted");
+  const bankReady = Boolean(config?.bank_supported && config?.private_ai?.ready);
   return (
     <div className="marketing">
       <a className="skip-link" href="#main">
@@ -82,13 +83,13 @@ export function Landing() {
               .
             </h1>
             <p className="hero-description">
-              Let your finance agent hire an exact worker build. Keep your
-              records encrypted. Release payment after independent checks,
-              with a history tied to the code that delivered the work.
+              Match bank payments to invoices with private AI. Review uncertain
+              matches, keep your records encrypted, and pay the report worker
+              after independent checks. Every build earns its own history.
             </p>
             <div className="hero-buttons">
-              <Link to={config?.planner?.ready ? "/new?mode=agent" : "/new"} className="button primary hero-button">
-                {config?.planner?.ready ? "Try safe agent hiring" : "Try a private job"} <ArrowUpRight size={19} />
+              <Link to={bankReady ? "/new?task=bank&mode=agent" : config?.planner?.ready ? "/new?mode=agent" : "/new"} className="button primary hero-button">
+                {bankReady ? "Try private bank matching" : config?.planner?.ready ? "Try safe agent hiring" : "Try a private job"} <ArrowUpRight size={19} />
               </Link>
               <Link
                 to={receipt ? `/jobs/${receipt.id}` : "/protocol"}
@@ -159,7 +160,7 @@ export function Landing() {
                 <AgentAvatar id="ledgerline" />
                 <div>
                   <strong>
-                    Ledgerline <span>v{accepted ? "1.0" : "1.1"}</span>
+                    Ledgerline <span>v{accepted ? stable?.version || "2.0" : changed?.version || "2.1"}</span>
                   </strong>
                   <small>The exact build you hire</small>
                 </div>
@@ -223,8 +224,8 @@ export function Landing() {
                 </strong>
                 <small>
                   {accepted
-                    ? "Outcome → Ledgerline v1.0"
-                    : "Failure → Ledgerline v1.1"}
+                    ? `Outcome → Ledgerline v${stable?.version || "2.0"}`
+                    : `Failure → Ledgerline v${changed?.version || "2.1"}`}
                 </small>
               </div>
               <ArrowUpRight size={21} />
@@ -314,7 +315,7 @@ export function Landing() {
                   </Pill>
                 </div>
                 <h3>
-                  Ledgerline <span>v{index ? "1.1" : "1.0"}</span>
+                  Ledgerline <span>v{index ? changed?.version || "2.1" : stable?.version || "2.0"}</span>
                 </h3>
                 <div className="comparison-hash">
                   <Fingerprint size={13} />
@@ -478,10 +479,10 @@ export function Landing() {
               <button type="button" className="icon-button" aria-label="Close demo video" autoFocus onClick={() => setWatch(false)}><X size={20} /></button>
             </div>
             <video controls autoPlay playsInline poster="/media/sealwork-demo-poster.jpg">
-              <source src="/media/sealwork-demo.mp4?v=2" type="video/mp4" />
+              <source src="/media/sealwork-demo.mp4?v=3" type="video/mp4" />
               <track kind="captions" src="/media/sealwork-demo.vtt" srcLang="en" label="English" />
             </video>
-            <a className="text-link" href="/media/sealwork-demo.mp4?v=2" download>Download the demo video <ArrowUpRight size={13} /></a>
+            <a className="text-link" href="/media/sealwork-demo.mp4?v=3" download>Download the demo video <ArrowUpRight size={13} /></a>
           </div>
         </div>
       )}

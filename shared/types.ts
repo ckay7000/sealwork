@@ -72,6 +72,7 @@ export interface PrivateInput {
   ledger_csv: string;
   buyer_key: string;
   salt: string;
+  bank?: import('./bank').BankInput;
 }
 
 export interface PrivatePacket {
@@ -90,6 +91,7 @@ export interface ResultRow {
 export interface PrivateResult {
   schema: "sealwork.invoice-reconciliation.v1";
   rows: ResultRow[];
+  bank?: import('./bank').BankProposal;
 }
 
 export interface Deployment {
@@ -140,6 +142,8 @@ export interface PublicConfig {
   create_challenge?: string;
   status_message?: string;
   planner?: { ready: boolean; model: string; prompt_hash: string; policy_hash: string };
+  private_ai?: {ready: boolean; model: string};
+  bank_supported?: boolean;
 }
 
 export interface HiringPlan {
@@ -199,7 +203,7 @@ export const CHECKS = [
     id: "ledger_matches",
     label: "Payment statuses match the ledger",
     detail:
-      "Matched, unpaid, and mismatch statuses are independently recomputed.",
+      "Statuses are independently recomputed. Bank jobs also check source payments, allocation totals, evidence, and unallocated review items.",
   },
   {
     id: "delivery_integrity",

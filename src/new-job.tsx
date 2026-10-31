@@ -18,6 +18,11 @@ import { CHECKS, LEDGER_SAMPLE, SOURCE_SAMPLE } from "../shared/types";
 import type { HiringPlan, Job, PrivateInput, PrivatePacket } from "../shared/types";
 import { inputCommitment, randomHex, sealToKeystore } from "../shared/crypto";
 import { inspectInputs } from "../shared/inputs";
+import { BANK_INVOICES, BANK_PAYMENTS, bankRecords, approvedLedger } from "../shared/bank";
+import type { BankProposal } from "../shared/bank";
+import { analyzeBank, digestText } from "../shared/private-ai";
+import type { AnalysisProof } from "../shared/private-ai";
+import { BankDecisions } from "./bank-decisions";
 import { nearAmount, shortHash } from "../shared/format";
 import { AgentAvatar, PageHeading, Pill } from "./components";
 import { ApiError, post, privateSession, savePrivate, useData } from "./data";
@@ -28,12 +33,16 @@ export function NewJob() {
   const navigate = useNavigate();
   const [hash, setHash] = useState(
     params.get("build") ||
-      builds.find((build) => build.version === "1.0")?.hash ||
+      builds.find((build) => build.version.endsWith(".0"))?.hash ||
       "",
   );
-  const [title, setTitle] = useState("Invoice reconciliation");
-  const [source, setSource] = useState(SOURCE_SAMPLE);
-  const [ledger, setLedger] = useState(LEDGER_SAMPLE);
+  const [title, setTitle] = useState(params.get("task") === "bank" ? "Private bank payment matching" : "Invoice reconciliation");
+  const [bankMode, setBankMode] = useState(params.get("task") === "bank");
+  const [source, setSource] = useState(params.get("task") === "bank" ? BANK_INVOICES : SOURCE_SAMPLE);
+  const [ledger, setLedger] = useState(params.get("task") === "bank" ? BANK_PAYMENTS : LEDGER_SAMPLE);
+  const [analysis, setAnalysis] = useState<{proposal:BankProposal;proof:AnalysisProof;input_hash:string}|null>(null);
+  const [analyzing,setAnalyzing] = useState(false);
+  const [analysisPhase,setAnalysisPhase] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [timeout, setTimeout] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -48,10 +57,12 @@ export function NewJob() {
   const ledgerUpload = useRef<HTMLInputElement>(null);
   const selected = builds.find((build) => build.hash === hash) || builds[0];
   const planReady = Boolean(plan && plan.build_hash === selected?.hash && plan.expires_at > Date.now());
+  const analysisReady = Boolean(analysis && analysis.input_hash === digestText(source+'\0'+ledger));
   let counts: { invoices: number; payments: number } | null = null;
   let preflight = "";
   try {
-    counts = inspectInputs(source, ledger);
+    if(bankMode){const r=bankRecords(source,ledger);counts={invoices:r.invoices.length,payments:r.bank.length};}
+    else counts = inspectInputs(source, ledger);
   } catch (error) {
     preflight =
       error instanceof Error ? error.message : "Check the CSV format.";
@@ -68,6 +79,7 @@ export function NewJob() {
       return;
     }
     const text = await file.text();
+    setAnalysis(null); setAgreed(false);
     if (kind === "source") setSource(text);
     else setLedger(text);
     setMode("custom");
@@ -94,6 +106,9 @@ export function NewJob() {
       setError(preflight);
       return;
     }
+    if(bankMode && (!analysisReady || !analysis || !config.bank_supported)){
+      setError("Analyze and review the bank payment proposal before funding.");return;
+    }
     if (autonomous && !planReady) {
       setError("Let the hiring agent choose a worker before approving the job.");
       return;
@@ -106,9 +121,10 @@ export function NewJob() {
       const input: PrivateInput = {
         job_id: id,
         source_csv: source,
-        ledger_csv: ledger,
+        ledger_csv: bankMode && analysis ? approvedLedger(analysis.proposal,source,ledger) : ledger,
         buyer_key: randomHex(),
         salt: randomHex(),
+        ...(bankMode && analysis ? {bank:{payments_csv:ledger,proposal:analysis.proposal}} : {}),
       };
       const commitment = inputCommitment(input);
       const packet: PrivatePacket = { input, input_commitment: commitment };
@@ -122,6 +138,7 @@ export function NewJob() {
         salt: input.salt,
         input_commitment: commitment,
         hiring_plan: autonomous && plan ? plan : undefined,
+        bank_proof: bankMode ? analysis?.proof : undefined,
       });
       setPhase("Funding escrow & storing the encrypted packet…");
       const response = await post<{
@@ -146,6 +163,7 @@ export function NewJob() {
         capability: response.capability,
         transaction_hash: response.transaction_hash,
         hiring_plan: autonomous && plan ? plan : undefined,
+        bank_proof: bankMode ? analysis?.proof : undefined,
       });
       void refresh();
       navigate(`/jobs/${id}`, {
@@ -253,7 +271,7 @@ export function NewJob() {
                       {build.name} <span>v{build.version}</span>
                     </strong>
                     <small>
-                      {build.version === "1.1"
+                      {build.version.endsWith(".1")
                         ? "Deliberately faulty update for the rejection demo"
                         : "Deterministic invoice reconciliation specialist"}
                     </small>
@@ -292,14 +310,23 @@ export function NewJob() {
             <p className="field-hint">
               Keep private details out of this public label.
             </p>
+            <label className="agreement-checkbox">
+              <input type="checkbox" checked={bankMode} disabled={analyzing||busy} onChange={event=>{
+                const enabled=event.target.checked;setBankMode(enabled);setSource(enabled?BANK_INVOICES:SOURCE_SAMPLE);
+                setLedger(enabled?BANK_PAYMENTS:LEDGER_SAMPLE);setAnalysis(null);setAgreed(false);setMode("sample");
+                setTitle(enabled?"Private bank payment matching":"Invoice reconciliation");
+              }}/><span>Match messy bank payments with private AI</span>
+            </label>
+            {bankMode && <p className="field-hint">Use payment IDs and bank descriptions. AI proposes matches through encrypted inference; uncertain payments stay open for review.</p>}
             <div className="input-mode-bar">
               <div className="tabs small">
                 <button
                   type="button"
                   className={mode === "sample" ? "active" : ""}
                   onClick={() => {
-                    setSource(SOURCE_SAMPLE);
-                    setLedger(LEDGER_SAMPLE);
+                    setSource(bankMode ? BANK_INVOICES : SOURCE_SAMPLE);
+                    setLedger(bankMode ? BANK_PAYMENTS : LEDGER_SAMPLE);
+                    setAnalysis(null); setAgreed(false);
                     setMode("sample");
                     setError("");
                   }}
@@ -331,10 +358,11 @@ export function NewJob() {
                 </button>
               </div>
               <textarea
+                disabled={analyzing}
                 aria-label="Private invoice CSV"
                 value={source}
                 onChange={(event) => {
-                  setSource(event.target.value);
+                  setSource(event.target.value); setAnalysis(null); setAgreed(false);
                   setMode("custom");
                 }}
                 spellCheck={false}
@@ -364,10 +392,11 @@ export function NewJob() {
                 </button>
               </div>
               <textarea
+                disabled={analyzing}
                 aria-label="Private payment ledger CSV"
                 value={ledger}
                 onChange={(event) => {
-                  setLedger(event.target.value);
+                  setLedger(event.target.value); setAnalysis(null); setAgreed(false);
                   setMode("custom");
                 }}
                 spellCheck={false}
@@ -393,6 +422,20 @@ export function NewJob() {
                 {preflight}
               </div>
             )}
+            {bankMode && <div className="hiring-agent-panel bank-analysis-panel">
+              <h3>Understand the bank records</h3>
+              <p>The model’s key and signed response are checked. A separate verifier checks the original records, allocation totals and your encrypted report.</p>
+              <button type="button" className="button secondary full" disabled={analyzing||busy||!!preflight||!config?.private_ai?.ready||!config.bank_supported} onClick={()=>void(async()=>{
+                setAnalyzing(true);setError("");setAnalysis(null);setAgreed(false);
+                const inputHash=digestText(source+'\0'+ledger);
+                try{const value=await analyzeBank(source,ledger,config!.create_challenge!,post,setAnalysisPhase);setAnalysis({...value,input_hash:inputHash});}
+                catch(error){setError(error instanceof Error?error.message:"Private analysis could not complete.");}
+                finally{setAnalyzing(false);setAnalysisPhase("");}
+              })()}>{analyzing?<><Loader2 size={15} className="spin"/>{analysisPhase}</>:<><Sparkles size={15}/>Analyze bank payments privately</>}</button>
+              {!config?.bank_supported && <p>This workflow is awaiting its dedicated verifier deployment.</p>}
+              {analysisReady && analysis && <><p role="status">Model evidence and response verified. Allocation checks passed. Review every proposed match before approval.</p><BankDecisions proposal={analysis.proposal}/>
+                <p className="field-hint">Evidence checks prove record consistency. They cannot prove the payer’s intended meaning. Uncertain payments receive no allocation.</p></>}
+            </div>}
           </section>
           <section className="surface form-section">
             <div className="form-section-heading">
@@ -424,7 +467,7 @@ export function NewJob() {
                 checked={agreed}
                 onChange={(event) => setAgreed(event.target.checked)}
               />
-              <span>I agree to these checks and the selected agent build.</span>
+              <span>{bankMode ? "I reviewed the proposed matches, left uncertain payments unallocated, and agree to these checks and this build." : "I agree to these checks and the selected agent build."}</span>
             </label>
           </section>
         </div>
@@ -441,15 +484,15 @@ export function NewJob() {
                   <strong>{selected.name}</strong>
                   <span>Version {selected.version}</span>
                 </div>
-                <Pill tone={selected.version === "1.1" ? "amber" : "green"}>
-                  {selected.version === "1.1" ? "Faulty demo" : "Exact build"}
+                <Pill tone={selected.version.endsWith(".1") ? "amber" : "green"}>
+                  {selected.version.endsWith(".1") ? "Faulty demo" : "Exact build"}
                 </Pill>
               </div>
             )}
             <dl className="agreement-summary">
               <div>
                 <dt>Workflow</dt>
-                <dd>Invoice reconciliation</dd>
+                <dd>{bankMode ? "Private bank matching" : "Invoice reconciliation"}</dd>
               </div>
               <div>
                 <dt>Acceptance</dt>
@@ -511,7 +554,7 @@ export function NewJob() {
             )}
             <button
               type="submit"
-              disabled={busy || planning || !config?.ready || !agreed || Boolean(preflight) || (autonomous && !planReady)}
+              disabled={busy || planning || analyzing || !config?.ready || !agreed || Boolean(preflight) || (autonomous && !planReady) || (bankMode && (!analysisReady || !config.bank_supported))}
               className="button primary full create-job-button"
             >
               {busy ? (

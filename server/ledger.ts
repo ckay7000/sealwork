@@ -2,6 +2,7 @@ import { Account, JsonRpcProvider, actions } from "near-api-js";
 import type { KeyPairString } from "near-api-js";
 import deploymentJson from "../deployments/testnet.json" with { type: "json" };
 import firstDeploymentJson from "../deployments/testnet-first.json" with { type: "json" };
+import previousDeploymentJson from "../deployments/testnet-v1.json" with { type: "json" };
 import type {
   AgentBuild,
   Deployment,
@@ -13,8 +14,9 @@ import { HttpError, issueCapability, issueChallenge } from "./security.js";
 
 export const deployment = deploymentJson as Deployment;
 const firstDeployment = firstDeploymentJson as Deployment;
+const previousDeployment = previousDeploymentJson as Deployment;
 export function deploymentForJob(job: Job): Deployment {
-  return job.contract_id === firstDeployment.contract_id ? firstDeployment : deployment;
+  return job.contract_id === firstDeployment.contract_id ? firstDeployment : job.contract_id === previousDeployment.contract_id ? previousDeployment : deployment;
 }
 export const rpc = new JsonRpcProvider({
   url: process.env.SEALWORK_RPC_URL || deployment.rpc_url,
@@ -196,6 +198,7 @@ export async function snapshot(): Promise<PublicConfig> {
     jobs: [],
     timestamp: new Date().toISOString(),
     demo_remaining: 0,
+    bank_supported: Boolean((deploymentJson as unknown as {bank_supported?:boolean}).bank_supported),
   };
   if (!deployment.verifier_hash)
     return {
@@ -248,7 +251,7 @@ export async function snapshot(): Promise<PublicConfig> {
 export async function jobById(id: string): Promise<Job> {
   // Keep the first deployment's permanent receipts readable after moving
   // the demo to a fresh verifier and escrow. Never write to the archive.
-  for (const contractId of new Set([deployment.contract_id, firstDeployment.contract_id])) {
+  for (const contractId of new Set([deployment.contract_id, previousDeployment.contract_id, firstDeployment.contract_id])) {
     const job = await viewAt<Job | null>(contractId, "get_job", { job_id: id });
     if (job) return { ...job, contract_id: contractId };
   }

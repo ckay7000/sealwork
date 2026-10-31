@@ -4,9 +4,9 @@ import { mkdir, writeFile } from "node:fs/promises";
 test("capture actual public testnet receipts for the marketing film", async ({ page }) => {
   await mkdir("reports/demo/stills", { recursive: true });
   const cases = {
-    accepted: "sw_ce7958686c9d77b5d5ec8cbe8d1d4665",
-    rejected: "sw_1ef36ea1ae0d2f6baf70479dc0908088",
-    timeout: "sw_aac248e432b800d6f6c63f8dab54c4a8",
+    accepted: "sw_61d5c23989d10f9d1c7271265fc329ad",
+    rejected: "sw_cd527cf5498aca5edb472294ca72ade1",
+    timeout: "sw_23a46154077f9c6cfc1c3a8fc930f76f",
   };
   for (const [name, id] of Object.entries(cases)) {
     await page.goto(`https://sealwork.vercel.app/jobs/${id}`);

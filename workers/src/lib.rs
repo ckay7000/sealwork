@@ -4,6 +4,8 @@ use rand::{rngs::OsRng, RngCore};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
+mod bank;
+pub use bank::{BankInput, BankProposal};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -13,6 +15,8 @@ pub struct PrivateInput {
     pub ledger_csv: String,
     pub buyer_key: String,
     pub salt: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bank: Option<BankInput>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -37,6 +41,8 @@ pub struct ResultRow {
 pub struct PrivateResult {
     pub schema: String,
     pub rows: Vec<ResultRow>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub bank: Option<BankProposal>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -137,6 +143,9 @@ fn csv_rows(input: &str, required: &[&str]) -> Result<Vec<BTreeMap<String, Strin
 }
 
 pub fn expected_result(input: &PrivateInput) -> Result<PrivateResult, &'static str> {
+    if let Some(bank) = &input.bank {
+        if bank::approved_ledger(input, bank)? != input.ledger_csv { return Err("bank_ledger_binding_failed"); }
+    }
     let invoices = csv_rows(&input.source_csv, &["invoice_id", "vendor", "amount", "currency"])?;
     let payments = csv_rows(&input.ledger_csv, &["invoice_id", "amount", "currency"])?;
     if invoices.is_empty() { return Err("no_invoices"); }
@@ -167,7 +176,7 @@ pub fn expected_result(input: &PrivateInput) -> Result<PrivateResult, &'static s
         };
         rows.push(ResultRow { invoice_id, vendor, amount_minor: amount, currency: c, status: status.to_owned() });
     }
-    Ok(PrivateResult { schema: "sealwork.invoice-reconciliation.v1".to_owned(), rows })
+    Ok(PrivateResult { schema: "sealwork.invoice-reconciliation.v1".to_owned(), rows, bank: input.bank.as_ref().map(|b|b.proposal.clone()) })
 }
 
 pub fn produce(input: &PrivateInput, faulty: bool) -> Result<PrivateResult, &'static str> {
@@ -225,7 +234,7 @@ pub fn verify(input: &PrivateInput, commitment: &str, artifact: &Artifact) -> Re
         Check { id: "unique_ids".to_owned(), passed: actual_ids.len() == actual.rows.len() && actual_ids == expected_ids },
         Check { id: "amounts_preserved".to_owned(), passed: matches(0) },
         Check { id: "vendor_integrity".to_owned(), passed: matches(1) },
-        Check { id: "ledger_matches".to_owned(), passed: matches(2) },
+        Check { id: "ledger_matches".to_owned(), passed: matches(2) && actual.bank == expected.bank },
         Check { id: "delivery_integrity".to_owned(), passed: delivery_matches },
     ])
 }
@@ -247,7 +256,7 @@ mod tests {
         }
     }
     fn input() -> PrivateInput {
-        PrivateInput { job_id: "sw_11111111111111111111111111111111".to_owned(), source_csv: "invoice_id,vendor,amount,currency\nI-1,  Fern   Studio ,12.35,usd\nI-2,Northstar,80.00,EUR\nI-3,Atlas,5.00,GBP".to_owned(), ledger_csv: "invoice_id,amount,currency\nI-1,10.00,USD\nI-1,2.35,USD\nI-2,79.99,EUR".to_owned(), buyer_key: "33".repeat(32), salt: "44".repeat(32) }
+        PrivateInput { job_id: "sw_11111111111111111111111111111111".to_owned(), source_csv: "invoice_id,vendor,amount,currency\nI-1,  Fern   Studio ,12.35,usd\nI-2,Northstar,80.00,EUR\nI-3,Atlas,5.00,GBP".to_owned(), ledger_csv: "invoice_id,amount,currency\nI-1,10.00,USD\nI-1,2.35,USD\nI-2,79.99,EUR".to_owned(), buyer_key: "33".repeat(32), salt: "44".repeat(32), bank: None }
     }
     fn artifact(input: &PrivateInput, faulty: bool) -> Artifact {
         let result = serde_json::to_string(&produce(input, faulty).unwrap()).unwrap();

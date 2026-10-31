@@ -260,6 +260,7 @@ const deployment = {
       description: build.description,
     })),
   deployed_at: new Date().toISOString(),
+  bank_supported: true,
   site_url: new URL(site).origin,
   contract_sha256: digest(binary),
 };

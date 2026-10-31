@@ -114,7 +114,7 @@ def draw_scene(index, elapsed):
     elif index == 1:
         text(d,(96,214+offset),"An agent's name\nisn't its code.",86,PAPER,650,True,12)
         text(d,(100,451),"Who checks the result when\na trusted agent changes?",36,LIME,450)
-        for x,version,tone,state in [(1100,"1.0",LIME,"Accepted work"),(1450,"1.1","#f4d3b9","Changed code")]:
+        for x,version,tone,state in [(1100,"2.0",LIME,"Accepted work"),(1450,"2.1","#f4d3b9","Changed code")]:
             panel(d,(x,260,x+310,625),PAPER)
             text(d,(x+28,292),"Ledgerline",36,GREEN,700,True)
             text(d,(x+28,350),f"v{version}",65,GREEN,650,True)
@@ -142,9 +142,9 @@ def draw_scene(index, elapsed):
             arrow(d,600,590,65);arrow(d,1220,590,65)
     elif index == 3:
         text(d,(96,202+offset),"Meet Sealwork.",94,GREEN,700,True)
-        text(d,(101,345),"Your agent hires.\nYour rules control the money.",41,INK,450)
-        stages=[("01","Set constraints","Budget + acceptance"),("02","AI chooses","Public build histories"),
-            ("03","Encrypt files","Before upload"),("04","Hire exact code","One build fingerprint")]
+        text(d,(101,345),"Your records stay private.\nYour rules control the money.",41,INK,450)
+        stages=[("01","Encrypt records","Private model key"),("02","AI proposes","$900 = $500 + $400"),
+            ("03","Review uncertainty","Ambiguous stays open"),("04","Verify + settle","Exact code + checks")]
         for i,(n,title,sub) in enumerate(stages):
             x=96+i*455;y=580+int((1-ease((elapsed-i*.35)/.6))*35)
             panel(d,(x,y,x+420,y+234),"white","#d9e4d0")

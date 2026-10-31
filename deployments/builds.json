@@ -1,57 +1,57 @@
 {
   "compiler": "rustc 1.90.0",
   "target": "wasm32-wasip2",
-  "contract_id": "market.sealwork-live.testnet",
-  "project_id": "sealwork-live.testnet/sealwork",
-  "source_digest": "cfc4fd14fa7340830f69fe733dd8e3ca12e100ae906f694eb6bb37e60947cc0c",
+  "contract_id": "market.sealwork-ai.testnet",
+  "project_id": "sealwork-ai.testnet/sealwork",
+  "source_digest": "fad23157bce0fe0a591daa1cf17640924fd7d290dd239f98d26f218eff3cec52",
   "builds": [
     {
       "feature": "ledgerline-v1",
       "agent_id": "ledgerline",
       "name": "Ledgerline",
-      "version": "1.0",
-      "provider_id": "ledgerline.sealwork-live.testnet",
+      "version": "2.0",
+      "provider_id": "ledgerline.sealwork-ai.testnet",
       "description": "Reconcile confidential invoices against a payment ledger, with exact amount and currency checks.",
-      "hash": "9bb2d46987c8225e83bd2129f7baba305195747bec0a5e43abc6f84a468eb137",
-      "manifest_hash": "270586705d5cc567045ce1c4540f966438651e7c1d827b74284644b1bb9a48d8",
-      "source_digest": "cfc4fd14fa7340830f69fe733dd8e3ca12e100ae906f694eb6bb37e60947cc0c",
-      "bytes": 274799
+      "hash": "d974dcafc92bee37506e78e6713f4c9c9397f35fd1233226148ff77971700e2b",
+      "manifest_hash": "ba79d115336767d5d11a6755b81935f6e6d0205120e31d687e4e60b87bce49d5",
+      "source_digest": "fad23157bce0fe0a591daa1cf17640924fd7d290dd239f98d26f218eff3cec52",
+      "bytes": 324014
     },
     {
       "feature": "ledgerline-v2",
       "agent_id": "ledgerline",
       "name": "Ledgerline",
-      "version": "1.1",
-      "provider_id": "ledgerline.sealwork-live.testnet",
+      "version": "2.1",
+      "provider_id": "ledgerline.sealwork-ai.testnet",
       "description": "A deliberately faulty demo update that changes one amount. Its results belong to a separate build history.",
-      "hash": "3576b4fad3448f597fd3e44e04aa37ade5a17187e6f72e9a3108290a1a569eea",
-      "manifest_hash": "9fff84e604aaaa9d90b90839947c3727d7393afcd04528c01405c37441f820ba",
-      "source_digest": "cfc4fd14fa7340830f69fe733dd8e3ca12e100ae906f694eb6bb37e60947cc0c",
-      "bytes": 275104
+      "hash": "ace1dbd7f5995d8825ef2660ac2fa848575a1850bf7ee1d134c709568c5ab7ac",
+      "manifest_hash": "4ceaf5892bcb02782db99d7a7b94cbbd55fb926db7875ad8983fe9bed4780563",
+      "source_digest": "fad23157bce0fe0a591daa1cf17640924fd7d290dd239f98d26f218eff3cec52",
+      "bytes": 324447
     },
     {
       "feature": "archivist-v1",
       "agent_id": "archivist",
       "name": "Archivist",
-      "version": "1.0",
-      "provider_id": "archivist.sealwork-live.testnet",
+      "version": "2.0",
+      "provider_id": "archivist.sealwork-ai.testnet",
       "description": "Turn private invoice and ledger files into a structured reconciliation report checked before payment.",
-      "hash": "f1cc796aa1e45197afe2bf70f3cbb3f510fad7f84afe46fac06512113a0112de",
-      "manifest_hash": "7adc02e44b925cf2274ed547004bfd2204fe6a327665da1d5f122c108ad1d202",
-      "source_digest": "cfc4fd14fa7340830f69fe733dd8e3ca12e100ae906f694eb6bb37e60947cc0c",
-      "bytes": 274798
+      "hash": "cc21a3926edbeeab16daa59bc07685f7ee576a04987a387a4f2c43eca776b06f",
+      "manifest_hash": "c06006a288bf5b3c3052af5cfd64d57afbaadf7898eaf58fbfe39d7023a61cc6",
+      "source_digest": "fad23157bce0fe0a591daa1cf17640924fd7d290dd239f98d26f218eff3cec52",
+      "bytes": 324013
     },
     {
       "feature": "verifier",
       "agent_id": "sealwork-verifier",
       "name": "Sealwork acceptance verifier",
-      "version": "1.0",
-      "provider_id": "market.sealwork-live.testnet",
+      "version": "2.0",
+      "provider_id": "market.sealwork-ai.testnet",
       "description": "Independently checks completeness, identifiers, amounts, vendors, payment statuses, and encrypted delivery.",
-      "hash": "06bf69ba82a74db49d6f167d633803cbef1ff124d7a3ddb3372cf3832061ddb6",
-      "manifest_hash": "e16cd251379007c944d1c4f51b74c9482bbf58dbdf12971e71dcc6231caba14b",
-      "source_digest": "cfc4fd14fa7340830f69fe733dd8e3ca12e100ae906f694eb6bb37e60947cc0c",
-      "bytes": 294026
+      "hash": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78",
+      "manifest_hash": "353074fb5f521f71e6a0e41394d05a00aeedad45e94141aa50c45de5fa50b0dc",
+      "source_digest": "fad23157bce0fe0a591daa1cf17640924fd7d290dd239f98d26f218eff3cec52",
+      "bytes": 340782
     }
   ]
 }

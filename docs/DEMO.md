@@ -1,8 +1,8 @@
 # Sealwork product film
 
-[Watch or download the MP4](https://sealwork.vercel.app/media/sealwork-demo.mp4?v=2).
+[Watch or download the MP4](https://sealwork.vercel.app/media/sealwork-demo.mp4?v=3).
 
-The film is approximately 50 seconds, 1920×1080 at 30 fps, with narration, burned-in captions, an optional WebVTT caption track, and an original ambient score. It combines illustrative diagrams with captures of actual public NEAR testnet receipts. The records are fictional sample finance data.
+The film is approximately 52 seconds, 1920×1080 at 30 fps, with narration, burned-in captions, an optional WebVTT caption track, and an original ambient score. It combines illustrative diagrams with captures of actual public NEAR testnet receipts. The records are fictional sample finance data.
 
 The revised audio uses Kokoro's neural `af_heart` voice, generated locally at a calmer pace. Names and initials have explicit pronunciation hints. Dialogue is normalized to -16 LUFS, scene boundaries leave a 0.65-second pause, and the music is lowered beneath the speech. There is no post-production speech speed-up or paid inference request.
 
@@ -12,22 +12,22 @@ AI agents are starting to handle our financial records. But who can see the file
 
 Who checks the work? And when an agent changes its code, does its old reputation still count?
 
-As more businesses use agents, these risks grow. Private computing and payment marketplaces solve different parts. Businesses need both, with clear rules.
+As agent adoption grows, so do these risks. Private computing and payment marketplaces solve different parts.
 
-Meet Sealwork. Your agent picks a specific worker version. Your files are encrypted before upload.
+Meet Sealwork. Private AI matches messy bank payments to invoices, explains the evidence, and flags uncertainty.
 
-A separate verifier checks the result. Correct work gets paid. Failed or late work returns the job budget. Each version earns its own reputation.
+Approve the proposal. An independent verifier checks the records and allocations. Correct reports get paid. Failed or late work returns the job budget.
 
-NEAR connects private work with automatic payments through OutLayer. Sealwork. Private work. Proof before payment.
+NEAR combines confidential AI, OutLayer execution, and programmable payments. Every build earns its own record. Sealwork. Proof before payment.
 
 ## Claims and evidence
 
 - [Agent Market payment rules](https://docs.market.near.ai/concepts/payments-and-disputes.md) describe held payments and buyer acceptance/disputes. The film does not claim that every competing product lacks privacy or verification.
 - [OutLayer documentation](https://app.outlayer.ai/docs/getting-started) describes hash-pinned TEE computation and NEAR yield/resume callbacks. Sealwork implements the application agreement, independent acceptance checks, escrow, and build-specific outcomes.
-- The captured [accepted](https://sealwork.vercel.app/jobs/sw_ce7958686c9d77b5d5ec8cbe8d1d4665), [rejected](https://sealwork.vercel.app/jobs/sw_1ef36ea1ae0d2f6baf70479dc0908088), and [timeout](https://sealwork.vercel.app/jobs/sw_aac248e432b800d6f6c63f8dab54c4a8) receipts are genuine testnet outcomes.
+- The captured [accepted](https://sealwork.vercel.app/jobs/sw_61d5c23989d10f9d1c7271265fc329ad), [rejected](https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1), and [timeout](https://sealwork.vercel.app/jobs/sw_23a46154077f9c6cfc1c3a8fc930f76f) receipts are genuine testnet outcomes.
 - NEAR provides a suitable combination of asynchronous contracts, programmable settlement and OutLayer infrastructure. The film makes no claim that the system is impossible on another chain.
 - “Job budget returned” excludes consumed execution fees and persistent storage costs, as explained in the README.
-- The AI hiring scene illustrates the optional procurement workflow. After the film was rendered, real NEAR AI Cloud hiring passed through [verified delivery and payment](https://sealwork.vercel.app/jobs/sw_24aa8e6a85d9bc9f74f49d50b678e093); its [sample planning trace](ai-hiring-example.json) is available. Financial files and payment keys are not model input. Worker execution is attested; the offchain planning model is not represented as attested.
+- The financial AI scene illustrates the tested encrypted bank-matching workflow. A real NEAR AI response signature was verified before its proposal was approved and the report was [independently checked and paid](https://sealwork.vercel.app/jobs/sw_61d5c23989d10f9d1c7271265fc329ad). The sample combined payment and ambiguous payment are fictional. [Evidence and decisions](bank-ai-example.json) and [trust boundaries](PRIVATE_AI.md) describe the separate inference charge, buyer review, shared model keys, and deterministic verifier.
 
 ## Reproduce the film
 

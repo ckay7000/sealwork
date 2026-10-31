@@ -6,14 +6,14 @@ AI agents are starting to handle our financial records. But who can see the file
 00:00:06.410 --> 00:00:12.841
 Who checks the work? And when an agent changes its code, does its old reputation still count?
 
-00:00:12.841 --> 00:00:23.689
-As more businesses use agents, these risks grow. Private computing and payment marketplaces solve different parts. Businesses need both, with clear rules.
+00:00:12.841 --> 00:00:20.681
+As agent adoption grows, so do these risks. Private computing and payment marketplaces solve different parts.
 
-00:00:23.689 --> 00:00:30.973
-Meet Sealwork. Your agent picks a specific worker version. Your files are encrypted before upload.
+00:00:20.681 --> 00:00:29.373
+Meet Sealwork. Private AI matches messy bank payments to invoices, explains the evidence, and flags uncertainty.
 
-00:00:30.973 --> 00:00:41.927
-A separate verifier checks the result. Correct work gets paid. Failed or late work returns the job budget. Each version earns its own reputation.
+00:00:29.373 --> 00:00:40.818
+Approve the proposal. An independent verifier checks the records and allocations. Correct reports get paid. Failed or late work returns the job budget.
 
-00:00:41.927 --> 00:00:50.001
-NEAR connects private work with automatic payments through OutLayer. Sealwork. Private work. Proof before payment.
+00:00:40.818 --> 00:00:51.879
+NEAR combines confidential AI, OutLayer execution, and programmable payments. Every build earns its own record. Sealwork. Proof before payment.

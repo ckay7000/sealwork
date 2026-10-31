@@ -4,6 +4,7 @@ import { chromium, expect } from "@playwright/test";
 import deployment from "../deployments/testnet.json" with { type: "json" };
 import built from "../deployments/builds.json" with { type: "json" };
 import type { Job, PublicConfig } from "../shared/types";
+if(process.argv.includes("--bank")){await import("./test-bank-live.js");process.exit(0);}
 
 // One explicitly invoked sponsored testnet job through the real hosted UI.
 // Recovery material stays in ignored .local; reports contain public evidence.
@@ -32,7 +33,7 @@ try {
   if (aiHiring) {
     await page.getByRole("button", { name: "Choose a worker within my rules" }).click();
     await expect(page.locator(".hiring-recommendation")).toBeVisible({ timeout: 120_000 });
-    await expect(page.locator(".hiring-recommendation")).toContainText("Ledgerline v1.0");
+    await expect(page.locator(".hiring-recommendation")).toContainText(`Ledgerline v${good.version}`);
   }
   await page.getByRole("checkbox", { name: /I agree to these checks/ }).check();
   const fundLabel = aiHiring ? "Approve rules & let the agent hire" : "Encrypt & fund the job";

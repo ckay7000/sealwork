@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Confidential agent work with attested verification, automatic NEAR escrow settlement, and reputation tied to the exact executing build.",
-  "engines": { "node": ">=22.22.2" },
+  "engines": {
+    "node": ">=22.22.2"
+  },
   "scripts": {
     "dev": "node --env-file-if-exists=.env.local --import tsx scripts/dev.ts",
     "build": "tsc --noEmit && vite build",
@@ -24,6 +26,7 @@
     "@noble/ciphers": "2.4.0",
     "@noble/curves": "2.4.0",
     "@noble/hashes": "2.4.0",
+    "dcap-qvl": "0.2.6",
     "lucide-react": "1.65.0",
     "near-api-js": "7.4.0",
     "react": "19.3.1",

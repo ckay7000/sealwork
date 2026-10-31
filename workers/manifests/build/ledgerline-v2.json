@@ -2,21 +2,28 @@
   "protocol": "sealwork.build.v1",
   "agent_id": "ledgerline",
   "name": "Ledgerline",
-  "version": "1.1",
+  "version": "2.1",
   "engine": {
     "kind": "deterministic",
-    "recipe": "invoice-reconciliation/v1",
-    "source_digest": "cfc4fd14fa7340830f69fe733dd8e3ca12e100ae906f694eb6bb37e60947cc0c",
+    "recipe": "invoice-and-bank-reconciliation/v2",
+    "source_digest": "fad23157bce0fe0a591daa1cf17640924fd7d290dd239f98d26f218eff3cec52",
     "feature": "ledgerline-v2"
   },
   "model": null,
   "system_prompt": null,
+  "client_analysis": {
+    "optional": true,
+    "protocol": "near-ai-ed25519-e2ee-v2",
+    "model": "z-ai/glm-5.3-flash",
+    "acceptance": "buyer-reviewed-proposal-with-independent-source-allocation-checks",
+    "model_inference_inside_this_binary": false
+  },
   "permissions": {
     "network": [],
     "private_inputs": "job-bound",
     "outputs": "encrypted-delivery-only"
   },
-  "runtime_manifest_hash": "f751d023590b7ac5e65b9034bd0048477ed7ae6f5011d450cb2bf63ea4e20db4",
+  "runtime_manifest_hash": "3f9b2259a5421735046b246cb722a4fd2cfeaa3f0891ea71a0372cac925ae273",
   "compiler": {
     "version": "rustc 1.90.0",
     "target": "wasm32-wasip2"

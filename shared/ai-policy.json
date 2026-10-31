@@ -1,0 +1,30 @@
+{
+  "model": "z-ai/glm-5.3-flash",
+  "accepted_tcb_statuses": [
+    "UpToDate"
+  ],
+  "measured_configurations": {
+    "gateway": [
+      "f571e5dafe8f96baf116a271b4be9cba228b447dd6ebe502bbda81ede7bcc7ce"
+    ],
+    "model": [
+      "c5cd8aa046a12bf3d28cc803e14351712725a1c7454ca4c9e186d61979d24dce",
+      "ae66f844658a7aee331dcb9fb59bd40323d71d192d37719e022cc4af8389265b",
+      "a0e3c6f4f21a60ea3f5c96bc7ef319b03a184ca2049605399275fbcea74e8c5f",
+      "5f7ebd85cf1f480a118f75dd10fd0cb277e4ddbb23845f1c20d8ea0f1e87efa6",
+      "08bd164c05c2c5d81fa8dd0a6ec63945a4a5445f05f9bb3e0e256dbdfb76bcad",
+      "8b62d54691058ac8b5738f7134a470aafaa12516b99517d64884bb9a802c2c5a",
+      "8f5ace92b63cd0b38ed22432dffc2c160c7584b815ff2f8458386b5793121af8",
+      "9700a7e9cd4ad34568dd46c58a14772c16c550d24a25781434e055a8d258bf3f",
+      "a4c255fd4caba21d7e919e4cf1bc13422091088654f537d9337fbc429c91f045",
+      "4fe5823dd50d6fa6d3294f6f307aaed5f8e8ac11a5a35ae76d3d321b83391a99",
+      "242d161f1b11031742783a8c7e66a2aed669b0141b479968f6325610365aaa91",
+      "3b7a4a0dca379ece671218d12bb0a8e8494309682605b3c441942ed6fb22b9ab",
+      "522b4c1ae4429228751f040213ab62def14c25ad3fa07aba5bfb5cc938d4ce5e",
+      "03771d362193e2b5f0c7b76ef8b9ca5fd0c8ca106a253ba7a27d9ca8c67af714",
+      "d01cc3ec654e594941d9d8b0a0e616df422b24af75d07a2b796d84ac0b494944",
+      "ddfaa77fa6ba2d55abe5fd93eb7a7e62946922d61d39264c46cd0122221a1146"
+    ]
+  },
+  "model_configuration_note": "Exact measured compose configuration is pinned. Only the nonsecret instance label may vary from gpu01 through gpu16; all executable images and other settings remain byte-identical."
+}

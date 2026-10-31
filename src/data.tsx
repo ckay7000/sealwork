@@ -19,6 +19,7 @@ export interface PrivateSession {
   started?: boolean;
   transaction_hash?: string;
   hiring_plan?: HiringPlan;
+  bank_proof?: import('../shared/private-ai').AnalysisProof;
 }
 export function privateSession(id: string): PrivateSession | null {
   try {

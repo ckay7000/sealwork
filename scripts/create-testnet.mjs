@@ -8,10 +8,11 @@ import {
 import { mkdir, writeFile, readFile } from "node:fs/promises";
 import path from "node:path";
 
-const accountId = process.env.SEALWORK_ROOT_ID || "sealwork-lab.testnet";
+const option = name => { const i=process.argv.indexOf(name); return i<0?undefined:process.argv[i+1]; };
+const accountId = option("--root-id") || process.env.SEALWORK_ROOT_ID || "sealwork-lab.testnet";
 if (!/^[a-z0-9-]+\.testnet$/.test(accountId))
   throw new Error("Choose a dedicated NEAR testnet root account.");
-const privateFile = path.resolve(process.env.SEALWORK_ACCOUNTS_FILE || ".local/testnet-accounts.json");
+const privateFile = path.resolve(option("--accounts-file") || process.env.SEALWORK_ACCOUNTS_FILE || ".local/testnet-accounts.json");
 if (!privateFile.startsWith(path.resolve(".local") + path.sep))
   throw new Error("Testnet credentials must remain in the ignored .local directory.");
 await mkdir(".local", { recursive: true, mode: 0o700 });

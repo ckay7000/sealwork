@@ -1,6 +1,6 @@
 {
   "display": {
-    "name": "Sealwork acceptance verifier 1.0"
+    "name": "Sealwork acceptance verifier 2.0"
   },
   "operations": [
     "verify"
@@ -11,7 +11,7 @@
   "callers": {
     "contract": {
       "only": [
-        "market.sealwork-live.testnet"
+        "market.sealwork-ai.testnet"
       ]
     }
   },

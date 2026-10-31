@@ -4,7 +4,9 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 
 const digest = (bytes) => createHash("sha256").update(bytes).digest("hex");
-const rootId = process.env.SEALWORK_ROOT_ID || "sealwork-lab.testnet";
+let recordedRoot;
+try { recordedRoot = JSON.parse(await readFile("deployments/builds.json", "utf8")).project_id.split("/")[0]; } catch { /* first build */ }
+const rootId = process.env.SEALWORK_ROOT_ID || recordedRoot || "sealwork-lab.testnet";
 if (!rootId.endsWith(".testnet"))
   throw new Error("This deployment recipe is testnet only.");
 const contract = `market.${rootId}`;
@@ -14,6 +16,7 @@ const sourceDigest = digest(
       [
         "workers/src/main.rs",
         "workers/src/lib.rs",
+        "workers/src/bank.rs",
         "workers/Cargo.toml",
         "workers/Cargo.lock",
         "workers/rust-toolchain.toml",
@@ -26,7 +29,7 @@ const specs = [
     feature: "ledgerline-v1",
     agent_id: "ledgerline",
     name: "Ledgerline",
-    version: "1.0",
+    version: "2.0",
     provider_id: `ledgerline.${rootId}`,
     description:
       "Reconcile confidential invoices against a payment ledger, with exact amount and currency checks.",
@@ -35,7 +38,7 @@ const specs = [
     feature: "ledgerline-v2",
     agent_id: "ledgerline",
     name: "Ledgerline",
-    version: "1.1",
+    version: "2.1",
     provider_id: `ledgerline.${rootId}`,
     description:
       "A deliberately faulty demo update that changes one amount. Its results belong to a separate build history.",
@@ -44,7 +47,7 @@ const specs = [
     feature: "archivist-v1",
     agent_id: "archivist",
     name: "Archivist",
-    version: "1.0",
+    version: "2.0",
     provider_id: `archivist.${rootId}`,
     description:
       "Turn private invoice and ledger files into a structured reconciliation report checked before payment.",
@@ -53,7 +56,7 @@ const specs = [
     feature: "verifier",
     agent_id: "sealwork-verifier",
     name: "Sealwork acceptance verifier",
-    version: "1.0",
+    version: "2.0",
     provider_id: contract,
     description:
       "Independently checks completeness, identifiers, amounts, vendors, payment statuses, and encrypted delivery.",
@@ -83,12 +86,19 @@ for (const spec of specs) {
     version: spec.version,
     engine: {
       kind: "deterministic",
-      recipe: "invoice-reconciliation/v1",
+      recipe: "invoice-and-bank-reconciliation/v2",
       source_digest: sourceDigest,
       feature: spec.feature,
     },
     model: null,
     system_prompt: null,
+    client_analysis: {
+      optional: true,
+      protocol: "near-ai-ed25519-e2ee-v2",
+      model: "z-ai/glm-5.3-flash",
+      acceptance: "buyer-reviewed-proposal-with-independent-source-allocation-checks",
+      model_inference_inside_this_binary: false,
+    },
     permissions: {
       network: [],
       private_inputs: "job-bound",

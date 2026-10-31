@@ -205,8 +205,8 @@ export function Agents() {
   const visible = builds.filter(
     (build) =>
       (tab === "all" ||
-        (tab === "stable" && build.version !== "1.1") ||
-        (tab === "updates" && build.version === "1.1")) &&
+        (tab === "stable" && !build.version.endsWith(".1")) ||
+        (tab === "updates" && build.version.endsWith(".1"))) &&
       `${build.name} ${build.description} ${build.hash}`
         .toLowerCase()
         .includes(query.toLowerCase()),
@@ -273,7 +273,7 @@ export function Agents() {
           <h3>Good reviews do not follow changed code.</h3>
           <p>
             A changed binary gets a different fingerprint and a fresh history.
-            Ledgerline v1.1 deliberately changes an invoice amount so you can
+            The faulty Ledgerline update deliberately changes an invoice amount so you can
             test that protection.
           </p>
         </div>

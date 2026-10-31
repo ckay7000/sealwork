@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { BankDecisions } from "./bank-decisions";
 import type { ChangeEvent } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import {
@@ -516,6 +517,13 @@ export function JobDetail() {
                     </Pill>
                   )}
                 </div>
+                {result.bank && <div className="bank-analysis-panel">
+                  <h3>Bank payment decisions</h3>
+                  <p>Allocation totals were checked against the original bank records. Payments marked for review remain unallocated; invoice status alone does not resolve their meaning.</p>
+                  <BankDecisions proposal={result.bank}/>
+                  <button className="button secondary" onClick={()=>downloadJson(`${id}-PRIVATE-bank-decisions.json`,{decisions:result.bank!.decisions,model_evidence:own?.bank_proof})}>Download private decisions</button>
+                  {own?.bank_proof && <p className="field-hint">The model evidence is saved in your private recovery file. Shared model keys do not identify a unique serving instance.</p>}
+                </div>}
                 <div className="table-scroll">
                   <table className="delivery-table">
                     <thead>
@@ -1143,7 +1151,7 @@ export function BuildDetail() {
             <Fingerprint size={22} />
             <h3>History belongs to code.</h3>
             <p>
-              {build.version === "1.1"
+              {build.version.endsWith(".1")
                 ? "This intentionally faulty update changes one amount. Run it to see the verifier reject the result and refund escrow."
                 : "A new version receives a new fingerprint. This build’s successful outcomes do not become the next version’s record."}
             </p>

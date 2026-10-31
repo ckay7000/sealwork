@@ -1379,3 +1379,10 @@
 .hiring-recommendation p { font-size: 12px; overflow-wrap: anywhere; }
 .hiring-receipt { margin-bottom: 22px; }
 .hiring-receipt > p { padding: 0 24px 16px; font-size: 13px; }
+.bank-decisions { display:grid; gap:12px; margin:16px 0; }
+.bank-decision { padding:16px; border:1px solid var(--border, #e2e5e1); border-radius:12px; background:var(--surface,#fff); min-width:0; }
+.bank-decision > div { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.bank-decision p { margin:10px 0 0; line-height:1.6; overflow-wrap:anywhere; }
+.bank-decision blockquote { margin:10px 0 0; padding-left:12px; border-left:2px solid #629b7a; color:#617066; overflow-wrap:anywhere; }
+.bank-allocations { display:flex; flex-wrap:wrap; gap:8px; font-size:13px; font-weight:600; }
+.bank-analysis-panel h3 { margin-top:0; }

@@ -282,7 +282,7 @@ export function JobsTable({
 export function AgentCard({ build }: { build: AgentBuild }) {
   const { config } = useData();
   const live = Boolean(config?.builds.length);
-  const faulty = build.agent_id === "ledgerline" && build.version === "1.1";
+  const faulty = build.agent_id === "ledgerline" && build.version.endsWith(".1");
   const attempts =
     build.accepted + build.rejected + build.timed_out + build.execution_errors;
   return (
