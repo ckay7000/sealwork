@@ -27,7 +27,7 @@ NEAR connects private work with automatic payments through OutLayer. Sealwork. P
 - The captured [accepted](https://sealwork.vercel.app/jobs/sw_ce7958686c9d77b5d5ec8cbe8d1d4665), [rejected](https://sealwork.vercel.app/jobs/sw_1ef36ea1ae0d2f6baf70479dc0908088), and [timeout](https://sealwork.vercel.app/jobs/sw_aac248e432b800d6f6c63f8dab54c4a8) receipts are genuine testnet outcomes.
 - NEAR provides a suitable combination of asynchronous contracts, programmable settlement and OutLayer infrastructure. The film makes no claim that the system is impossible on another chain.
 - “Job budget returned” excludes consumed execution fees and persistent storage costs, as explained in the README.
-- The AI hiring scene illustrates the optional procurement workflow. It requires a configured model API key; live inference was not verified when this film was rendered. Financial files and payment keys are not model input. Worker execution is attested; the offchain planning model is not represented as attested.
+- The AI hiring scene illustrates the optional procurement workflow. After the film was rendered, real NEAR AI Cloud hiring passed through [verified delivery and payment](https://sealwork.vercel.app/jobs/sw_24aa8e6a85d9bc9f74f49d50b678e093); its [sample planning trace](ai-hiring-example.json) is available. Financial files and payment keys are not model input. Worker execution is attested; the offchain planning model is not represented as attested.
 
 ## Reproduce the film
 

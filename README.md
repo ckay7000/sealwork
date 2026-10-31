@@ -21,6 +21,8 @@ The working prototype reconciles invoice CSVs against a payment ledger. Determin
 
 With inference configured, open **[AI hiring](https://sealwork.vercel.app/new?mode=agent)**, choose a hiring priority, and ask the agent to select a worker. Review its reason and approve the six checks. The browser encrypts the files and funds only the exact build in the short-lived hiring permit. The existing independent verifier controls payment. Manual selection remains available for deliberately faulty and timeout demonstrations.
 
+The real NEAR AI Cloud hiring flow passed on October 31, 2026: [AI-selected worker, verified delivery, and settled payment](https://sealwork.vercel.app/jobs/sw_24aa8e6a85d9bc9f74f49d50b678e093). The [sample hiring trace](docs/ai-hiring-example.json) records the model response ID, chosen build, explanation, and prompt/policy/response digests. It excludes signing keys, delivery keys, and the funding permit. This is an offchain planning trace; the worker and verifier have the independent execution evidence.
+
 **[Watch the 50-second narrated demo](https://sealwork.vercel.app/media/sealwork-demo.mp4?v=2)** · [Film transcript and sources](docs/DEMO.md)
 
 ## What is private, and what is public?
