@@ -8,7 +8,8 @@ import {
   validJobId,
   verifyChallenge,
 } from "../server/security.js";
-import type { Job } from "../shared/types";
+import type { AgentBuild, Job } from "../shared/types";
+import { eligibleBuilds, verifyPermit } from "../server/planner.js";
 
 export default route(async (req, res) => {
   if (req.method === "GET") {
@@ -62,6 +63,13 @@ export default route(async (req, res) => {
     "Use a short public job name.",
   );
   const deadline_seconds = input.scenario === "timeout" ? 10 : 180;
+  if (input.hiring_permit !== undefined) {
+    verifyPermit(input.hiring_permit, job_id, build_hash);
+    if (input.scenario !== "normal") throw new HttpError(400, "AI hiring requires the agreed execution deadline.");
+    const current = eligibleBuilds(await view<AgentBuild[]>("list_builds"), "balanced");
+    if (!current.some(build => build.hash === build_hash))
+      throw new HttpError(409, "The recommended build no longer meets the hiring policy. Request a fresh plan. No job was funded.");
+  }
   const result = await createSponsoredJob({
     job_id,
     title,

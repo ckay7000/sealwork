@@ -27,10 +27,17 @@ try {
   page.setDefaultTimeout(180_000);
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
-  await page.goto(new URL(`/new?build=${good.hash}`, site).href);
+  const aiHiring = config.planner?.ready === true;
+  await page.goto(new URL(aiHiring ? "/new?mode=agent" : `/new?build=${good.hash}`, site).href);
+  if (aiHiring) {
+    await page.getByRole("button", { name: "Choose a worker within my rules" }).click();
+    await expect(page.locator(".hiring-recommendation")).toBeVisible({ timeout: 120_000 });
+    await expect(page.locator(".hiring-recommendation")).toContainText("Ledgerline v1.0");
+  }
   await page.getByRole("checkbox", { name: /I agree to these checks/ }).check();
-  await expect(page.getByRole("button", { name: "Encrypt & fund the job" })).toBeEnabled();
-  await page.getByRole("button", { name: "Encrypt & fund the job" }).click();
+  const fundLabel = aiHiring ? "Approve rules & let the agent hire" : "Encrypt & fund the job";
+  await expect(page.getByRole("button", { name: fundLabel })).toBeEnabled();
+  await page.getByRole("button", { name: fundLabel }).click();
   await expect(page).toHaveURL(/\/jobs\/sw_[a-f0-9]{32}/, { timeout: 180_000 });
   const id = new URL(page.url()).pathname.split("/").at(-1)!;
   console.log("Checking the real hosted browser job:", id);
@@ -53,6 +60,20 @@ try {
   assert.equal(receipt.job.build_hash, good.hash);
   assert.equal(receipt.job.outcome, "accepted");
   assert.equal(receipt.job.settlement, "paid");
+  if (aiHiring) {
+    const plan = await page.evaluate(jobId => {
+      const value = JSON.parse(sessionStorage.getItem(`sealwork:private:${jobId}`) || "null");
+      return value?.hiring_plan;
+    }, id);
+    assert.equal(plan.job_id, id);
+    assert.equal(plan.build_hash, receipt.job.build_hash);
+    assert.equal(plan.model, config.planner?.model);
+    assert.equal(plan.prompt_hash, config.planner?.prompt_hash);
+    assert.equal(plan.policy_hash, config.planner?.policy_hash);
+    assert.match(plan.response_hash, /^[a-f0-9]{64}$/);
+    assert.ok(plan.model_response_id && !receiptText.includes(plan.permit));
+    await expect(page.getByRole("heading", { name: "Your agent's hiring decision" })).toBeVisible();
+  }
   const privateKey = await page.evaluate(jobId => {
     const value = JSON.parse(sessionStorage.getItem(`sealwork:private:${jobId}`) || "null");
     return value?.buyer_key as string;
@@ -96,6 +117,7 @@ try {
     success: true, checked_at: new Date().toISOString(), site_url: site.origin,
     contract_id: deployment.contract_id, job_id: id, receipt_url: new URL(`/jobs/${id}`, site).href,
     outcome: "accepted", settlement: "paid", csv_exported: true,
+    live_ai_hiring_verified: aiHiring, planning_model: aiHiring ? config.planner?.model : null,
     public_receipt_excludes_plaintext_and_delivery_key: true,
     recovery_opens_delivery_in_new_page: true, matching_attestations: 2,
     desktop_and_mobile_without_overflow: true, page_errors: errors,

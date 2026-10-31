@@ -6,6 +6,7 @@ import jobs from "../api/jobs";
 import control from "../api/control";
 import health from "../api/health";
 import attestation from "../api/attestation";
+import plan from "../api/plan";
 
 const handlers: Record<string, typeof config> = {
   "/api/config": config,
@@ -13,6 +14,7 @@ const handlers: Record<string, typeof config> = {
   "/api/control": control,
   "/api/health": health,
   "/api/attestation": attestation,
+  "/api/plan": plan,
 };
 const api = createServer(async (request, response) => {
   const url = new URL(request.url || "/", "http://127.0.0.1:5191");

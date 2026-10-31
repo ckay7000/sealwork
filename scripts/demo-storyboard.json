@@ -1,0 +1,21 @@
+{
+  "scenes": [
+    "AI agents are starting to hire other agents. But with financial records, who sees the files?",
+    "Who checks the work? And what happens when a trusted agent changes its code?",
+    "As adoption grows, those risks multiply with every job. Marketplaces hold payments. Private compute protects execution. Businesses need both, with enforceable rules.",
+    "Meet Sealwork. Set your constraints. An AI hiring agent selects an exact worker build. Your files are encrypted before upload.",
+    "An independent verifier checks the delivery. Passing work gets paid. Failed or late work returns the job budget. Every outcome follows the code that ran.",
+    "NEAR's asynchronous contracts coordinate OutLayer's private compute with programmable payments. Sealwork. Private work. Proof before payment."
+  ],
+  "words": 113,
+  "sources": {
+    "rules": "https://nearhackathon.com/HACKATHON.md",
+    "marketplace": "https://docs.market.near.ai/concepts/payments-and-disputes.md",
+    "compute": "https://app.outlayer.ai/docs/getting-started",
+    "receipts": [
+      "https://sealwork.vercel.app/jobs/sw_ce7958686c9d77b5d5ec8cbe8d1d4665",
+      "https://sealwork.vercel.app/jobs/sw_1ef36ea1ae0d2f6baf70479dc0908088",
+      "https://sealwork.vercel.app/jobs/sw_aac248e432b800d6f6c63f8dab54c4a8"
+    ]
+  }
+}

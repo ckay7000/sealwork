@@ -139,6 +139,22 @@ export interface PublicConfig {
   demo_remaining: number;
   create_challenge?: string;
   status_message?: string;
+  planner?: { ready: boolean; model: string; prompt_hash: string; policy_hash: string };
+}
+
+export interface HiringPlan {
+  job_id: string;
+  build_hash: string;
+  rationale: string;
+  priority: "proven" | "balanced";
+  budget: string;
+  expires_at: number;
+  model: string;
+  model_response_id: string;
+  prompt_hash: string;
+  policy_hash: string;
+  response_hash: string;
+  permit: string;
 }
 
 export interface AttestationSummary {

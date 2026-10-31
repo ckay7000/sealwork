@@ -347,6 +347,13 @@ export function JobDetail() {
           </button>
         </div>
       </div>
+      {own?.hiring_plan && own.hiring_plan.job_id === id && own.hiring_plan.build_hash === job.build_hash && (
+        <section className="surface hiring-receipt">
+          <div className="section-heading"><h2>Your agent's hiring decision</h2><Pill tone="green">Public records only</Pill></div>
+          <p>{own.hiring_plan.rationale}</p>
+          <p className="muted">The planning model chose this exact build within the fixed budget. It received no financial files or payment keys. The independent verifier determined the outcome.</p>
+        </section>
+      )}
       <div className="job-detail-grid">
         <div>
           <section className="surface execution-progress">

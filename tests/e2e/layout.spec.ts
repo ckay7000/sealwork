@@ -18,6 +18,7 @@ test("desktop and narrow layouts render every page without errors or page overfl
       "/receipts",
       "/protocol",
       "/new",
+      "/new?mode=agent",
     ]) {
       const response = await page.goto(route);
       expect(response?.status()).toBe(200);
@@ -80,4 +81,17 @@ test("CSV preflight catches invalid amounts and the unconfigured demo explains w
   await expect(
     page.getByRole("button", { name: "Encrypt & fund the job" }),
   ).toBeDisabled();
+});
+
+test("the narrated demo plays as an under-a-minute video and its dialog closes", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Watch the 54-second demo" }).click();
+  const dialog = page.getByRole("dialog", { name: "Sealwork product demo" });
+  await expect(dialog).toBeVisible();
+  const video = dialog.locator("video");
+  await expect.poll(() => video.evaluate(element => (element as HTMLVideoElement).duration)).toBeGreaterThan(50);
+  expect(await video.evaluate(element => (element as HTMLVideoElement).duration)).toBeLessThan(60);
+  await expect(dialog.getByRole("link", { name: "Download the demo video" })).toBeVisible();
+  await page.getByRole("button", { name: "Close demo video" }).click();
+  await expect(dialog).toHaveCount(0);
 });

@@ -25,6 +25,7 @@ import built from "../../deployments/builds.json" with { type: "json" };
 // verified separately in the NEAR sandbox and the live testnet script.
 function scenario(
   kind: "accepted" | "refund-pending" | "timeout" | "storage-failure",
+  ai = false,
 ) {
   const secret = new Uint8Array(32).fill(17);
   const publicKey = hex(x25519.getPublicKey(secret));
@@ -38,7 +39,7 @@ function scenario(
       ...build,
       wasm_url: `/wasm/${build.hash}.wasm`,
       created_at: "0",
-      accepted: 0,
+      accepted: ai && build.feature === "ledgerline-v1" ? 2 : 0,
       rejected: 0,
       timed_out: 0,
       execution_errors: 0,
@@ -114,9 +115,21 @@ function scenario(
           timestamp: new Date().toISOString(),
           demo_remaining: 12,
           create_challenge: "synthetic-browser-test-challenge",
+          planner: { ready: ai, model: "synthetic-test-model", prompt_hash: "1".repeat(64), policy_hash: "2".repeat(64) },
         },
       }),
     );
+    await page.route("**/api/plan", async route => {
+      const request = route.request().postDataJSON() as Record<string, unknown>;
+      expect(Object.keys(request).sort()).toEqual(["challenge", "job_id", "priority"]);
+      expect(JSON.stringify(request)).not.toContain("Northstar Design");
+      expect(jobs.size).toBe(0);
+      await route.fulfill({ json: { plan: { job_id: request.job_id, build_hash: builds[0].hash,
+        rationale: "This exact version has accepted deliveries and stays within the agreed budget and checks.",
+        priority: "proven", budget: "50000000000000000000000", expires_at: Date.now() + 600_000,
+        model: "synthetic-test-model", model_response_id: "synthetic-response-id", prompt_hash: "1".repeat(64),
+        policy_hash: "2".repeat(64), response_hash: "3".repeat(64), permit: "synthetic-test-permit" } } });
+    });
     await page.route("**/api/jobs*", async (route) => {
       const request = route.request();
       if (request.method() === "GET") {
@@ -127,6 +140,7 @@ function scenario(
         return;
       }
       submitted = request.postDataJSON() as Record<string, unknown>;
+      if (ai) expect(submitted.hiring_permit).toBe("synthetic-test-permit");
       const encoded = unbase64(submitted.encrypted_input as string);
       const shared = x25519.getSharedSecret(secret, encoded.slice(1, 33));
       const key = hkdf(
@@ -433,4 +447,22 @@ test("a partial funding error retains the private key and routes to the recovera
       id,
     ),
   ).toBe(true);
+});
+
+test("AI hiring shares constraints only and waits for consent before funding the chosen worker", async ({ page }) => {
+  const fixture = scenario("accepted", true);
+  await fixture.attach(page);
+  await page.goto("/new?mode=agent");
+  const hire = page.getByRole("button", { name: "Approve rules & let the agent hire" });
+  await expect(hire).toBeDisabled();
+  await page.getByRole("button", { name: "Choose a worker within my rules" }).click();
+  await expect(page.locator(".hiring-recommendation")).toContainText("Policy checked");
+  expect(fixture.jobs.size).toBe(0);
+  await expect(hire).toBeDisabled();
+  await page.getByRole("checkbox", { name: /I agree to these checks/ }).check();
+  await hire.click();
+  await expect(page).toHaveURL(/\/jobs\/sw_[a-f0-9]{32}/);
+  await expect(page.locator(".job-detail-heading .pill")).toHaveText("Verified & paid");
+  await expect(page.locator(".hiring-receipt")).toContainText("received no financial files or payment keys");
+  expect(fixture.executions).toBe(1);
 });

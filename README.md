@@ -12,12 +12,16 @@ An agent's name can stay the same while its code changes. Its old success record
 
 Run the website locally with `npm ci` and `npm run dev`, then open **http://127.0.0.1:5190**. You can browse the product, builds, manifests, and workflow without credentials. A configured deployment also offers sponsored testnet jobs without a visitor wallet.
 
-The working prototype reconciles invoice CSVs against a payment ledger. It uses deterministic Rust workers, integer minor-unit amounts, and six explicit acceptance checks. There is no external language model in this demo.
+The working prototype reconciles invoice CSVs against a payment ledger. Deterministic Rust workers use integer minor-unit amounts and six explicit acceptance checks. An optional NEAR AI Cloud hiring agent chooses a reviewed worker using its public, version-specific history. The planning model receives neither financial files nor payment keys; it cannot waive checks or redirect a payment.
 
 1. Hire **Ledgerline 1.0** and use the sample files. The verifier checks invoice completeness, unique identifiers, exact amounts and currencies, normalized vendors, ledger statuses, and the encrypted delivery. Passing work releases the **0.050 NEAR** agent budget.
 2. Hire **Ledgerline 1.1**, the deliberately faulty demo update. It changes one amount. The verifier rejects that output, escrow refunds the budget, and the failure belongs to 1.1's fingerprint. Version 1.0's record stays separate.
 3. Select **Test a missed deadline**. The job skips execution. After its deadline, request the refund and inspect its permanent timeout receipt.
 4. On a job page, decrypt the private result, download its CSV, export the public receipt, and save a private recovery file. A different browser can inspect the public evidence; it needs the recovery file to open the private delivery.
+
+With inference configured, open **[AI hiring](https://sealwork.vercel.app/new?mode=agent)**, choose a hiring priority, and ask the agent to select a worker. Review its reason and approve the six checks. The browser encrypts the files and funds only the exact build in the short-lived hiring permit. The existing independent verifier controls payment. Manual selection remains available for deliberately faulty and timeout demonstrations.
+
+**[Watch the 54-second narrated demo](https://sealwork.vercel.app/media/sealwork-demo.mp4)** · [Film transcript and sources](docs/DEMO.md)
 
 ## What is private, and what is public?
 
@@ -109,6 +113,12 @@ node --env-file=.env.local scripts/deploy-contract.mjs --apply
 The first command previews the deployment. `--apply` publishes the OutLayer versions, deploys the fresh dedicated escrow account, registers the three agent builds, and writes public deployment metadata. It refuses to overwrite different existing contract code. Redeploy the website after that metadata changes.
 
 Hosted sponsored jobs use only the dedicated testnet buyer account and `SEALWORK_CONTROL_SECRET`. A signed creation challenge, per-job execution capability, request limits, onchain daily allowance, and fixed small budget bound demo usage. The website and server configuration must agree with the deployed verifier before sponsorship is enabled. The signer is an operational trust dependency and must never hold real customer funds in this prototype.
+
+For AI hiring, set `NEAR_AI_API_KEY` in the private local and hosted environment. The default model is `z-ai/glm-5.3-flash`; the request caps output at 700 tokens and reasoning at 128. The planner API accepts only job ID, priority, and signed challenge. It rejects added file fields and filters known faulty or rejected builds before inference. Model output must match a strict recommendation schema. A signed permit binds the chosen hash, fixed budget, policy digest, contract, job ID, and ten-minute expiry; funding validates it and rechecks the build's current eligibility before any transaction.
+
+For inexpensive setup, the [official hackathon guide](https://nearhackathon.com/HACKATHON.md) advertises **$10 in free NEAR AI credits through [NEAR Builders](https://nearbuilders.org/join)**. The selected [model's catalog price](https://docs.near.ai/cloud/models) on October 31, 2026 was $0.08 per million input tokens and $0.50 per million output tokens. A request using 1,000 input and 700 total output tokens costs about $0.00043; $1 is ample for ordinary demo testing if the checkout permits that purchase amount. Actual billed usage can differ. Manual private jobs require no model credits. [OpenRouter free models](https://openrouter.ai/docs/guides/routing/model-variants/free) are another option with usage limits, but this implementation currently connects only to NEAR AI Cloud.
+
+The planner's prompt and policy digests and configured model ID are published in `/api/config`. Its response digest and model response ID are saved with the browser's private recovery material. These describe an offchain procurement decision; they are **not an attestation of the planning model**. Reputation and execution proofs belong to the hired WASM worker. The planner has no NEAR signer or transfer tool. Its API key incurs inference costs separately from the onchain job allowance: use prepaid credits and request limits, and do not assume warm-instance limits are a global billing cap.
 
 ## Scope and trust
 

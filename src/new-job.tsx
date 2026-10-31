@@ -12,9 +12,10 @@ import {
   ShieldCheck,
   Upload,
   Clock,
+  Sparkles,
 } from "lucide-react";
 import { CHECKS, LEDGER_SAMPLE, SOURCE_SAMPLE } from "../shared/types";
-import type { Job, PrivateInput, PrivatePacket } from "../shared/types";
+import type { HiringPlan, Job, PrivateInput, PrivatePacket } from "../shared/types";
 import { inputCommitment, randomHex, sealToKeystore } from "../shared/crypto";
 import { inspectInputs } from "../shared/inputs";
 import { nearAmount, shortHash } from "../shared/format";
@@ -39,9 +40,14 @@ export function NewJob() {
   const [phase, setPhase] = useState("");
   const [error, setError] = useState("");
   const [mode, setMode] = useState("sample");
+  const [autonomous, setAutonomous] = useState(params.get("mode") === "agent");
+  const [priority, setPriority] = useState<"proven" | "balanced">("proven");
+  const [plan, setPlan] = useState<HiringPlan | null>(null);
+  const [planning, setPlanning] = useState(false);
   const sourceUpload = useRef<HTMLInputElement>(null);
   const ledgerUpload = useRef<HTMLInputElement>(null);
   const selected = builds.find((build) => build.hash === hash) || builds[0];
+  const planReady = Boolean(plan && plan.build_hash === selected?.hash && plan.expires_at > Date.now());
   let counts: { invoices: number; payments: number } | null = null;
   let preflight = "";
   try {
@@ -88,11 +94,15 @@ export function NewJob() {
       setError(preflight);
       return;
     }
+    if (autonomous && !planReady) {
+      setError("Let the hiring agent choose a worker before approving the job.");
+      return;
+    }
     setBusy(true);
     let id = "";
     try {
       setPhase("Encrypting your files locally…");
-      id = `sw_${randomHex(16)}`;
+      id = autonomous && plan ? plan.job_id : `sw_${randomHex(16)}`;
       const input: PrivateInput = {
         job_id: id,
         source_csv: source,
@@ -111,6 +121,7 @@ export function NewJob() {
         buyer_key: input.buyer_key,
         salt: input.salt,
         input_commitment: commitment,
+        hiring_plan: autonomous && plan ? plan : undefined,
       });
       setPhase("Funding escrow & storing the encrypted packet…");
       const response = await post<{
@@ -125,6 +136,7 @@ export function NewJob() {
         encrypted_input: encrypted,
         challenge: config.create_challenge,
         scenario: timeout ? "timeout" : "normal",
+        hiring_permit: autonomous ? plan?.permit : undefined,
       });
       savePrivate({
         job_id: id,
@@ -133,6 +145,7 @@ export function NewJob() {
         input_commitment: commitment,
         capability: response.capability,
         transaction_hash: response.transaction_hash,
+        hiring_plan: autonomous && plan ? plan : undefined,
       });
       void refresh();
       navigate(`/jobs/${id}`, {
@@ -155,6 +168,24 @@ export function NewJob() {
       setBusy(false);
     }
   }
+  async function chooseWorker() {
+    if (!config?.create_challenge) return;
+    setPlanning(true);
+    setError("");
+    setPlan(null);
+    setAgreed(false);
+    try {
+      const value = await post<{ plan: HiringPlan }>("/api/plan", {
+        job_id: `sw_${randomHex(16)}`, priority, challenge: config.create_challenge,
+      });
+      if (!builds.some(b => b.hash === value.plan.build_hash) || value.plan.budget !== config.budget)
+        throw new Error("The recommendation did not match the reviewed job agreement.");
+      setHash(value.plan.build_hash);
+      setPlan(value.plan);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "The hiring agent could not complete. No job was funded.");
+    } finally { setPlanning(false); }
+  }
   return (
     <>
       <Link to="/workspace" className="back-link">
@@ -163,8 +194,8 @@ export function NewJob() {
       </Link>
       <PageHeading
         eyebrow="A CLEAR AGREEMENT, BEFORE WORK STARTS"
-        title="Create a private job."
-        description="Choose the exact build, add your files, and agree on what a correct delivery means."
+        title={autonomous ? "Let your agent hire safely." : "Create a private job."}
+        description={autonomous ? "Set the constraints. AI selects a worker. Independent checks control the payment." : "Choose the exact build, add your files, and agree on what a correct delivery means."}
       />
       <form className="new-job-grid" onSubmit={(event) => void submit(event)}>
         <div className="job-form-main">
@@ -176,7 +207,34 @@ export function NewJob() {
                 <p>A fingerprint binds the job to the code you select.</p>
               </div>
             </div>
-            <div className="build-select-list">
+            <label className="hiring-mode">
+              <input type="checkbox" checked={autonomous} onChange={event => {
+                setAutonomous(event.target.checked); setPlan(null); setAgreed(false); setTimeout(false);
+              }} />
+              <Sparkles size={17} /> Let the AI hiring agent choose
+            </label>
+            {autonomous ? (
+              <div className="hiring-agent-panel">
+                <p>It compares public build histories. Your files and payment keys are never sent to the planning model.</p>
+                <label className="field-label" htmlFor="hiring-priority">Hiring priority</label>
+                <select id="hiring-priority" className="text-input" value={priority} onChange={event => {
+                  setPriority(event.target.value as "proven" | "balanced"); setPlan(null); setAgreed(false);
+                }} disabled={planning}>
+                  <option value="proven">Require a previously accepted build</option>
+                  <option value="balanced">Consider reviewed builds with no failures</option>
+                </select>
+                <div className="hiring-constraints"><span>0.050 NEAR maximum</span><span>6 mandatory checks</span><span>Recipient fixed</span></div>
+                <button type="button" className="button secondary full" disabled={planning || busy || !config?.planner?.ready || !config?.ready} onClick={() => void chooseWorker()}>
+                  {planning ? <><Loader2 size={15} className="spin" />Comparing build records…</> : <><Sparkles size={15} />Choose a worker within my rules</>}
+                </button>
+                {!config?.planner?.ready && <p className="muted">AI hiring is awaiting its inference configuration. You can switch to manual selection to run a private job.</p>}
+                {plan && <div className="hiring-recommendation" role="status">
+                  <div><AgentAvatar id={selected.agent_id} /><strong>{selected.name} v{selected.version}</strong><Pill tone="green">Policy checked</Pill></div>
+                  <p>{plan.rationale}</p>
+                  <Link to={`/builds/${plan.build_hash}`} className="text-link">Inspect this exact build <ArrowRight size={13} /></Link>
+                </div>}
+              </div>
+            ) : <div className="build-select-list">
               {builds.map((build) => (
                 <label
                   key={build.hash}
@@ -187,7 +245,7 @@ export function NewJob() {
                     name="agent_build"
                     value={build.hash}
                     checked={selected?.hash === build.hash}
-                    onChange={() => setHash(build.hash)}
+                    onChange={() => { setHash(build.hash); setPlan(null); setAgreed(false); }}
                   />
                   <AgentAvatar id={build.agent_id} />
                   <div>
@@ -206,7 +264,7 @@ export function NewJob() {
                   </span>
                 </label>
               ))}
-            </div>
+            </div>}
           </section>
           <section className="surface form-section">
             <div className="form-section-heading">
@@ -426,7 +484,7 @@ export function NewJob() {
                 </p>
               </div>
             </div>
-            <label className="timeout-option">
+            {!autonomous && <label className="timeout-option">
               <input
                 type="checkbox"
                 checked={timeout}
@@ -440,7 +498,7 @@ export function NewJob() {
                 </span>
               </div>
               <Clock size={15} />
-            </label>
+            </label>}
             {error && (
               <div className="form-error" role="alert">
                 {error}
@@ -453,7 +511,7 @@ export function NewJob() {
             )}
             <button
               type="submit"
-              disabled={busy || !config?.ready || !agreed || Boolean(preflight)}
+              disabled={busy || planning || !config?.ready || !agreed || Boolean(preflight) || (autonomous && !planReady)}
               className="button primary full create-job-button"
             >
               {busy ? (
@@ -463,7 +521,7 @@ export function NewJob() {
                 </>
               ) : (
                 <>
-                  Encrypt & fund the job <ArrowRight size={17} />
+                  {autonomous ? "Approve rules & let the agent hire" : "Encrypt & fund the job"} <ArrowRight size={17} />
                 </>
               )}
             </button>

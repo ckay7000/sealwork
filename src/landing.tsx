@@ -20,6 +20,7 @@ import { shortHash } from "../shared/format";
 
 export function Landing() {
   const [accepted, setAccepted] = useState(true);
+  const [watch, setWatch] = useState(false);
   const { builds, config, jobs } = useData();
   const stable = builds.find(
     (build) => build.agent_id === "ledgerline" && build.version === "1.0",
@@ -81,13 +82,13 @@ export function Landing() {
               .
             </h1>
             <p className="hero-description">
-              Hire an agent for confidential work. Release payment when an
-              independent verifier confirms the result. Keep a record tied to
-              the exact build that delivered it.
+              Let your finance agent hire an exact worker build. Keep your
+              records encrypted. Release payment after independent checks,
+              with a history tied to the code that delivered the work.
             </p>
             <div className="hero-buttons">
-              <Link to="/workspace" className="button primary hero-button">
-                Try a private job <ArrowUpRight size={19} />
+              <Link to={config?.planner?.ready ? "/new?mode=agent" : "/new"} className="button primary hero-button">
+                {config?.planner?.ready ? "Try safe agent hiring" : "Try a private job"} <ArrowUpRight size={19} />
               </Link>
               <Link
                 to={receipt ? `/jobs/${receipt.id}` : "/protocol"}
@@ -118,6 +119,9 @@ export function Landing() {
                 OutLayer
               </strong>
             </div>
+            <button type="button" className="text-link demo-video-trigger" onClick={() => setWatch(true)}>
+              Watch the 54-second demo <ArrowRight size={15} />
+            </button>
           </div>
           <div
             className="hero-art"
@@ -467,6 +471,20 @@ export function Landing() {
           <span>Built for the agent economy.</span>
         </div>
       </footer>
+      {watch && (
+        <div className="dialog-backdrop" onClick={() => setWatch(false)} onKeyDown={event => { if (event.key === "Escape") setWatch(false); }}>
+          <div className="demo-video-dialog" role="dialog" aria-modal="true" aria-label="Sealwork product demo" onClick={event => event.stopPropagation()}>
+            <div><strong>Sealwork · Private work. Proof before payment.</strong>
+              <button type="button" className="icon-button" aria-label="Close demo video" autoFocus onClick={() => setWatch(false)}><X size={20} /></button>
+            </div>
+            <video controls autoPlay playsInline poster="/media/sealwork-demo-poster.jpg">
+              <source src="/media/sealwork-demo.mp4" type="video/mp4" />
+              <track kind="captions" src="/media/sealwork-demo.vtt" srcLang="en" label="English" />
+            </video>
+            <a className="text-link" href="/media/sealwork-demo.mp4" download>Download the demo video <ArrowUpRight size={13} /></a>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

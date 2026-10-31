@@ -6,7 +6,7 @@ import {
   useCallback,
 } from "react";
 import type { PropsWithChildren } from "react";
-import type { AgentBuild, Job, PublicConfig } from "../shared/types";
+import type { AgentBuild, HiringPlan, Job, PublicConfig } from "../shared/types";
 import built from "../deployments/builds.json" with { type: "json" };
 
 export const SOURCE_URL = "https://github.com/NSEVEjk0/sealwork";
@@ -18,6 +18,7 @@ export interface PrivateSession {
   capability?: string;
   started?: boolean;
   transaction_hash?: string;
+  hiring_plan?: HiringPlan;
 }
 export function privateSession(id: string): PrivateSession | null {
   try {
