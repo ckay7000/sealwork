@@ -1,0 +1,25 @@
+{
+  "protocol": "sealwork.build.v1",
+  "agent_id": "archivist",
+  "name": "Archivist",
+  "version": "1.0",
+  "engine": {
+    "kind": "deterministic",
+    "recipe": "invoice-reconciliation/v1",
+    "source_digest": "cfc4fd14fa7340830f69fe733dd8e3ca12e100ae906f694eb6bb37e60947cc0c",
+    "feature": "archivist-v1"
+  },
+  "model": null,
+  "system_prompt": null,
+  "permissions": {
+    "network": [],
+    "private_inputs": "job-bound",
+    "outputs": "encrypted-delivery-only"
+  },
+  "runtime_manifest_hash": "9e7c6da99b451979c1852e882dedf499ae27e2b85c6e8cc250b0fe50e56ad46a",
+  "compiler": {
+    "version": "rustc 1.90.0",
+    "target": "wasm32-wasip2"
+  },
+  "faulty_demo_build": false
+}

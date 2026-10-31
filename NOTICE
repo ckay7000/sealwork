@@ -1,0 +1,10 @@
+Sealwork uses the OutLayer Rust SDK 0.2.1 and follows its documented ECIES and
+WASI manifest protocols. OutLayer is licensed under Apache License 2.0.
+Upstream: https://github.com/out-layer/outlayer
+Reference revision: aaf60a26855e30bc3318126382903df92dea7d3d
+The upstream license is included at licenses/OUTLAYER-APACHE-2.0.txt.
+
+DM Sans and Manrope font files are distributed under the SIL Open Font
+License 1.1. Their licenses are included in public/licenses/.
+
+Other JavaScript dependencies retain their individual package licenses.

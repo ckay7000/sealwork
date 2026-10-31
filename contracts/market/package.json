@@ -1,0 +1,13 @@
+{
+  "name": "@sealwork/market-contract",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "near-sdk-js build src/index.ts build/market.wasm",
+    "build:mock": "near-sdk-js build test/mock-outlayer.ts build/mock-outlayer.wasm",
+    "test": "npm run build && npm run build:mock && vitest run"
+  },
+  "dependencies": { "near-sdk-js": "1.0.0" },
+  "devDependencies": { "near-workspaces": "5.0.0", "vitest": "2.1.9", "typescript": "5.9.3" }
+}

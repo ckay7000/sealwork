@@ -1,0 +1,25 @@
+{
+  "display": {
+    "name": "Sealwork acceptance verifier 1.0"
+  },
+  "operations": [
+    "verify"
+  ],
+  "capabilities": {
+    "network": []
+  },
+  "callers": {
+    "contract": {
+      "only": [
+        "market.sealwork-live.testnet"
+      ]
+    }
+  },
+  "encryption_keys": [
+    {
+      "path": "results",
+      "bind": "project",
+      "caller": "predecessor"
+    }
+  ]
+}

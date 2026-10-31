@@ -1,0 +1,48 @@
+{
+  "network": "testnet",
+  "contract_id": "market.sealwork-lab.testnet",
+  "outlayer_contract_id": "outlayer.testnet",
+  "project_id": "sealwork-lab.testnet/sealwork",
+  "buyer_id": "buyer.sealwork-lab.testnet",
+  "rpc_url": "https://test.rpc.fastnear.com",
+  "keystore_url": "https://testnet-api.outlayer.ai/secrets/pubkey",
+  "outlayer_api_url": "https://testnet-api.outlayer.ai",
+  "verifier_hash": "3ea625c28037da1315a6ed45d269792409e5076fc9a1f7531cae720a41cad47c",
+  "verifier_manifest_hash": "3ecf085ed6e521b73c1f2869c6e5ce8fd81327070fb48f469523795c064c2559",
+  "verifier_url": "https://sealwork.vercel.app/wasm/3ea625c28037da1315a6ed45d269792409e5076fc9a1f7531cae720a41cad47c.wasm",
+  "builds": [
+    {
+      "hash": "5a3b522d29d1e88ed1d53e24650d737b71a49b5bd1fa637cae513127195d26f5",
+      "manifest_hash": "23e01d43e328e862c8ef1ea44e5ce4d28ab7ae954891cfe4313ce52dc9029170",
+      "agent_id": "ledgerline",
+      "name": "Ledgerline",
+      "version": "1.0",
+      "provider_id": "ledgerline.sealwork-lab.testnet",
+      "wasm_url": "https://sealwork.vercel.app/wasm/5a3b522d29d1e88ed1d53e24650d737b71a49b5bd1fa637cae513127195d26f5.wasm",
+      "description": "Reconcile confidential invoices against a payment ledger, with exact amount and currency checks."
+    },
+    {
+      "hash": "73a7e299099851eca9a61193844b9fd866d0ab28e761fd2c85fc5633461224a2",
+      "manifest_hash": "0b4f37d340a0a70358cece05ca0c016c3ccffb57d560d637053d947a85cd4c01",
+      "agent_id": "ledgerline",
+      "name": "Ledgerline",
+      "version": "1.1",
+      "provider_id": "ledgerline.sealwork-lab.testnet",
+      "wasm_url": "https://sealwork.vercel.app/wasm/73a7e299099851eca9a61193844b9fd866d0ab28e761fd2c85fc5633461224a2.wasm",
+      "description": "A deliberately faulty demo update that changes one amount. Its results belong to a separate build history."
+    },
+    {
+      "hash": "2125758bb1aea26e06e2b8d37ea918e05420bb1b7c5295b58be4627d7d59c715",
+      "manifest_hash": "44cd88a16120cc3a04222accba9a6bc0cbdd27e1c9acfada07b2330c1b608618",
+      "agent_id": "archivist",
+      "name": "Archivist",
+      "version": "1.0",
+      "provider_id": "archivist.sealwork-lab.testnet",
+      "wasm_url": "https://sealwork.vercel.app/wasm/2125758bb1aea26e06e2b8d37ea918e05420bb1b7c5295b58be4627d7d59c715.wasm",
+      "description": "Turn private invoice and ledger files into a structured reconciliation report checked before payment."
+    }
+  ],
+  "deployed_at": "2026-10-30T21:19:24.740Z",
+  "site_url": "https://sealwork.vercel.app",
+  "contract_sha256": "ffad392c16e71c3a3cc40c528964ecd4983d374327d41473b9ce0630d50a9267"
+}

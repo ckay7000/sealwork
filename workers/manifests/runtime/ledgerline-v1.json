@@ -1,0 +1,25 @@
+{
+  "display": {
+    "name": "Ledgerline 1.0"
+  },
+  "operations": [
+    "run"
+  ],
+  "capabilities": {
+    "network": []
+  },
+  "callers": {
+    "contract": {
+      "only": [
+        "market.sealwork-live.testnet"
+      ]
+    }
+  },
+  "encryption_keys": [
+    {
+      "path": "results",
+      "bind": "project",
+      "caller": "predecessor"
+    }
+  ]
+}

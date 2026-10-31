@@ -1,0 +1,45 @@
+{
+  "name": "sealwork",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Confidential agent work with attested verification, automatic NEAR escrow settlement, and reputation tied to the exact executing build.",
+  "engines": { "node": ">=22.22.2" },
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env.local --import tsx scripts/dev.ts",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "build:contract": "npm run build --prefix contracts/market",
+    "test:contract": "npm test --prefix contracts/market",
+    "build:workers": "node scripts/build-workers.mjs",
+    "deploy:contract": "node --env-file=.env.local scripts/deploy-contract.mjs",
+    "test:live": "node --env-file=.env.local --import tsx scripts/test-live.ts",
+    "test:browser-live": "node --env-file=.env.local --import tsx scripts/test-browser-live.ts",
+    "preview": "vite preview --host 127.0.0.1 --port 5190"
+  },
+  "dependencies": {
+    "@fontsource-variable/dm-sans": "5.3.0",
+    "@fontsource-variable/manrope": "5.3.0",
+    "@noble/ciphers": "2.4.0",
+    "@noble/curves": "2.4.0",
+    "@noble/hashes": "2.4.0",
+    "lucide-react": "1.65.0",
+    "near-api-js": "7.4.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-router-dom": "7.18.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "22.18.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vercel/node": "29.0.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}
