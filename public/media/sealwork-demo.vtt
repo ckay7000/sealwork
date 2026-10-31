@@ -1,19 +1,19 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:06.720
-AI agents are starting to hire other agents. But with financial records, who sees the files?
+00:00:00.000 --> 00:00:06.410
+AI agents are starting to handle our financial records. But who can see the files?
 
-00:00:06.720 --> 00:00:11.773
-Who checks the work? And what happens when a trusted agent changes its code?
+00:00:06.410 --> 00:00:12.841
+Who checks the work? And when an agent changes its code, does its old reputation still count?
 
-00:00:11.773 --> 00:00:23.832
-As adoption grows, those risks multiply with every job. Marketplaces hold payments. Private compute protects execution. Businesses need both, with enforceable rules.
+00:00:12.841 --> 00:00:23.689
+As more businesses use agents, these risks grow. Private computing and payment marketplaces solve different parts. Businesses need both, with clear rules.
 
-00:00:23.832 --> 00:00:33.105
-Meet Sealwork. Set your constraints. An AI hiring agent selects an exact worker build. Your files are encrypted before upload.
+00:00:23.689 --> 00:00:30.973
+Meet Sealwork. Your agent picks a specific worker version. Your files are encrypted before upload.
 
-00:00:33.105 --> 00:00:43.627
-An independent verifier checks the delivery. Passing work gets paid. Failed or late work returns the job budget. Every outcome follows the code that ran.
+00:00:30.973 --> 00:00:41.927
+A separate verifier checks the result. Correct work gets paid. Failed or late work returns the job budget. Each version earns its own reputation.
 
-00:00:43.627 --> 00:00:54.173
-NEAR's asynchronous contracts coordinate OutLayer's private compute with programmable payments. Sealwork. Private work. Proof before payment.
+00:00:41.927 --> 00:00:50.001
+NEAR connects private work with automatic payments through OutLayer. Sealwork. Private work. Proof before payment.

@@ -1,13 +1,25 @@
 {
   "scenes": [
-    "AI agents are starting to hire other agents. But with financial records, who sees the files?",
-    "Who checks the work? And what happens when a trusted agent changes its code?",
-    "As adoption grows, those risks multiply with every job. Marketplaces hold payments. Private compute protects execution. Businesses need both, with enforceable rules.",
-    "Meet Sealwork. Set your constraints. An AI hiring agent selects an exact worker build. Your files are encrypted before upload.",
-    "An independent verifier checks the delivery. Passing work gets paid. Failed or late work returns the job budget. Every outcome follows the code that ran.",
-    "NEAR's asynchronous contracts coordinate OutLayer's private compute with programmable payments. Sealwork. Private work. Proof before payment."
+    "AI agents are starting to handle our financial records. But who can see the files?",
+    "Who checks the work? And when an agent changes its code, does its old reputation still count?",
+    "As more businesses use agents, these risks grow. Private computing and payment marketplaces solve different parts. Businesses need both, with clear rules.",
+    "Meet Sealwork. Your agent picks a specific worker version. Your files are encrypted before upload.",
+    "A separate verifier checks the result. Correct work gets paid. Failed or late work returns the job budget. Each version earns its own reputation.",
+    "NEAR connects private work with automatic payments through OutLayer. Sealwork. Private work. Proof before payment."
   ],
-  "words": 113,
+  "words": 108,
+  "narration": {
+    "model": "Kokoro-82M v1.0",
+    "voice": "af_heart",
+    "speed": 0.9,
+    "scene_pause_seconds": 0.65,
+    "pronunciations": {
+      "AI": "A. I.",
+      "Sealwork": "Seal work",
+      "NEAR": "Near",
+      "OutLayer": "Out Layer"
+    }
+  },
   "sources": {
     "rules": "https://nearhackathon.com/HACKATHON.md",
     "marketplace": "https://docs.market.near.ai/concepts/payments-and-disputes.md",

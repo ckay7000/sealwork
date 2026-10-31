@@ -1,6 +1,6 @@
 """Render Sealwork's narrated, captioned marketing film from actual receipt captures.
 
-Inputs: ignored reports/demo/script.json, audio/scene-{0..5}.mp3, licensed
+Inputs: scripts/demo-storyboard.json, ignored audio/scene-{0..5}.wav, licensed
 Manrope.ttf and DMSans.ttf, and stills/{accepted,rejected,timeout}.png.
 Output: public/media/sealwork-demo.mp4, poster.jpg and captions.vtt.
 No private configuration, recovery data, or signing keys are read.
@@ -19,7 +19,8 @@ FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 W, H, FPS = 1920, 1080, 30
 PAPER, GREEN, MINT, LIME, INK = "#f6f7f3", "#194c3c", "#e7eee1", "#d6e6bb", "#23372d"
 RED = "#a64b41"
-SCENES = json.loads((WORK / "script.json").read_text())["scenes"]
+STORYBOARD = json.loads((ROOT / "scripts/demo-storyboard.json").read_text())
+SCENES = STORYBOARD["scenes"]
 fonts = {}
 def font(size, weight=500, heading=False):
     key = size, weight, heading
@@ -61,12 +62,15 @@ def arrow(draw, x, y, length=90, color=GREEN):
     draw.line((x,y,x+length,y),fill=color,width=4)
     draw.line([(x+length-14,y-12),(x+length,y),(x+length-14,y+12)],fill=color,width=4)
 
-# Normalize pacing, and leave a short breath at every scene boundary.
+# Keep natural speech speed, normalize dialogue, and leave a short breath.
 chunks, lengths = [], []
+(WORK / "audio-mix").mkdir(exist_ok=True)
 for i in range(6):
-    file = WORK / f"audio/scene-{i}.wav"
-    subprocess.run([FFMPEG,"-y","-loglevel","error","-i",str(WORK/f"audio/scene-{i}.mp3"),
-        "-af","atempo=1.11,apad=pad_dur=0.40","-ar","48000","-ac","1","-c:a","pcm_s16le",str(file)],check=True)
+    file = WORK / f"audio-mix/scene-{i}.wav"
+    pause = STORYBOARD["narration"]["scene_pause_seconds"]
+    subprocess.run([FFMPEG,"-y","-loglevel","error","-i",str(WORK/f"audio/scene-{i}.wav"),
+        "-af",f"highpass=f=75,lowpass=f=11000,loudnorm=I=-16:LRA=7:TP=-1.5,apad=pad_dur={pause}",
+        "-ar","48000","-ac","1","-c:a","pcm_s16le",str(file)],check=True)
     with wave.open(str(file),"rb") as wav:
         data = np.frombuffer(wav.readframes(wav.getnframes()),dtype=np.int16).astype(np.float64)/32768
     chunks.append(data); lengths.append(len(data)/48000)
@@ -78,8 +82,10 @@ music = np.zeros(len(voice))
 # Original, quiet ambient score; no licensed stock music is used.
 for frequency, strength in [(110,.008),(164.81,.005),(220,.004),(261.63,.003),(329.63,.002)]:
     music += strength*np.sin(2*np.pi*frequency*t)*(0.65+0.35*np.sin(2*np.pi*0.07*t))
-music *= np.minimum(1,t/2)*np.minimum(1,(duration-t)/2)
-mixed = np.clip(voice*.91+music,-.98,.98)
+music *= .40*np.minimum(1,t/2)*np.minimum(1,(duration-t)/2)
+mixed = voice + music
+peak = np.max(np.abs(mixed))
+if peak > .89: mixed *= .89/peak
 with wave.open(str(WORK/"narration-and-score.wav"),"wb") as wav:
     wav.setnchannels(1);wav.setsampwidth(2);wav.setframerate(48000)
     wav.writeframes((mixed*32767).astype(np.int16).tobytes())
@@ -185,6 +191,7 @@ command=[FFMPEG,"-y","-loglevel","error","-f","rawvideo","-pix_fmt","rgb24","-s"
     "-c:a","aac","-b:a","192k","-movflags","+faststart","-shortest",str(OUT/"sealwork-demo.mp4")]
 encoder=subprocess.Popen(command,stdin=subprocess.PIPE)
 last=-1
+frozen={}
 try:
     for frame in range(frames):
         moment=frame/FPS
@@ -192,12 +199,18 @@ try:
         elapsed=moment-starts[index]
         if index!=last:
             print(f"Rendering scene {index+1}/6 at {moment:.1f}s",flush=True);last=index
+        freeze = (index != 2 and elapsed >= 2) or (index == 2 and elapsed >= lengths[index] * .48)
+        if freeze and index in frozen:
+            encoder.stdin.write(frozen[index])
+            continue
         image=draw_scene(index,elapsed)
         # Short fades at scene boundaries, with no abrupt flashes.
         if elapsed < .22:
             image=Image.blend(Image.new("RGB",(W,H),GREEN if index in [0,1,5] else PAPER),image,ease(elapsed/.22))
         caption(ImageDraw.Draw(image),index)
-        encoder.stdin.write(image.tobytes())
+        pixels=image.tobytes()
+        if freeze: frozen[index]=pixels
+        encoder.stdin.write(pixels)
     encoder.stdin.close()
     assert encoder.wait()==0,"Video encoding failed"
 except BaseException:
@@ -212,5 +225,7 @@ for i,line in enumerate(SCENES):
 (OUT/"sealwork-demo.vtt").write_text("\n".join(vtt))
 (WORK/"render-report.json").write_text(json.dumps({"duration_seconds":duration,"width":W,"height":H,"fps":FPS,
     "narrated":True,"captioned":True,"original_background_score":True,"real_receipt_capture":True,
-    "only_chain_claim":False,"mp4_bytes":(OUT/"sealwork-demo.mp4").stat().st_size},indent=2)+"\n")
+    "only_chain_claim":False,"mp4_bytes":(OUT/"sealwork-demo.mp4").stat().st_size,
+    "voice":STORYBOARD["narration"]["voice"],"speech_speed":STORYBOARD["narration"]["speed"],"dialogue_target_lufs":-16,
+    "music_gain":0.40,"local_neural_narration":True},indent=2)+"\n")
 print(f"Completed {duration:.2f}s, {W}x{H}, narrated and captioned.",flush=True)

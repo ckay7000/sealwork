@@ -120,7 +120,7 @@ export function Landing() {
               </strong>
             </div>
             <button type="button" className="text-link demo-video-trigger" onClick={() => setWatch(true)}>
-              Watch the 54-second demo <ArrowRight size={15} />
+              Watch the 50-second demo <ArrowRight size={15} />
             </button>
           </div>
           <div
@@ -478,10 +478,10 @@ export function Landing() {
               <button type="button" className="icon-button" aria-label="Close demo video" autoFocus onClick={() => setWatch(false)}><X size={20} /></button>
             </div>
             <video controls autoPlay playsInline poster="/media/sealwork-demo-poster.jpg">
-              <source src="/media/sealwork-demo.mp4" type="video/mp4" />
+              <source src="/media/sealwork-demo.mp4?v=2" type="video/mp4" />
               <track kind="captions" src="/media/sealwork-demo.vtt" srcLang="en" label="English" />
             </video>
-            <a className="text-link" href="/media/sealwork-demo.mp4" download>Download the demo video <ArrowUpRight size={13} /></a>
+            <a className="text-link" href="/media/sealwork-demo.mp4?v=2" download>Download the demo video <ArrowUpRight size={13} /></a>
           </div>
         </div>
       )}

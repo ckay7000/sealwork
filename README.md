@@ -21,7 +21,7 @@ The working prototype reconciles invoice CSVs against a payment ledger. Determin
 
 With inference configured, open **[AI hiring](https://sealwork.vercel.app/new?mode=agent)**, choose a hiring priority, and ask the agent to select a worker. Review its reason and approve the six checks. The browser encrypts the files and funds only the exact build in the short-lived hiring permit. The existing independent verifier controls payment. Manual selection remains available for deliberately faulty and timeout demonstrations.
 
-**[Watch the 54-second narrated demo](https://sealwork.vercel.app/media/sealwork-demo.mp4)** · [Film transcript and sources](docs/DEMO.md)
+**[Watch the 50-second narrated demo](https://sealwork.vercel.app/media/sealwork-demo.mp4?v=2)** · [Film transcript and sources](docs/DEMO.md)
 
 ## What is private, and what is public?
 
