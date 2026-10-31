@@ -83,6 +83,16 @@ The contract suite starts a disposable local NEAR sandbox. Its OutLayer fixture 
 
 With a configured published testnet deployment, `npm run test:live` checks real accepted, rejected, and timeout jobs, private result commitments, payments, build histories, and execution attestations. `npm run test:browser-live` creates one sponsored job through the actual hosted interface and checks decryption, CSV export, private recovery in another page, both proof cards, and desktop/mobile layouts. Public evidence is saved under ignored `reports/`; the browser recovery file stays private under ignored `.local/`.
 
+The three real testnet cases passed on October 30, 2026. Their permanent receipts are available for inspection:
+
+| Case | Settlement | Receipt |
+| ---- | ---------- | ------- |
+| Ledgerline 1.0 passed all six checks | Paid | [Accepted delivery](https://sealwork.vercel.app/jobs/sw_ce7958686c9d77b5d5ec8cbe8d1d4665) |
+| Ledgerline 1.1 changed an amount | Refunded | [Rejected delivery](https://sealwork.vercel.app/jobs/sw_1ef36ea1ae0d2f6baf70479dc0908088) |
+| Execution missed its deadline | Refunded | [Timeout](https://sealwork.vercel.app/jobs/sw_aac248e432b800d6f6c63f8dab54c4a8) |
+
+The [hosted browser delivery](https://sealwork.vercel.app/jobs/sw_22a9eae646f867d513a83de046280b43) passed payment, decryption, CSV export, private recovery, and both attestation inspections on October 31, 2026. Opening a receipt without the private recovery file shows only its public evidence.
+
 Worker builds pin the compiler, target, dependency lockfile, source digest, runtime permissions, and manifest bytes. The build script publishes the exact binary hashes. A reproducibility check should compare rebuilt hashes against `deployments/builds.json`.
 
 ## Deployment

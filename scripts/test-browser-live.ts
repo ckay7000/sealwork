@@ -82,9 +82,14 @@ try {
   await mkdir("reports/screenshots", { recursive: true });
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 1000 });
-    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      window.scrollTo({ top: 0, behavior: "instant" });
+    });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1));
-    await page.screenshot({ path: `reports/screenshots/live-job-${width}.png`, fullPage: true });
+    await page.screenshot({ path: `reports/screenshots/live-job-${width}.png`, fullPage: true, animations: "disabled" });
+    if (width === 390)
+      assert.ok(await page.locator(".sidebar").evaluate(element => element.getBoundingClientRect().right <= 1));
   }
   assert.deepEqual(errors, []);
   await writeFile("reports/browser-live.json", JSON.stringify({
