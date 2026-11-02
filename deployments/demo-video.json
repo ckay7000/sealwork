@@ -1,0 +1,125 @@
+{
+  "project": "Sealwork",
+  "duration_seconds": 137.25,
+  "width": 1920,
+  "height": 1080,
+  "fps": 24,
+  "video_codec": "H264",
+  "audio_codec": "AAC",
+  "faststart": true,
+  "narrated": true,
+  "burned_in_captions": true,
+  "caption_files": [
+    "vtt",
+    "srt"
+  ],
+  "caption_timing": "Proportional phrase timing within each narrated scene",
+  "source": "Edited real hosted screenshots; not an uninterrupted screen recording",
+  "capture_evidence": "deployments/demo-capture.json",
+  "fictional_data": true,
+  "voice": {
+    "model": "Kokoro-82M v1.0",
+    "voice": "af_heart",
+    "speed": 1.0,
+    "pause_seconds": 0.55,
+    "pronunciations": {
+      "BBS": "B. B. S.",
+      "NFT": "N. F. T.",
+      "NFTs": "N. F. T.s",
+      "NEAR": "Near",
+      "Sealwork": "Seal work",
+      "OutLayer": "Out Layer",
+      "AI": "A. I."
+    }
+  },
+  "shots": [
+    "01-bank-job",
+    "02-hiring-decision",
+    "03-private-records",
+    "04-ai-bank-proposal",
+    "05-acceptance-rules",
+    "06-job-budget",
+    "07-paid-receipt",
+    "08-checked-private-result",
+    "09-attestation-checks",
+    "10-encrypted-public-delivery",
+    "11-recovered-private-delivery",
+    "12-rejected-refunded"
+  ],
+  "scene_timing": [
+    {
+      "start": 0,
+      "voice_end": 9.728,
+      "end": 10.278,
+      "shot": "01-bank-job"
+    },
+    {
+      "start": 10.278,
+      "voice_end": 21.051333333333332,
+      "end": 21.601333333333333,
+      "shot": "02-hiring-decision"
+    },
+    {
+      "start": 21.601333333333333,
+      "voice_end": 31.96933333333333,
+      "end": 32.51933333333333,
+      "shot": "03-private-records"
+    },
+    {
+      "start": 32.51933333333333,
+      "voice_end": 44.03933333333333,
+      "end": 44.58933333333333,
+      "shot": "04-ai-bank-proposal"
+    },
+    {
+      "start": 44.58933333333333,
+      "voice_end": 55.74666666666666,
+      "end": 56.29666666666666,
+      "shot": "05-acceptance-rules"
+    },
+    {
+      "start": 56.29666666666666,
+      "voice_end": 66.28066666666666,
+      "end": 66.83066666666666,
+      "shot": "06-job-budget"
+    },
+    {
+      "start": 66.83066666666666,
+      "voice_end": 76.51599999999999,
+      "end": 77.06599999999999,
+      "shot": "07-paid-receipt"
+    },
+    {
+      "start": 77.06599999999999,
+      "voice_end": 87.79666666666665,
+      "end": 88.34666666666665,
+      "shot": "08-checked-private-result"
+    },
+    {
+      "start": 88.34666666666665,
+      "voice_end": 100.89066666666665,
+      "end": 101.44066666666664,
+      "shot": "09-attestation-checks"
+    },
+    {
+      "start": 101.44066666666664,
+      "voice_end": 111.33933333333331,
+      "end": 111.88933333333331,
+      "shot": "10-encrypted-public-delivery"
+    },
+    {
+      "start": 111.88933333333331,
+      "voice_end": 122.83333333333331,
+      "end": 123.38333333333331,
+      "shot": "11-recovered-private-delivery"
+    },
+    {
+      "start": 123.38333333333331,
+      "voice_end": 136.6953333333333,
+      "end": 137.24533333333332,
+      "shot": "12-rejected-refunded"
+    }
+  ],
+  "bytes": 12030684,
+  "sha256": "fdbfcce518146775987f1628a9f450794337c6086c5a2f61ef2371f0b7f2ea83"
+}

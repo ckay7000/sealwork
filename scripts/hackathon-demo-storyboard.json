@@ -1,0 +1,99 @@
+{
+  "name": "Sealwork",
+  "base": "sealwork-hackathon-demo",
+  "theme": {
+    "background": "#f3f6e9",
+    "ink": "#143326",
+    "accent": "#234e37",
+    "soft": "#deebbd"
+  },
+  "scenes": [
+    {
+      "shot": "01-bank-job",
+      "title": "Private financial work, checked",
+      "result": "Choose task \u2192 fictional bank records",
+      "narration": "A business receives nine hundred dollars covering two invoices. Sealwork helps match those private records and pays the worker only after the agreed checks pass."
+    },
+    {
+      "shot": "02-hiring-decision",
+      "title": "A constrained hiring decision",
+      "result": "Ask agent \u2192 reviewed build",
+      "narration": "I ask the hiring agent to choose within my rules. It uses public build history, recommends a reviewed executable, and cannot change my budget or payment destination."
+    },
+    {
+      "shot": "03-private-records",
+      "title": "Financial files stay confidential",
+      "result": "Review \u2192 encrypted inference input",
+      "narration": "I review the fictional invoices and bank records. The bank-analysis path encrypts the private input for NEAR AI Cloud, separately from the public hiring decision."
+    },
+    {
+      "shot": "04-ai-bank-proposal",
+      "title": "Combined payments and uncertainty",
+      "result": "Analyze \u2192 $900 = $500 + $400",
+      "narration": "The live private model proposes allocating nine hundred dollars across five hundred and four hundred dollar invoices. The ambiguous two hundred fifty dollar payment stays Needs review."
+    },
+    {
+      "shot": "05-acceptance-rules",
+      "title": "The buyer approves the agreement",
+      "result": "Review proposal \u2192 approve checks",
+      "narration": "I review the proposed matches and acceptance rules before funding. The model\u2019s suggestion is only a proposal. A separate deterministic verifier will check the original records."
+    },
+    {
+      "shot": "06-job-budget",
+      "title": "The task fee is separate",
+      "result": "Approve \u2192 fixed 0.050 testnet NEAR",
+      "narration": "The worker fee is zero point zero five testnet NEAR. It pays for processing; it does not move the fictional bank payment. I approve the pinned-build agreement."
+    },
+    {
+      "shot": "07-paid-receipt",
+      "title": "Verified work gets paid",
+      "result": "Execute \u2192 verified and settled",
+      "narration": "The worker and separate verifier execute privately through OutLayer. The checks pass, NEAR escrow settles the fee, and the receipt now says Verified and paid."
+    },
+    {
+      "shot": "08-checked-private-result",
+      "title": "Inspect the checked delivery",
+      "result": "Decrypt \u2192 matches and open items",
+      "narration": "I can inspect the checked private report. The combined payment matches, and the ambiguous item remains open. The public receipt excludes the plaintext financial records."
+    },
+    {
+      "shot": "09-attestation-checks",
+      "title": "Evidence follows exact code",
+      "result": "Inspect \u2192 worker and verifier hashes",
+      "narration": "Both execution records identify the agreed binary fingerprints. NEAR holds the budget, processes authenticated callbacks and records the outcome. Full hardware evidence is linked for inspection."
+    },
+    {
+      "shot": "10-encrypted-public-delivery",
+      "title": "A public URL does not reveal files",
+      "result": "Another page \u2192 encrypted delivery",
+      "narration": "Opening the same receipt in a separate page shows encrypted delivery. Public visitors can inspect settlement and evidence, but they cannot read the private report."
+    },
+    {
+      "shot": "11-recovered-private-delivery",
+      "title": "Recovery restores private access",
+      "result": "Import private recovery \u2192 readable report",
+      "narration": "Importing the private recovery file restores access to the report. Keep that file private. Its access material is excluded from the repository and this demo evidence."
+    },
+    {
+      "shot": "12-rejected-refunded",
+      "title": "A faulty update earns its own outcome",
+      "result": "Earlier faulty job \u2192 rejected and refunded",
+      "narration": "Finally, this genuine earlier faulty-build receipt is rejected and refunded. Its failure belongs to that code version. Sealwork combines confidential work, independent checks and conditional NEAR payment."
+    }
+  ],
+  "narration": {
+    "model": "Kokoro-82M v1.0",
+    "voice": "af_heart",
+    "speed": 1.0,
+    "pause_seconds": 0.55,
+    "pronunciations": {
+      "BBS": "B. B. S.",
+      "NFT": "N. F. T.",
+      "NFTs": "N. F. T.s",
+      "NEAR": "Near",
+      "Sealwork": "Seal work",
+      "OutLayer": "Out Layer",
+      "AI": "A. I."
+    }
+  }
+}

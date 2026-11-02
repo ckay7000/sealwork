@@ -24,3 +24,8 @@ core.*
 .vercel
 .env*
 !.env.example
+
+.venv/
+
+node_modules
+contracts/*/node_modules

@@ -1,42 +1,76 @@
-# Sealwork product film
+# Sealwork: practical hackathon demo
 
-[Watch or download the MP4](https://sealwork.vercel.app/media/sealwork-demo.mp4?v=3).
+[Watch/download the video](https://sealwork.vercel.app/media/sealwork-hackathon-demo.mp4) · [English captions](../public/media/sealwork-hackathon-demo.vtt) · [Subtitle file](../public/media/sealwork-hackathon-demo.srt) · [Poster](../public/media/sealwork-hackathon-demo-poster.jpg).
 
-The film is approximately 52 seconds, 1920×1080 at 30 fps, with narration, burned-in captions, an optional WebVTT caption track, and an original ambient score. It combines illustrative diagrams with captures of actual public NEAR testnet receipts. The records are fictional sample finance data.
+This is a narrated, captioned walkthrough assembled from **genuine screenshots of the hosted application**, with small pans and zooms for readability. It is not an uninterrupted screen recording. Waiting time between real operations is omitted. All documents, claims and finance records are fictional demo data.
 
-The revised audio uses Kokoro's neural `af_heart` voice, generated locally at a calmer pace. Names and initials have explicit pronunciation hints. Dialogue is normalized to -16 LUFS, scene boundaries leave a 0.65-second pause, and the music is lowered beneath the speech. There is no post-production speech speed-up or paid inference request.
+The capture script used Playwright against the public app. [Capture provenance](../deployments/demo-capture.json) records each screenshot’s source URL, time, measured focus rectangle and SHA-256, plus the real underlying transaction or job evidence. No vault password, holder seed or private delivery recovery file is included. [Render report](../deployments/demo-video.json) gives actual duration, resolution, codecs, timeline and file hash.
 
-## Transcript
+## Watch the action and result
 
-AI agents are starting to handle our financial records. But who can see the files?
+| Step | Visible action/result | Real capture |
+| --- | --- | --- |
+| 1 | Choose task → fictional bank records | [01-bank-job](demo-captures/01-bank-job.jpg) |
+| 2 | Ask agent → reviewed build | [02-hiring-decision](demo-captures/02-hiring-decision.jpg) |
+| 3 | Review → encrypted inference input | [03-private-records](demo-captures/03-private-records.jpg) |
+| 4 | Analyze → $900 = $500 + $400 | [04-ai-bank-proposal](demo-captures/04-ai-bank-proposal.jpg) |
+| 5 | Review proposal → approve checks | [05-acceptance-rules](demo-captures/05-acceptance-rules.jpg) |
+| 6 | Approve → fixed 0.050 testnet NEAR | [06-job-budget](demo-captures/06-job-budget.jpg) |
+| 7 | Execute → verified and settled | [07-paid-receipt](demo-captures/07-paid-receipt.jpg) |
+| 8 | Decrypt → matches and open items | [08-checked-private-result](demo-captures/08-checked-private-result.jpg) |
+| 9 | Inspect → worker and verifier hashes | [09-attestation-checks](demo-captures/09-attestation-checks.jpg) |
+| 10 | Another page → encrypted delivery | [10-encrypted-public-delivery](demo-captures/10-encrypted-public-delivery.jpg) |
+| 11 | Import private recovery → readable report | [11-recovered-private-delivery](demo-captures/11-recovered-private-delivery.jpg) |
+| 12 | Earlier faulty job → rejected and refunded | [12-rejected-refunded](demo-captures/12-rejected-refunded.jpg) |
 
-Who checks the work? And when an agent changes its code, does its old reputation still count?
+## Narration transcript
 
-As agent adoption grows, so do these risks. Private computing and payment marketplaces solve different parts.
+A business receives nine hundred dollars covering two invoices. Sealwork helps match those private records and pays the worker only after the agreed checks pass.
 
-Meet Sealwork. Private AI matches messy bank payments to invoices, explains the evidence, and flags uncertainty.
+I ask the hiring agent to choose within my rules. It uses public build history, recommends a reviewed executable, and cannot change my budget or payment destination.
 
-Approve the proposal. An independent verifier checks the records and allocations. Correct reports get paid. Failed or late work returns the job budget.
+I review the fictional invoices and bank records. The bank-analysis path encrypts the private input for NEAR AI Cloud, separately from the public hiring decision.
 
-NEAR combines confidential AI, OutLayer execution, and programmable payments. Every build earns its own record. Sealwork. Proof before payment.
+The live private model proposes allocating nine hundred dollars across five hundred and four hundred dollar invoices. The ambiguous two hundred fifty dollar payment stays Needs review.
 
-## Claims and evidence
+I review the proposed matches and acceptance rules before funding. The model’s suggestion is only a proposal. A separate deterministic verifier will check the original records.
 
-- [Agent Market payment rules](https://docs.market.near.ai/concepts/payments-and-disputes.md) describe held payments and buyer acceptance/disputes. The film does not claim that every competing product lacks privacy or verification.
-- [OutLayer documentation](https://app.outlayer.ai/docs/getting-started) describes hash-pinned TEE computation and NEAR yield/resume callbacks. Sealwork implements the application agreement, independent acceptance checks, escrow, and build-specific outcomes.
-- The captured [accepted](https://sealwork.vercel.app/jobs/sw_61d5c23989d10f9d1c7271265fc329ad), [rejected](https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1), and [timeout](https://sealwork.vercel.app/jobs/sw_23a46154077f9c6cfc1c3a8fc930f76f) receipts are genuine testnet outcomes.
-- NEAR provides a suitable combination of asynchronous contracts, programmable settlement and OutLayer infrastructure. The film makes no claim that the system is impossible on another chain.
-- “Job budget returned” excludes consumed execution fees and persistent storage costs, as explained in the README.
-- The financial AI scene illustrates the tested encrypted bank-matching workflow. A real NEAR AI response signature was verified before its proposal was approved and the report was [independently checked and paid](https://sealwork.vercel.app/jobs/sw_61d5c23989d10f9d1c7271265fc329ad). The sample combined payment and ambiguous payment are fictional. [Evidence and decisions](bank-ai-example.json) and [trust boundaries](PRIVATE_AI.md) describe the separate inference charge, buyer review, shared model keys, and deterministic verifier.
+The worker fee is zero point zero five testnet NEAR. It pays for processing; it does not move the fictional bank payment. I approve the pinned-build agreement.
 
-## Reproduce the film
+The worker and separate verifier execute privately through OutLayer. The checks pass, NEAR escrow settles the fee, and the receipt now says Verified and paid.
 
-The storyboard and pronunciation hints are in `scripts/demo-storyboard.json`. Install the Python packages in `scripts/demo-requirements.txt`. Download [Kokoro v1.0](https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx) and [its voices](https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin) into ignored `reports/demo/tts-model/`. Place the OFL-licensed Manrope/DM Sans fonts under ignored `reports/demo/`, then generate narration, capture receipts, and render:
+I can inspect the checked private report. The combined payment matches, and the ambiguous item remains open. The public receipt excludes the plaintext financial records.
+
+Both execution records identify the agreed binary fingerprints. NEAR holds the budget, processes authenticated callbacks and records the outcome. Full hardware evidence is linked for inspection.
+
+Opening the same receipt in a separate page shows encrypted delivery. Public visitors can inspect settlement and evidence, but they cannot read the private report.
+
+Importing the private recovery file restores access to the report. Keep that file private. Its access material is excluded from the repository and this demo evidence.
+
+Finally, this genuine earlier faulty-build receipt is rejected and refunded. Its failure belongs to that code version. Sealwork combines confidential work, independent checks and conditional NEAR payment.
+
+## Rebuild the video
+
+Use Python 3.11 or newer. Install `scripts/hackathon-demo-requirements.txt` in a virtual environment. Download [Kokoro v1.0](https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx) and [voices-v1.0.bin](https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin) into ignored `reports/demo/tts-model/`.
 
 ```bash
-python3 scripts/narrate-demo.py
-npm run test:e2e -- --config=scripts/demo-capture.config.ts
-python3 scripts/render-demo.py
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -r scripts/hackathon-demo-requirements.txt
+python3 scripts/render-hackathon-demo.py
 ```
 
-The narration is generated locally using the [Apache-2.0 Kokoro model](https://huggingface.co/hexgrad/Kokoro-82M) and the [MIT-licensed kokoro-onnx library](https://github.com/thewh1teagle/kokoro-onnx). Model files and intermediate audio remain ignored. The score is generated locally by the renderer. The font licenses are retained in `public/licenses/`. No customer files, private recovery material, or credentials are used to render the film.
+The renderer reads only the public storyboard, screenshots and OFL-licensed Manrope font in `docs/video-tools/`. Kokoro narration runs locally without a paid API. Intermediate audio and model files remain ignored. Final output is 1920×1080 H264/AAC, with faststart, burned-in captions, WebVTT and SRT. Subtitle timing is proportional within each narrated scene. The [Apache-2.0 Kokoro model](https://huggingface.co/hexgrad/Kokoro-82M), [MIT kokoro-onnx library](https://github.com/thewh1teagle/kokoro-onnx) and font retain their own licenses.
+
+To use other model-file locations, pass `--model` and `--voices`. To reuse generated narration, pass `--mode render`. The storyboard contains pronunciation hints and source-shot names. Capture provenance describes the test run; video rendering itself does not sign transactions or access private application data.
+
+The accepted job was created during this capture. The final rejected/refunded receipt is an explicitly labeled genuine earlier faulty-build example. Balanced hiring selected reviewed Archivist 2.0 without claiming previous accepted history. The worker fee is separate from the fictional bank amount. [Original 52-second promotional clip](PROMO_VIDEO.md) is preserved.
+
+## Capture a new real run
+
+```bash
+npx playwright install chromium
+node --import tsx scripts/capture-hackathon-demo.ts
+```
+
+This deliberately creates real sponsored **testnet** records/jobs and, for Sealwork, uses private inference credits. It writes only screenshots and public evidence. It does not export private vault backups or delivery recovery material. Set `DEMO_BASE_URL` to your own configured deployment if desired. A sandbox that cannot launch Chromium needs a browser-capable host. After a new capture, render again so the video and capture hashes match.
