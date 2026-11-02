@@ -1,0 +1,86 @@
+{
+  "project": "Sealwork",
+  "status": "passed",
+  "checked_at": "2026-11-02T12:15:48.316286+00:00",
+  "public_repository": "https://github.com/NSEVEjk0/sealwork",
+  "reviewed_commit": "908af1649cec7dd3fc796001638f2c02c7a909ed",
+  "review_tag": "hackathon-demo-2026-11-02",
+  "ci": {
+    "url": "https://github.com/NSEVEjk0/sealwork/actions/runs/41442740979",
+    "conclusion": "success",
+    "node_version": "24",
+    "commands": [
+      "npm ci",
+      "npm test",
+      "npm run build"
+    ],
+    "unit_tests": 48
+  },
+  "video": {
+    "url": "https://sealwork.vercel.app/media/sealwork-hackathon-demo.mp4",
+    "duration_seconds": 137.25,
+    "width": 1920,
+    "height": 1080,
+    "narrated": true,
+    "burned_in_captions": true,
+    "sha256": "fdbfcce518146775987f1628a9f450794337c6086c5a2f61ef2371f0b7f2ea83",
+    "source": "Edited genuine hosted UI screenshots; fictional inputs"
+  },
+  "live_workflow": {
+    "status": "passed",
+    "checked_at": "2026-11-02T11:57:07.669Z",
+    "evidence": [
+      {
+        "name": "new accepted bank job",
+        "receipt_url": "https://sealwork.vercel.app/jobs/sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+        "job_id": "sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+        "build_hash": "cc21a3926edbeeab16daa59bc07685f7ee576a04987a387a4f2c43eca776b06f",
+        "verifier_hash": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78",
+        "outcome": "accepted",
+        "settlement": "paid"
+      },
+      {
+        "name": "earlier deliberately faulty build example",
+        "receipt_url": "https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1",
+        "originally_verified_at": "2026-10-31",
+        "captured_as_existing_example": true
+      }
+    ],
+    "browser_errors": []
+  },
+  "playback": {
+    "project": "sealwork",
+    "status": "passed",
+    "duration": 137.245,
+    "time": 19.341365,
+    "width": 1920,
+    "height": 1080,
+    "source": "https://sealwork.vercel.app/media/sealwork-hackathon-demo.mp4",
+    "error": null,
+    "mobile_width": 390,
+    "browser_errors": []
+  },
+  "static_video_delivery": {
+    "status": 206,
+    "content_type": "video/mp4",
+    "range_bytes": 1024
+  },
+  "temporary_capture_service": {
+    "status": "removed",
+    "project": "near-hackathon-capture",
+    "deployments": [
+      "dpl_Bd8qQmBmnHX4HYXDEkmfyPoC3SZa",
+      "dpl_5dJ7MXaWCkcUjW1Gx1rTGmhQohSm",
+      "dpl_4hcve4vUVM71Rhh2EcphDBu81b5d"
+    ],
+    "credential_removed_with_project": true,
+    "checked_at": "2026-11-02T12:14:37.607Z"
+  },
+  "submission": {
+    "submitted": false,
+    "x_post_published": false,
+    "deadline_utc": "2026-11-14T23:59:00Z",
+    "human_steps": "See docs/SUBMISSION_CHECKLIST.md",
+    "independent_other_entry": "Facet"
+  }
+}
