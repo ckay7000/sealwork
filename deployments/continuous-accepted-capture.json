@@ -1,0 +1,241 @@
+{
+  "status": "passed",
+  "stage": "Hardware-quote verification and real invoice authenticity remain separate trust checks.",
+  "project": "Sealwork",
+  "scenario": "accepted",
+  "checked_at": "2026-11-02T14:53:17.718Z",
+  "source": "One uninterrupted Playwright page video; natural waits included; explanatory overlay only",
+  "fictional_data": true,
+  "private_recovery_excluded": true,
+  "timeline": [
+    {
+      "at_seconds": 0.921,
+      "text": "A $900 bank payment covers $500 + $400 invoices. This run creates a fresh paid job.",
+      "url": "https://sealwork.vercel.app/"
+    },
+    {
+      "at_seconds": 6.779,
+      "text": "The hiring agent recommends a reviewed worker within my rules. I approve the spending.",
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent"
+    },
+    {
+      "at_seconds": 13.856,
+      "text": "The recommendation identifies one exact worker build. Its history belongs to that code version.",
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent"
+    },
+    {
+      "at_seconds": 17.421,
+      "text": "The supplied bank records are fictional. The private model proposes matches from encrypted input.",
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent"
+    },
+    {
+      "at_seconds": 28.299,
+      "text": "$900 is allocated to $500 + $400. The ambiguous $250 stays Needs review.",
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent"
+    },
+    {
+      "at_seconds": 33.44,
+      "text": "I approve the rules. A separate verifier will check the report against the supplied records.",
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent"
+    },
+    {
+      "at_seconds": 36.982,
+      "text": "The 0.050 testnet NEAR fee pays for processing. It does not transfer the fictional bank dollars.",
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent"
+    },
+    {
+      "at_seconds": 49.317,
+      "text": "Fresh job funded. Worker and independent verifier are running; this wait is included.",
+      "url": "https://sealwork.vercel.app/jobs/sw_0d581be7aa22c51183f620896a188c16"
+    },
+    {
+      "at_seconds": 70.136,
+      "text": "The checks passed and NEAR paid the worker. The supplied financial records stayed encrypted.",
+      "url": "https://sealwork.vercel.app/jobs/sw_0d581be7aa22c51183f620896a188c16"
+    },
+    {
+      "at_seconds": 75.259,
+      "text": "The checked private report preserves Needs review. The buyer can inspect it here.",
+      "url": "https://sealwork.vercel.app/jobs/sw_0d581be7aa22c51183f620896a188c16"
+    },
+    {
+      "at_seconds": 81.001,
+      "text": "With this browser's private key removed, the public page cannot read the delivery.",
+      "url": "https://sealwork.vercel.app/jobs/sw_0d581be7aa22c51183f620896a188c16"
+    },
+    {
+      "at_seconds": 85.216,
+      "text": "Importing the private recovery file restores access. Its secret contents are excluded from the recording.",
+      "url": "https://sealwork.vercel.app/jobs/sw_0d581be7aa22c51183f620896a188c16"
+    },
+    {
+      "at_seconds": 89.34,
+      "text": "Read the receipt directly from NEAR and hash the published code. No wallet or private report is needed.",
+      "url": "https://sealwork.vercel.app/verify/sw_0d581be7aa22c51183f620896a188c16?contract=market.sealwork-ai.testnet"
+    },
+    {
+      "at_seconds": 92.884,
+      "text": "The finalized outcome, recipient and downloaded code match. This checks public consistency, not private recomputation.",
+      "url": "https://sealwork.vercel.app/verify/sw_0d581be7aa22c51183f620896a188c16?contract=market.sealwork-ai.testnet"
+    },
+    {
+      "at_seconds": 99.465,
+      "text": "Hardware-quote verification and real invoice authenticity remain separate trust checks.",
+      "url": "https://sealwork.vercel.app/verify/sw_0d581be7aa22c51183f620896a188c16?contract=market.sealwork-ai.testnet"
+    }
+  ],
+  "receipt": {
+    "standard": "sealwork.work-receipt.v1",
+    "network": "NEAR testnet",
+    "contract_id": "market.sealwork-ai.testnet",
+    "job": {
+      "id": "sw_0d581be7aa22c51183f620896a188c16",
+      "title": "Private bank payment matching",
+      "buyer_id": "buyer.sealwork-ai.testnet",
+      "provider_id": "archivist.sealwork-ai.testnet",
+      "build_hash": "cc21a3926edbeeab16daa59bc07685f7ee576a04987a387a4f2c43eca776b06f",
+      "manifest_hash": "c06006a288bf5b3c3052af5cfd64d57afbaadf7898eaf58fbfe39d7023a61cc6",
+      "verifier_hash": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78",
+      "input_commitment": "3ff156f869cf0a15cd4a79f228298aa8a43cfdeb3d4478c79acc4575430b1788",
+      "profile": "sw_0d581be7aa22c51183f620896a188c16",
+      "budget": "50000000000000000000000",
+      "compute_remaining": "0",
+      "storage_deposit": "163840000000000000000000",
+      "compute_refund_amount": "0",
+      "compute_refund_state": "none",
+      "state": "settled",
+      "outcome": "accepted",
+      "settlement": "paid",
+      "settlement_amount": "50000000000000000000000",
+      "settlement_recipient": "archivist.sealwork-ai.testnet",
+      "created_at": "1793631133557984801",
+      "deadline": "1793631313557984801",
+      "settled_at": "1793631157689418656",
+      "agent_request_id": null,
+      "verifier_request_id": null,
+      "agent_transaction_hash": "FrBUgBVPUUh2yN3RTjfJs2qi5Ru5NxLdzTPnk3rrzJDE",
+      "verifier_transaction_hash": "FrBUgBVPUUh2yN3RTjfJs2qi5Ru5NxLdzTPnk3rrzJDE",
+      "result_commitment": "4248635e96b1fec4ef512ebe7a371aabe42f79f4c37931a8dc43b16d243d3b56",
+      "result_ciphertext": "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",
+      "checks": [
+        {
+          "id": "row_count",
+          "passed": true
+        },
+        {
+          "id": "unique_ids",
+          "passed": true
+        },
+        {
+          "id": "amounts_preserved",
+          "passed": true
+        },
+        {
+          "id": "vendor_integrity",
+          "passed": true
+        },
+        {
+          "id": "ledger_matches",
+          "passed": true
+        },
+        {
+          "id": "delivery_integrity",
+          "passed": true
+        }
+      ],
+      "reason": "all_checks_passed",
+      "contract_id": "market.sealwork-ai.testnet"
+    }
+  },
+  "check": {
+    "schema": "sealwork.public-receipt-check.v1",
+    "checked_at": "2026-11-02T14:53:03.665Z",
+    "contract_id": "market.sealwork-ai.testnet",
+    "job_id": "sw_0d581be7aa22c51183f620896a188c16",
+    "block_hash": "4GykHHJJdyR4ikzSeDkoVxLcNvsTTZnaSewR2t5BLqzq",
+    "block_height": 275913830,
+    "outcome": "accepted",
+    "settlement": "paid",
+    "checks": [
+      {
+        "id": "identity",
+        "label": "The requested job exists on NEAR",
+        "passed": true,
+        "detail": "sw_0d581be7aa22c51183f620896a188c16"
+      },
+      {
+        "id": "fingerprints",
+        "label": "Worker, verifier and input fingerprints are valid",
+        "passed": true,
+        "detail": "Each fingerprint must be a 64-character SHA-256 value."
+      },
+      {
+        "id": "registered_build",
+        "label": "The worker matches its registered provider",
+        "passed": true,
+        "detail": "Read from the same NEAR block as the job."
+      },
+      {
+        "id": "pinned_verifier",
+        "label": "The job uses the contract\u2019s pinned verifier",
+        "passed": true,
+        "detail": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78"
+      },
+      {
+        "id": "final_outcome",
+        "label": "A permanent outcome has been recorded",
+        "passed": true,
+        "detail": "Outcome: accepted."
+      },
+      {
+        "id": "acceptance",
+        "label": "The recorded checks agree with the outcome",
+        "passed": true,
+        "detail": "Acceptance requires all six checks; rejection requires at least one failed check. This reads the recorded checks; it does not rerun private computation."
+      },
+      {
+        "id": "settlement",
+        "label": "The transfer finished for the correct recipient",
+        "passed": true,
+        "detail": "paid \u2192 archivist.sealwork-ai.testnet."
+      },
+      {
+        "id": "amount",
+        "label": "The settled amount covers the reserved worker budget",
+        "passed": true,
+        "detail": "Worker budget plus any unspent reserved compute; consumed execution and storage costs are separate."
+      },
+      {
+        "id": "deadline",
+        "label": "The outcome agrees with the deadline rule",
+        "passed": true,
+        "detail": "A timeout must occur after expiry; accepted or rejected delivery must be decided before it."
+      },
+      {
+        "id": "result_binding",
+        "label": "Accepted or rejected work has a committed encrypted result",
+        "passed": true,
+        "detail": "Public commitments identify the result without exposing the report."
+      },
+      {
+        "id": "worker_bytes",
+        "label": "The downloaded worker code matches its fingerprint",
+        "passed": true,
+        "detail": "Downloaded SHA-256 matches cc21a3926edbeeab16daa59bc07685f7ee576a04987a387a4f2c43eca776b06f."
+      },
+      {
+        "id": "verifier_bytes",
+        "label": "The downloaded verifier code matches its fingerprint",
+        "passed": true,
+        "detail": "Downloaded SHA-256 matches acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78."
+      }
+    ],
+    "passed": true,
+    "scope": "Direct final NEAR reads and downloaded executable SHA-256 checks. Recorded acceptance is inspected, not privately recomputed. Hardware quotes require separate OutLayer verification. RPC, published code and contract upgrade authority remain trust dependencies.",
+    "hardware_quote_verified": false,
+    "private_result_recomputed": false
+  },
+  "browser_errors": [],
+  "video_sha256": "45eac366b821e35f6e11a7347994f34dc8362b1d99a1b55afa4fd64cb8dcbd47",
+  "video_bytes": 13078148
+}

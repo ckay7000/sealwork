@@ -7,6 +7,7 @@ import "./styles.css";
 import "./responsive.css";
 import { DataProvider } from "./data";
 import { AppLayout } from "./layout";
+import { VerifyReceipt } from "./verify";
 import { Landing } from "./landing";
 import { Overview, Agents, Receipts, Protocol } from "./pages";
 import { NewJob } from "./new-job";
@@ -18,7 +19,7 @@ function App() {
     window.scrollTo(0, 0);
     document.title =
       location.pathname === "/"
-        ? "Sealwork — Private agent work. Proof before payment."
+        ? "Sealwork — Private records. Proof before payment."
         : "Sealwork workspace — Private work, inspectable outcomes";
   }, [location.pathname]);
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/agents" element={<Agents />} />
           <Route path="/receipts" element={<Receipts />} />
           <Route path="/protocol" element={<Protocol />} />
+          <Route path="/verify/:id" element={<VerifyReceipt />} />
           <Route path="/new" element={<NewJob />} />
           <Route
             path="/jobs/:id"

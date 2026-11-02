@@ -1,0 +1,211 @@
+{
+  "status": "passed",
+  "stage": "Hardware-quote verification and real invoice authenticity remain separate trust checks.",
+  "project": "Sealwork",
+  "scenario": "rejected",
+  "checked_at": "2026-11-02T14:55:40.411Z",
+  "source": "One uninterrupted Playwright page video; natural waits included; explanatory overlay only",
+  "fictional_data": true,
+  "private_recovery_excluded": true,
+  "timeline": [
+    {
+      "at_seconds": 0.941,
+      "text": "This run hires a deliberately faulty worker and checks a fresh automatic refund.",
+      "url": "https://sealwork.vercel.app/"
+    },
+    {
+      "at_seconds": 6.959,
+      "text": "This worker version intentionally corrupts a result. Older versions do not certify this update.",
+      "url": "https://sealwork.vercel.app/new"
+    },
+    {
+      "at_seconds": 11.127,
+      "text": "The budget is reserved under the same independent checks. Failed work must not be paid.",
+      "url": "https://sealwork.vercel.app/new"
+    },
+    {
+      "at_seconds": 24.843,
+      "text": "Fresh job funded. Worker and independent verifier are running; this wait is included.",
+      "url": "https://sealwork.vercel.app/jobs/sw_aa52b5907359ecd885e1a239a87ace6b"
+    },
+    {
+      "at_seconds": 45.596,
+      "text": "The separate checker rejected the faulty result. NEAR returned the reserved budget to the buyer.",
+      "url": "https://sealwork.vercel.app/jobs/sw_aa52b5907359ecd885e1a239a87ace6b"
+    },
+    {
+      "at_seconds": 50.695,
+      "text": "The receipt records the failed checks and refund. This is the job just created, not an earlier example.",
+      "url": "https://sealwork.vercel.app/jobs/sw_aa52b5907359ecd885e1a239a87ace6b"
+    },
+    {
+      "at_seconds": 55.789,
+      "text": "Read the receipt directly from NEAR and hash the published code. No wallet or private report is needed.",
+      "url": "https://sealwork.vercel.app/verify/sw_aa52b5907359ecd885e1a239a87ace6b?contract=market.sealwork-ai.testnet"
+    },
+    {
+      "at_seconds": 58.826,
+      "text": "The finalized outcome, recipient and downloaded code match. This checks public consistency, not private recomputation.",
+      "url": "https://sealwork.vercel.app/verify/sw_aa52b5907359ecd885e1a239a87ace6b?contract=market.sealwork-ai.testnet"
+    },
+    {
+      "at_seconds": 65.502,
+      "text": "Hardware-quote verification and real invoice authenticity remain separate trust checks.",
+      "url": "https://sealwork.vercel.app/verify/sw_aa52b5907359ecd885e1a239a87ace6b?contract=market.sealwork-ai.testnet"
+    }
+  ],
+  "receipt": {
+    "standard": "sealwork.work-receipt.v1",
+    "network": "NEAR testnet",
+    "contract_id": "market.sealwork-ai.testnet",
+    "job": {
+      "id": "sw_aa52b5907359ecd885e1a239a87ace6b",
+      "title": "Invoice reconciliation",
+      "buyer_id": "buyer.sealwork-ai.testnet",
+      "provider_id": "ledgerline.sealwork-ai.testnet",
+      "build_hash": "ace1dbd7f5995d8825ef2660ac2fa848575a1850bf7ee1d134c709568c5ab7ac",
+      "manifest_hash": "4ceaf5892bcb02782db99d7a7b94cbbd55fb926db7875ad8983fe9bed4780563",
+      "verifier_hash": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78",
+      "input_commitment": "b889c47dd28ca629a9784e229c2872b47498e8b01c36fd803eaa1ebea765dd7c",
+      "profile": "sw_aa52b5907359ecd885e1a239a87ace6b",
+      "budget": "50000000000000000000000",
+      "compute_remaining": "0",
+      "storage_deposit": "163840000000000000000000",
+      "compute_refund_amount": "0",
+      "compute_refund_state": "none",
+      "state": "settled",
+      "outcome": "rejected",
+      "settlement": "refunded",
+      "settlement_amount": "50000000000000000000000",
+      "settlement_recipient": "buyer.sealwork-ai.testnet",
+      "created_at": "1793631284888572175",
+      "deadline": "1793631464888572175",
+      "settled_at": "1793631309081571630",
+      "agent_request_id": null,
+      "verifier_request_id": null,
+      "agent_transaction_hash": "CF31r6YH2wDN8oWQ4CJYrrfjcisU5X9Sgt55qsaw7tbM",
+      "verifier_transaction_hash": "CF31r6YH2wDN8oWQ4CJYrrfjcisU5X9Sgt55qsaw7tbM",
+      "result_commitment": "bbc1d0556b170df28e46cf1590c22ec55d5eeb66913fee5a21839120bd150c8b",
+      "result_ciphertext": "AYOkoTnNmbKZm4qhxjRJ6c3av/o1AGKIS7zPKr+5E7IHbm2gso8weM86KY+uGoDJYfSiuZ6/y8/lzlZ2ueqpGqNKhVOyBKh7SOQF1tgdRr7BgicYf2CN7dS++pf/xKFAgd8xhJNCJBQZDxUo8JsRRt1vK9AI3hMJGvGuvH9Xfevk9jWFbGkQ3c2GfVMJqr7aKLzoWvdjDdjqTXtq8njzb4nTtnq2WKcQsF5h+yHXP5OPp4UWFLEpX0wSdN3Yn+LDxeSQgbKMytiPFQB2jU8OFPE+jpYmlLKj/QHohFWpsWlz2lCruHAs7E9/XbLAkm950cwwY19EfvEIYZZ+4y8VT8cyz7xvVXxRrghyrsapm5A+I2Vb2HMy1hwrGH4bE2ZCEPw/bNS1XDle6iXQmjwJUsxUsg7OIlfSTcGr/8YcCRwADswGiLKnQzbNQQsgOo62VwY257HUzUGc+SLsxijAU+kEQdvXpmCxp6DATNUjPN5R7paJzHjBbu4Y74wbImAKCFOyYQRGpJ35qIAv7ItnEJzmF03zmziL0Ny2DssqsSk+7l3ih0VorxZA6NYkmtRYLsCTcHTxaRBYAedd2Sn6nF/x5v8PWS3/hGDcz6cJuuBn0ty3JgCesY9vZIenAwAHchRI4Xqo1s44yrymgM0C1Mbx0+F/x7/+3Hvfl1owuCPMTmbAasvRflCAOm/x0BVu9ix1M3JTTwRgY8YjdnwPI8Vqx2emu7+LJarf6fybesyfdrJh1Thc6KqE+caTVRPRImZpMjuKoAL1zmwTdYuZAwAcm3tKPaXVQqIc9y30JljRbTv0LYI+/vAgjV3LKEjrWcQeAuQNOIvdu0g6j6FMkLsRhuhz3sFaSXs+k0qXbbqT+VPIddva+OljIVJUaU9WrZqzYotsp2HKyt23495RW3y0oKj3MAdDZn27yyWiz5smLIDSTdrIleixqlKtgO7LdqtnJQbVig==",
+      "checks": [
+        {
+          "id": "row_count",
+          "passed": true
+        },
+        {
+          "id": "unique_ids",
+          "passed": true
+        },
+        {
+          "id": "amounts_preserved",
+          "passed": false
+        },
+        {
+          "id": "vendor_integrity",
+          "passed": true
+        },
+        {
+          "id": "ledger_matches",
+          "passed": true
+        },
+        {
+          "id": "delivery_integrity",
+          "passed": true
+        }
+      ],
+      "reason": "acceptance_checks_failed",
+      "contract_id": "market.sealwork-ai.testnet"
+    }
+  },
+  "check": {
+    "schema": "sealwork.public-receipt-check.v1",
+    "checked_at": "2026-11-02T14:55:26.574Z",
+    "contract_id": "market.sealwork-ai.testnet",
+    "job_id": "sw_aa52b5907359ecd885e1a239a87ace6b",
+    "block_hash": "qMEqGqaipjTjDnh9LU87GEnEpsSa7XbyPUck1a3WNmW",
+    "block_height": 275914075,
+    "outcome": "rejected",
+    "settlement": "refunded",
+    "checks": [
+      {
+        "id": "identity",
+        "label": "The requested job exists on NEAR",
+        "passed": true,
+        "detail": "sw_aa52b5907359ecd885e1a239a87ace6b"
+      },
+      {
+        "id": "fingerprints",
+        "label": "Worker, verifier and input fingerprints are valid",
+        "passed": true,
+        "detail": "Each fingerprint must be a 64-character SHA-256 value."
+      },
+      {
+        "id": "registered_build",
+        "label": "The worker matches its registered provider",
+        "passed": true,
+        "detail": "Read from the same NEAR block as the job."
+      },
+      {
+        "id": "pinned_verifier",
+        "label": "The job uses the contract\u2019s pinned verifier",
+        "passed": true,
+        "detail": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78"
+      },
+      {
+        "id": "final_outcome",
+        "label": "A permanent outcome has been recorded",
+        "passed": true,
+        "detail": "Outcome: rejected."
+      },
+      {
+        "id": "acceptance",
+        "label": "The recorded checks agree with the outcome",
+        "passed": true,
+        "detail": "Acceptance requires all six checks; rejection requires at least one failed check. This reads the recorded checks; it does not rerun private computation."
+      },
+      {
+        "id": "settlement",
+        "label": "The transfer finished for the correct recipient",
+        "passed": true,
+        "detail": "refunded \u2192 buyer.sealwork-ai.testnet."
+      },
+      {
+        "id": "amount",
+        "label": "The settled amount covers the reserved worker budget",
+        "passed": true,
+        "detail": "Worker budget plus any unspent reserved compute; consumed execution and storage costs are separate."
+      },
+      {
+        "id": "deadline",
+        "label": "The outcome agrees with the deadline rule",
+        "passed": true,
+        "detail": "A timeout must occur after expiry; accepted or rejected delivery must be decided before it."
+      },
+      {
+        "id": "result_binding",
+        "label": "Accepted or rejected work has a committed encrypted result",
+        "passed": true,
+        "detail": "Public commitments identify the result without exposing the report."
+      },
+      {
+        "id": "worker_bytes",
+        "label": "The downloaded worker code matches its fingerprint",
+        "passed": true,
+        "detail": "Downloaded SHA-256 matches ace1dbd7f5995d8825ef2660ac2fa848575a1850bf7ee1d134c709568c5ab7ac."
+      },
+      {
+        "id": "verifier_bytes",
+        "label": "The downloaded verifier code matches its fingerprint",
+        "passed": true,
+        "detail": "Downloaded SHA-256 matches acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78."
+      }
+    ],
+    "passed": true,
+    "scope": "Direct final NEAR reads and downloaded executable SHA-256 checks. Recorded acceptance is inspected, not privately recomputed. Hardware quotes require separate OutLayer verification. RPC, published code and contract upgrade authority remain trust dependencies.",
+    "hardware_quote_verified": false,
+    "private_result_recomputed": false
+  },
+  "browser_errors": [],
+  "video_sha256": "2d15cccd0352b2b174aecee85c9626d1ccff42a7bb100883227ab3022fbdd4f5",
+  "video_bytes": 8807950
+}

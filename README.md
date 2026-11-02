@@ -1,59 +1,50 @@
 # Sealwork
 
-**Hire an agent to process private financial records. Pay when its work passes the agreed checks.**
+**Private records. Proof before payment.**
 
-[Try the live app](https://sealwork.vercel.app) · [Watch the practical demo](https://sealwork.vercel.app/media/sealwork-hackathon-demo.mp4) · [Inspect the demo’s paid job](https://sealwork.vercel.app/jobs/sw_ff38ff3fb1bffdbe977722e432bfc5e2)
+Sealwork helps a bookkeeper match bank payments to invoices. You review the proposed matches; a separate checker validates the report before the processing worker gets paid.
 
-A small business receives a $900 bank payment covering two invoices: $500 and $400. A second, ambiguous $250 payment should stay open for review. Sealwork privately proposes those matches, asks the buyer to approve them, then uses a separate verifier to check the original records and allocations before NEAR escrow pays the worker.
+[Try the app](https://sealwork.vercel.app) · [Watch the explained demo](https://sealwork.vercel.app/media/sealwork-hackathon-demo.mp4) · [Watch a fresh uninterrupted job](https://sealwork.vercel.app/media/sealwork-live-paid.mp4) · [New to this repo? Start here](docs/REPO_GUIDE.md)
 
-If a worker changes its code, its previous success record should not silently certify that update. Sealwork pins the executable fingerprint when hiring and keeps outcomes for each build separate. The live demo uses fictional finance records and sponsored NEAR testnet jobs, so visitors need no wallet.
+## An example you can try
 
-![Sealwork’s checked financial workflow](docs/images/paid-workflow.jpg)
+A customer sends **$900** for a **$500 invoice and a $400 invoice**. Sealwork proposes that match. A different **$250 payment is ambiguous**, so it stays **Needs review**. It does not force a guess to make the accounts look settled.
 
-## Real problems, visible outcomes
+These are fictional bank records. The separate **0.050 testnet NEAR** fee pays for the processing job; Sealwork does not move bank dollars.
 
-| User | Problem | Implemented result |
-| --- | --- | --- |
-| Small-business bookkeeper | Messy bank descriptions and combined payments | Private AI proposes allocations and leaves ambiguity for review |
-| Buyer hiring an agent | Paying for an incorrect report | Independent checks control payment; rejected work returns the agent budget |
-| Agent operator | A faulty update inherits an older build’s reputation | Outcomes attach to exact worker and verifier hashes |
-| Reviewer | Public receipts might expose financial files | Public evidence is inspectable; delivery stays encrypted without its private recovery file |
+![Sealwork's checked financial workflow](docs/images/paid-workflow.jpg)
 
-[Detailed examples and limits](docs/USE_CASES.md). The $900 is fictional bank data. The worker’s **0.050 testnet NEAR** processing fee is separate; Sealwork does not transfer the bank payment.
+## Try it in four steps
 
-## Try it: do this → see this
+Open [Private bank matching](https://sealwork.vercel.app/new?task=bank&mode=agent). The public demo supplies fictional files and testnet funding; no wallet is needed.
 
-Open [Private bank matching](https://sealwork.vercel.app/new?task=bank&mode=agent) and use the supplied fictional files.
+1. Set **Hiring priority** to the balanced option and click **Choose a worker within my rules**. Read the recommendation.
+2. Click **Analyze bank payments privately**. Look for **$900 = $500 + $400** and **$250 → Needs review**.
+3. Review the proposed matches, tick the approval box, then click **Approve rules & let the agent hire**. A separate checker must pass the agreed rules before the worker fee is paid.
+4. Wait for **Verified & paid**. Inspect the report and receipt. **Save recovery file** lets you open the private delivery in another browser; keep that file private.
 
-1. Set **Hiring priority** to the balanced option if no previously accepted build meets the policy. Click **Choose a worker within my rules** → the hiring agent recommends a reviewed build using its public history. Review the reason and fingerprint.
-2. Click **Analyze bank payments privately** → encrypted private inference proposes matches; the combined $900 payment is allocated to $500 + $400 and ambiguous $250 stays **Needs review**.
-3. Review the matches and agreed checks, then **Approve rules & let the agent hire** → the fixed small testnet budget is reserved for that build.
-4. Wait for **Verified & paid** → a separate pinned Rust verifier has checked the original records, allocation and encrypted report. The settled NEAR receipt is visible.
-5. **Export receipt** and **Save recovery file** → the public receipt excludes plaintext; keep the recovery file private. Open the job in another browser to see encrypted delivery, then import your recovery file to see the report.
-6. Inspect both execution attestations → compare the actual worker/verifier fingerprints with the hiring agreement and follow the hardware-evidence links.
-7. Open [the deliberately faulty build’s receipt](https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1) → **Rejected · refunded**. Or use the manual workflow’s missed-deadline option → the job budget becomes refundable after expiry.
+Private AI and execution may take a minute. [Full walkthrough](docs/DEMO.md).
 
-Private AI and execution can take a minute. If sponsored funds or inference are unavailable, inspect the existing [paid](https://sealwork.vercel.app/jobs/sw_61d5c23989d10f9d1c7271265fc329ad), [rejected](https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1) and [timeout](https://sealwork.vercel.app/jobs/sw_23a46154077f9c6cfc1c3a8fc930f76f) receipts. These are genuine earlier testnet outcomes. [Demo transcript and new capture evidence](docs/DEMO.md).
+## See the evidence yourself
 
-## What NEAR does
+| What to inspect | Public example |
+| --- | --- |
+| Successful bank job and payment | [Paid receipt](https://sealwork.vercel.app/jobs/sw_0d581be7aa22c51183f620896a188c16) |
+| Faulty worker caught and budget refunded | [Rejected receipt](https://sealwork.vercel.app/jobs/sw_aa52b5907359ecd885e1a239a87ace6b) |
+| Missed deadline and budget refunded | [Timeout receipt](https://sealwork.vercel.app/jobs/sw_23a46154077f9c6cfc1c3a8fc930f76f) |
+| Direct blockchain reads and code-file checks | [Check a receipt against NEAR](https://sealwork.vercel.app/verify/sw_0d581be7aa22c51183f620896a188c16) · [Run the checker yourself](docs/VERIFY_A_JOB.md) |
 
-[`market.sealwork-ai.testnet`](deployments/testnet.json) holds the worker budget, pins the execution and verifier hashes, receives authenticated OutLayer callbacks, and settles payment or refunds. Final receipts and version-specific outcomes are publicly readable. NEAR AI Cloud supplies private bank inference; OutLayer supplies confidential worker and verifier execution.
+A worker update gets its own success history. Hiring records the exact code fingerprint, so an older version's reputation cannot silently certify new code.
 
-The procurement model sees public build history and cannot transfer funds, change the checks or redirect payment. The separate deterministic verifier controls acceptance. [Private AI protocol](docs/PRIVATE_AI.md) · [Escrow, callback and trust details](docs/ENGINEERING.md).
+## Why NEAR is part of the product
 
-```mermaid
-flowchart LR
-  B[Buyer reviews encrypted-input workflow] --> M[NEAR escrow and exact build agreement]
-  P[Private AI proposal] --> B
-  M --> A[OutLayer private worker]
-  A --> V[Independent pinned verifier]
-  V -->|Agreed checks| M
-  M --> R[Payment or refund and public receipt]
-```
+NEAR holds the reserved worker fee and records payment or refund. NEAR AI Cloud proposes private bank matches. OutLayer runs the worker and a separate Rust verifier in confidential execution.
 
-## Run and review the code
+The hiring agent sees public worker history and recommends a worker; it cannot spend funds, change the agreed checks or redirect payment. [Architecture and trust boundaries](docs/ENGINEERING.md) · [Private AI protocol](docs/PRIVATE_AI.md).
 
-Use **Node 24** and npm for the app. Browsing, unit tests and the build require no private credentials.
+## Run or review the code
+
+Use **Node 24** and npm. Tests and the build require no private keys.
 
 ```bash
 git clone https://github.com/NSEVEjk0/sealwork.git
@@ -65,25 +56,15 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open `http://127.0.0.1:5190`. Local signing and inference need your own isolated testnet accounts and API credits; see [development instructions](docs/DEVELOPMENT.md). The public hosted demo is the easiest complete walkthrough.
+Open `http://127.0.0.1:5190`. A complete local execution needs your own isolated testnet services; the hosted demo is the easiest full walkthrough.
 
-| Location | Responsibility |
-| --- | --- |
-| `src/` | Hiring, finance workspace, encrypted delivery and receipt inspector |
-| `server/`, `api/` | Public reads, bounded sponsorship and constrained AI planning |
-| `contracts/market/` | Escrow, callbacks, deadlines, transfer recovery and build histories |
-| `workers/` | Correct and faulty Rust demo workers; independent verifier |
-| `public/wasm/`, `public/manifests/` | Hash-addressed binaries and runtime manifests |
-| `deployments/` | Public contract, build identities and evidence |
-| `docs/` | Examples, technical protocols, demo and official hackathon guide |
+[Repository map and plain-English glossary](docs/REPO_GUIDE.md) · [Development and tests](docs/DEVELOPMENT.md) · [Customer use cases](docs/USE_CASES.md) · [Bookkeeper test worksheet](docs/USER_TEST.md).
 
-CI runs credential-free unit tests and the production build. Contract sandbox tests, Rust tests and genuine hosted jobs have separate commands and scope in [DEVELOPMENT.md](docs/DEVELOPMENT.md).
+## Current limits
 
-## What the checks mean
+The checker establishes consistency with the supplied records, not that an invoice is genuine. The public receipt checker inspects recorded checks and code fingerprints; it does not rerun the private report or fully verify hardware quotes. Financial contents are encrypted, while job IDs, budgets, hashes and outcomes are public.
 
-Checks establish consistency with the supplied records, not that the invoices represent real-world transactions. Hardware execution evidence identifies code and execution; it does not prove arbitrary AI output is true. Sealwork compares binary fingerprints and exposes evidence; full OutLayer hardware-quote verification remains a separate trust check.
-
-Inputs and results are encrypted; job identities, budgets, hashes, deadlines and outcomes are public. Preserve the private recovery file. Refunds cover the agent budget and unspent reserved compute; consumed execution fees and persistent storage are separate. This testnet prototype retains deployer upgrade authority and a sponsored signer, and has not undergone an independent audit. [Full scope and trust boundaries](docs/ENGINEERING.md).
+This testnet prototype retains a sponsored signer and contract upgrade authority. Refunds cover the worker budget and unspent reserved compute; consumed execution and storage costs are separate. It has not had an independent security audit. [Detailed limits](docs/ENGINEERING.md).
 
 ## NEAR HACKATHON disclosure
 

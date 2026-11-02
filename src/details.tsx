@@ -638,6 +638,7 @@ export function JobDetail() {
             </div>
           </section>
           <section className="surface proof-panel">
+            <Link className="button secondary small" to={`/verify/${job.id}?contract=${encodeURIComponent(job.contract_id || config?.contract_id || "market.sealwork-ai.testnet")}`}><ShieldCheck size={15}/>Check receipt directly against NEAR</Link>
             <div className="section-heading">
               <div>
                 <h2>Inspect the execution evidence</h2>

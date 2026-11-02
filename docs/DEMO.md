@@ -1,5 +1,31 @@
 # Sealwork: practical hackathon demo
 
+## Fresh uninterrupted recordings
+
+- **Paid bank job:** https://sealwork.vercel.app/media/sealwork-live-paid.mp4
+- **Faulty worker refund:** https://sealwork.vercel.app/media/sealwork-live-refund.mp4
+
+Each video shows one fresh job from creation to outcome and a successful direct NEAR receipt check. They are separate continuous screen recordings, with natural waiting time preserved. Explanatory overlays were visible during capture; local synthetic narration was added afterward. No video cuts or speed changes are applied. All financial data is fictional. Browser actions are automated with Playwright.
+
+The [paid receipt](https://sealwork.vercel.app/jobs/sw_0d581be7aa22c51183f620896a188c16) and [refunded receipt](https://sealwork.vercel.app/jobs/sw_aa52b5907359ecd885e1a239a87ace6b) belong to these fresh runs. [Paid capture](../deployments/continuous-accepted-capture.json) and [refund capture](../deployments/continuous-rejected-capture.json) preserve timelines, public receipts, checker reports and raw recording hashes. [Paid video metadata](../deployments/continuous-accepted-video.json) and [refund video metadata](../deployments/continuous-rejected-video.json) give duration, output hashes and narration timing. Private recovery contents are excluded.
+
+English captions: [paid](../public/media/sealwork-live-paid.vtt), [refund](../public/media/sealwork-live-refund.vtt). You can choose either fresh recording in the homepage demo player.
+
+### Record and package another continuous run
+
+Install Playwright Chromium and FFmpeg with `npx playwright install chromium ffmpeg`. Then run `node --import tsx scripts/record-live-demo.ts accepted` or `rejected`. This creates a genuine sponsored testnet job and writes the raw recording and public report under ignored `reports/continuous-demo/`. It consumes testnet sponsorship and, for the bank flow, private inference credits. Use your own configured deployment through `DEMO_BASE_URL` when appropriate.
+
+Copy a successful public capture report to `deployments/continuous-accepted-capture.json` or `continuous-rejected-capture.json`. Install the Python requirements and Kokoro model described below, then run:
+
+```bash
+python3 scripts/package-continuous-demo.py accepted --input reports/continuous-demo/accepted-raw.webm
+python3 scripts/package-continuous-demo.py rejected --input reports/continuous-demo/rejected-raw.webm
+```
+
+The packager verifies the raw video hash and adds narration to the unchanged continuous video. A new capture needs a narration timeline appropriate to its measured stages. This recording is not an independent audit or evidence of real customer adoption.
+
+## Explained overview
+
 [Watch/download the video](https://sealwork.vercel.app/media/sealwork-hackathon-demo.mp4) · [English captions](../public/media/sealwork-hackathon-demo.vtt) · [Subtitle file](../public/media/sealwork-hackathon-demo.srt) · [Poster](../public/media/sealwork-hackathon-demo-poster.jpg).
 
 This is a narrated, captioned walkthrough assembled from **genuine screenshots of the hosted application**, with small pans and zooms for readability. It is not an uninterrupted screen recording. Waiting time between real operations is omitted. All documents, claims and finance records are fictional demo data.

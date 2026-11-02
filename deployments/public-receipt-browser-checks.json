@@ -1,0 +1,314 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-02T14:53:59.622Z",
+  "checks": [
+    {
+      "page": "home",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "status": "passed"
+    },
+    {
+      "page": "home",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "status": "passed"
+    },
+    {
+      "page": "direct receipt check",
+      "job_id": "sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "status": "passed",
+      "report": {
+        "schema": "sealwork.public-receipt-check.v1",
+        "checked_at": "2026-11-02T14:53:57.208Z",
+        "contract_id": "market.sealwork-ai.testnet",
+        "job_id": "sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+        "block_hash": "5hY5G6xW6Tr4Hc5D3hgW2kaJPrVDccFnVymWVA6GyqSm",
+        "block_height": 275913921,
+        "outcome": "accepted",
+        "settlement": "paid",
+        "checks": [
+          {
+            "id": "identity",
+            "label": "The requested job exists on NEAR",
+            "passed": true,
+            "detail": "sw_ff38ff3fb1bffdbe977722e432bfc5e2"
+          },
+          {
+            "id": "fingerprints",
+            "label": "Worker, verifier and input fingerprints are valid",
+            "passed": true,
+            "detail": "Each fingerprint must be a 64-character SHA-256 value."
+          },
+          {
+            "id": "registered_build",
+            "label": "The worker matches its registered provider",
+            "passed": true,
+            "detail": "Read from the same NEAR block as the job."
+          },
+          {
+            "id": "pinned_verifier",
+            "label": "The job uses the contract\u2019s pinned verifier",
+            "passed": true,
+            "detail": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78"
+          },
+          {
+            "id": "final_outcome",
+            "label": "A permanent outcome has been recorded",
+            "passed": true,
+            "detail": "Outcome: accepted."
+          },
+          {
+            "id": "acceptance",
+            "label": "The recorded checks agree with the outcome",
+            "passed": true,
+            "detail": "Acceptance requires all six checks; rejection requires at least one failed check. This reads the recorded checks; it does not rerun private computation."
+          },
+          {
+            "id": "settlement",
+            "label": "The transfer finished for the correct recipient",
+            "passed": true,
+            "detail": "paid \u2192 archivist.sealwork-ai.testnet."
+          },
+          {
+            "id": "amount",
+            "label": "The settled amount covers the reserved worker budget",
+            "passed": true,
+            "detail": "Worker budget plus any unspent reserved compute; consumed execution and storage costs are separate."
+          },
+          {
+            "id": "deadline",
+            "label": "The outcome agrees with the deadline rule",
+            "passed": true,
+            "detail": "A timeout must occur after expiry; accepted or rejected delivery must be decided before it."
+          },
+          {
+            "id": "result_binding",
+            "label": "Accepted or rejected work has a committed encrypted result",
+            "passed": true,
+            "detail": "Public commitments identify the result without exposing the report."
+          },
+          {
+            "id": "worker_bytes",
+            "label": "The downloaded worker code matches its fingerprint",
+            "passed": true,
+            "detail": "Downloaded SHA-256 matches cc21a3926edbeeab16daa59bc07685f7ee576a04987a387a4f2c43eca776b06f."
+          },
+          {
+            "id": "verifier_bytes",
+            "label": "The downloaded verifier code matches its fingerprint",
+            "passed": true,
+            "detail": "Downloaded SHA-256 matches acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78."
+          }
+        ],
+        "passed": true,
+        "scope": "Direct final NEAR reads and downloaded executable SHA-256 checks. Recorded acceptance is inspected, not privately recomputed. Hardware quotes require separate OutLayer verification. RPC, published code and contract upgrade authority remain trust dependencies.",
+        "hardware_quote_verified": false,
+        "private_result_recomputed": false
+      }
+    },
+    {
+      "page": "direct receipt check",
+      "job_id": "sw_cd527cf5498aca5edb472294ca72ade1",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "status": "passed",
+      "report": {
+        "schema": "sealwork.public-receipt-check.v1",
+        "checked_at": "2026-11-02T14:53:58.226Z",
+        "contract_id": "market.sealwork-ai.testnet",
+        "job_id": "sw_cd527cf5498aca5edb472294ca72ade1",
+        "block_hash": "3cfMjAvv574r2c9S8Mdn8pvESM7CLABLYpKUKp2HJWgj",
+        "block_height": 275913922,
+        "outcome": "rejected",
+        "settlement": "refunded",
+        "checks": [
+          {
+            "id": "identity",
+            "label": "The requested job exists on NEAR",
+            "passed": true,
+            "detail": "sw_cd527cf5498aca5edb472294ca72ade1"
+          },
+          {
+            "id": "fingerprints",
+            "label": "Worker, verifier and input fingerprints are valid",
+            "passed": true,
+            "detail": "Each fingerprint must be a 64-character SHA-256 value."
+          },
+          {
+            "id": "registered_build",
+            "label": "The worker matches its registered provider",
+            "passed": true,
+            "detail": "Read from the same NEAR block as the job."
+          },
+          {
+            "id": "pinned_verifier",
+            "label": "The job uses the contract\u2019s pinned verifier",
+            "passed": true,
+            "detail": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78"
+          },
+          {
+            "id": "final_outcome",
+            "label": "A permanent outcome has been recorded",
+            "passed": true,
+            "detail": "Outcome: rejected."
+          },
+          {
+            "id": "acceptance",
+            "label": "The recorded checks agree with the outcome",
+            "passed": true,
+            "detail": "Acceptance requires all six checks; rejection requires at least one failed check. This reads the recorded checks; it does not rerun private computation."
+          },
+          {
+            "id": "settlement",
+            "label": "The transfer finished for the correct recipient",
+            "passed": true,
+            "detail": "refunded \u2192 buyer.sealwork-ai.testnet."
+          },
+          {
+            "id": "amount",
+            "label": "The settled amount covers the reserved worker budget",
+            "passed": true,
+            "detail": "Worker budget plus any unspent reserved compute; consumed execution and storage costs are separate."
+          },
+          {
+            "id": "deadline",
+            "label": "The outcome agrees with the deadline rule",
+            "passed": true,
+            "detail": "A timeout must occur after expiry; accepted or rejected delivery must be decided before it."
+          },
+          {
+            "id": "result_binding",
+            "label": "Accepted or rejected work has a committed encrypted result",
+            "passed": true,
+            "detail": "Public commitments identify the result without exposing the report."
+          },
+          {
+            "id": "worker_bytes",
+            "label": "The downloaded worker code matches its fingerprint",
+            "passed": true,
+            "detail": "Downloaded SHA-256 matches ace1dbd7f5995d8825ef2660ac2fa848575a1850bf7ee1d134c709568c5ab7ac."
+          },
+          {
+            "id": "verifier_bytes",
+            "label": "The downloaded verifier code matches its fingerprint",
+            "passed": true,
+            "detail": "Downloaded SHA-256 matches acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78."
+          }
+        ],
+        "passed": true,
+        "scope": "Direct final NEAR reads and downloaded executable SHA-256 checks. Recorded acceptance is inspected, not privately recomputed. Hardware quotes require separate OutLayer verification. RPC, published code and contract upgrade authority remain trust dependencies.",
+        "hardware_quote_verified": false,
+        "private_result_recomputed": false
+      }
+    },
+    {
+      "page": "direct receipt check",
+      "job_id": "sw_23a46154077f9c6cfc1c3a8fc930f76f",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "status": "passed",
+      "report": {
+        "schema": "sealwork.public-receipt-check.v1",
+        "checked_at": "2026-11-02T14:53:59.231Z",
+        "contract_id": "market.sealwork-ai.testnet",
+        "job_id": "sw_23a46154077f9c6cfc1c3a8fc930f76f",
+        "block_hash": "FAJma8RSLPQFcz7jTurEEc4s71kTsXtt2ZtyEBmpwjhx",
+        "block_height": 275913924,
+        "outcome": "timed_out",
+        "settlement": "refunded",
+        "checks": [
+          {
+            "id": "identity",
+            "label": "The requested job exists on NEAR",
+            "passed": true,
+            "detail": "sw_23a46154077f9c6cfc1c3a8fc930f76f"
+          },
+          {
+            "id": "fingerprints",
+            "label": "Worker, verifier and input fingerprints are valid",
+            "passed": true,
+            "detail": "Each fingerprint must be a 64-character SHA-256 value."
+          },
+          {
+            "id": "registered_build",
+            "label": "The worker matches its registered provider",
+            "passed": true,
+            "detail": "Read from the same NEAR block as the job."
+          },
+          {
+            "id": "pinned_verifier",
+            "label": "The job uses the contract\u2019s pinned verifier",
+            "passed": true,
+            "detail": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78"
+          },
+          {
+            "id": "final_outcome",
+            "label": "A permanent outcome has been recorded",
+            "passed": true,
+            "detail": "Outcome: timed_out."
+          },
+          {
+            "id": "acceptance",
+            "label": "The recorded checks agree with the outcome",
+            "passed": true,
+            "detail": "Acceptance requires all six checks; rejection requires at least one failed check. This reads the recorded checks; it does not rerun private computation."
+          },
+          {
+            "id": "settlement",
+            "label": "The transfer finished for the correct recipient",
+            "passed": true,
+            "detail": "refunded \u2192 buyer.sealwork-ai.testnet."
+          },
+          {
+            "id": "amount",
+            "label": "The settled amount covers the reserved worker budget",
+            "passed": true,
+            "detail": "Worker budget plus any unspent reserved compute; consumed execution and storage costs are separate."
+          },
+          {
+            "id": "deadline",
+            "label": "The outcome agrees with the deadline rule",
+            "passed": true,
+            "detail": "A timeout must occur after expiry; accepted or rejected delivery must be decided before it."
+          },
+          {
+            "id": "result_binding",
+            "label": "Accepted or rejected work has a committed encrypted result",
+            "passed": true,
+            "detail": "Public commitments identify the result without exposing the report."
+          },
+          {
+            "id": "worker_bytes",
+            "label": "The downloaded worker code matches its fingerprint",
+            "passed": true,
+            "detail": "Downloaded SHA-256 matches d974dcafc92bee37506e78e6713f4c9c9397f35fd1233226148ff77971700e2b."
+          },
+          {
+            "id": "verifier_bytes",
+            "label": "The downloaded verifier code matches its fingerprint",
+            "passed": true,
+            "detail": "Downloaded SHA-256 matches acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78."
+          }
+        ],
+        "passed": true,
+        "scope": "Direct final NEAR reads and downloaded executable SHA-256 checks. Recorded acceptance is inspected, not privately recomputed. Hardware quotes require separate OutLayer verification. RPC, published code and contract upgrade authority remain trust dependencies.",
+        "hardware_quote_verified": false,
+        "private_result_recomputed": false
+      }
+    }
+  ],
+  "browser_errors": []
+}

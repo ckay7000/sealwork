@@ -1,0 +1,95 @@
+{
+  "schema": "sealwork.continuous-demo.v1",
+  "scenario": "accepted",
+  "capture_report": "deployments/continuous-accepted-capture.json",
+  "job_id": "sw_0d581be7aa22c51183f620896a188c16",
+  "duration_seconds": 109.08,
+  "width": 1280,
+  "height": 800,
+  "video_processing": "Continuous input video transcoded to H264; no cuts, speed changes or skipped waits. Local synthetic narration added. Explanatory overlay was present during capture.",
+  "source_webm_sha256": "45eac366b821e35f6e11a7347994f34dc8362b1d99a1b55afa4fd64cb8dcbd47",
+  "file": "public/media/sealwork-live-paid.mp4",
+  "sha256": "604619a76d989140c8a0f837b0b9fc84d4a89bc630155622148b5bce20add6cb",
+  "bytes": 3032305,
+  "narration": {
+    "model": "Kokoro-82M v1.0",
+    "voice": "af_heart",
+    "captions": [
+      {
+        "start": 0.921,
+        "end": 3.5236666666666663,
+        "text": "A nine hundred dollar payment. Two invoices."
+      },
+      {
+        "start": 6.779,
+        "end": 9.765666666666666,
+        "text": "The hiring agent recommends. I approve the spending."
+      },
+      {
+        "start": 13.856,
+        "end": 15.349333333333334,
+        "text": "One exact worker build."
+      },
+      {
+        "start": 17.421,
+        "end": 20.919666666666664,
+        "text": "Private A. I. proposes matches from encrypted records."
+      },
+      {
+        "start": 28.299,
+        "end": 32.971,
+        "text": "Nine hundred matches five hundred plus four hundred. Ambiguity stays open."
+      },
+      {
+        "start": 33.44,
+        "end": 34.63466666666667,
+        "text": "I approve the rules."
+      },
+      {
+        "start": 36.982,
+        "end": 42.87,
+        "text": "The fee is zero point zero five testnet Near. It pays for processing, not a bank transfer."
+      },
+      {
+        "start": 49.317,
+        "end": 55.269,
+        "text": "The new job is funded. Both executions run privately. This recording includes the real wait."
+      },
+      {
+        "start": 70.136,
+        "end": 73.29333333333332,
+        "text": "The separate checker passed the report. Near paid the worker."
+      },
+      {
+        "start": 75.259,
+        "end": 78.03233333333333,
+        "text": "The checked report keeps the uncertain payment open."
+      },
+      {
+        "start": 81.001,
+        "end": 84.35033333333334,
+        "text": "Without the private key, this page shows encrypted delivery."
+      },
+      {
+        "start": 85.216,
+        "end": 88.26666666666667,
+        "text": "The recovery file restores access. Keep it private."
+      },
+      {
+        "start": 89.34,
+        "end": 91.132,
+        "text": "Now check directly against Near."
+      },
+      {
+        "start": 92.884,
+        "end": 95.67866666666667,
+        "text": "The outcome, recipient and downloaded code match."
+      },
+      {
+        "start": 99.465,
+        "end": 106.22766666666666,
+        "text": "This checks public consistency. Full hardware verification and invoice authenticity remain separate checks."
+      }
+    ]
+  }
+}

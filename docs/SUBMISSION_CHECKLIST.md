@@ -5,7 +5,8 @@ Deadline: **November 14, 2026, 23:59 UTC**. Use the [official form](https://near
 ## Prepared project material
 
 - Public repository, understandable README, use cases, development instructions and license.
-- Live testnet application and narrated practical demo, with captions, transcript and source evidence.
+- Live testnet application, explained overview and separate fresh uninterrupted paid/refund recordings, with captions and source evidence.
+- Direct NEAR receipt checker with altered-record/code tests, plus a neutral bookkeeper test worksheet. Independent bookkeeper feedback remains uncollected.
 - Independent-project and AI/library reuse disclosures.
 - Proposed tracks: `privacy`, `agents`, `security`; these still need your final choice.
 

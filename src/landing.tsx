@@ -21,6 +21,12 @@ import { shortHash } from "../shared/format";
 export function Landing() {
   const [accepted, setAccepted] = useState(true);
   const [watch, setWatch] = useState(false);
+  const [videoChoice, setVideoChoice] = useState('sealwork-hackathon-demo');
+  const videoChoices = [
+    { id: 'sealwork-hackathon-demo', label: 'Explained overview' },
+    { id: 'sealwork-live-paid', label: 'Fresh paid job' },
+    { id: 'sealwork-live-refund', label: 'Fresh refund' },
+  ];
   const { builds, config, jobs } = useData();
   const stable = builds.find(
     (build) => build.agent_id === "ledgerline" && build.version.endsWith(".0"),
@@ -62,31 +68,10 @@ export function Landing() {
           <div className="hero-copy">
             <div className="hero-eyebrow">
               <span className="live-dot" />
-              PRIVATE AGENT WORK, VERIFIED ON NEAR
+              PRIVATE FINANCIAL AGENT WORK
             </div>
-            <h1>
-              Private work.
-              <br />
-              Public{" "}
-              <span className="proof-word">
-                proof
-                <svg viewBox="0 0 270 18" aria-hidden="true">
-                  <path
-                    d="M3 12C70 2 181 1 266 8"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-              .
-            </h1>
-            <p className="hero-description">
-              Match bank payments to invoices with private AI. Review uncertain
-              matches, keep your records encrypted, and pay the report worker
-              after independent checks. Every build earns its own history.
-            </p>
+            <h1>Proof before<br/><span className="proof-word">payment<svg viewBox="0 0 270 18" aria-hidden="true"><path d="M3 12C70 2 181 1 266 8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/></svg></span>.</h1>
+            <p className="hero-description">Match bank payments to invoices while keeping your files private. A separate verifier checks the report. Correct work gets paid; failed work returns the worker’s budget.</p>
             <div className="hero-buttons">
               <Link to={bankReady ? "/new?task=bank&mode=agent" : config?.planner?.ready ? "/new?mode=agent" : "/new"} className="button primary hero-button">
                 {bankReady ? "Try private bank matching" : config?.planner?.ready ? "Try safe agent hiring" : "Try a private job"} <ArrowUpRight size={19} />
@@ -357,20 +342,19 @@ export function Landing() {
             <div className="example-sheet">
               <div className="example-sheet-heading">
                 <FileText size={18} />
-                <span>Invoice reconciliation</span>
+                <span>Private bank matching</span>
                 <Pill tone="green">First workflow</Pill>
               </div>
               <div className="example-table">
                 <div className="example-table-head">
-                  <span>Invoice</span>
-                  <span>Ledger status</span>
+                  <span>Bank record</span>
+                  <span>Checked proposal</span>
                 </div>
                 {[
-                  ["INV-1041", "Matched"],
-                  ["INV-1042", "Matched"],
-                  ["INV-1043", "Matched"],
-                  ["INV-1044", "Mismatch"],
-                  ["INV-1045", "Unpaid"],
+                  ["$900 combined payment", "$500 + $400"],
+                  ["$250 ambiguous payment", "Needs review"],
+                  ["$125 payment", "Matched"],
+                  ["$99 unknown payment", "Unallocated"],
                 ].map(([id, status]) => (
                   <div key={id}>
                     <code>{id}</code>
@@ -405,22 +389,18 @@ export function Landing() {
           <div className="example-copy">
             <p className="eyebrow">START WITH SOMETHING CONCRETE</p>
             <h2>
-              Reconcile the records.
+              One payment. Two invoices.
               <br />
-              Verify the delivery.
+              No forced guesses.
             </h2>
             <p>
-              Give an agent confidential invoices and a payment ledger. Get a
-              structured report that identifies matched, unpaid, and mismatched
-              records.
+              A $900 payment covers $500 and $400 invoices. The private AI proposes that match and leaves an ambiguous $250 payment open for review. You approve the proposal before the report-processing fee is reserved.
             </p>
             <p>
-              The independent verifier checks six precise rules, including
-              whether the encrypted delivery contains the same result it
-              approved.
+              A separate verifier checks the original records, allocation and encrypted report before payment. The dollar amounts are fictional bank data; the worker fee is separate testnet NEAR.
             </p>
-            <Link to="/new" className="button primary">
-              Try the sample files <ChevronRight size={16} />
+            <Link to="/new?task=bank&mode=agent" className="button primary">
+              Try the bank example <ChevronRight size={16} />
             </Link>
           </div>
         </section>
@@ -478,11 +458,15 @@ export function Landing() {
             <div><strong>Sealwork · Private work. Proof before payment.</strong>
               <button type="button" className="icon-button" aria-label="Close demo video" autoFocus onClick={() => setWatch(false)}><X size={20} /></button>
             </div>
-            <video controls autoPlay playsInline poster="/media/sealwork-hackathon-demo-poster.jpg">
-              <source src="/media/sealwork-hackathon-demo.mp4" type="video/mp4" />
-              <track kind="captions" src="/media/sealwork-hackathon-demo.vtt" srcLang="en" label="English" />
+            <div className="demo-video-choices" role="group" aria-label="Choose a demo recording">
+              {videoChoices.map(choice => <button key={choice.id} className={`button small ${videoChoice === choice.id ? 'primary' : 'secondary'}`} aria-pressed={videoChoice === choice.id} onClick={() => setVideoChoice(choice.id)}>{choice.label}</button>)}
+            </div>
+            <p className="demo-recording-note">{videoChoice === 'sealwork-hackathon-demo' ? 'Edited, narrated walkthrough using genuine hosted screenshots.' : 'Uninterrupted screen recording of a fresh testnet job. Real waits included; narration added.'}</p>
+            <video key={videoChoice} controls autoPlay playsInline poster={`/media/${videoChoice}-poster.jpg`}>
+              <source src={`/media/${videoChoice}.mp4`} type="video/mp4" />
+              <track kind="captions" src={`/media/${videoChoice}.vtt`} srcLang="en" label="English" />
             </video>
-            <a className="text-link" href="/media/sealwork-hackathon-demo.mp4" download>Download the demo video <ArrowUpRight size={13} /></a>
+            <a className="text-link" href={`/media/${videoChoice}.mp4`} download>Download this recording <ArrowUpRight size={13} /></a>
           </div>
         </div>
       )}
