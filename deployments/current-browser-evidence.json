@@ -179,6 +179,30 @@
           "file": "docs/current-captures/layout-320-bank.jpg"
         }
       ]
+    },
+    {
+      "status": "passed",
+      "project": "Sealwork Next",
+      "scenario": "timeout",
+      "checked_at": "2026-11-03T09:19:34.815Z",
+      "evidence": [
+        {
+          "job_id": "sw_7414b418fe7573e983807983f900ab47",
+          "outcome": "timed_out",
+          "settlement": "refunded",
+          "receipt_url": "https://sealwork-next.vercel.app/jobs/sw_7414b418fe7573e983807983f900ab47"
+        }
+      ],
+      "browser_errors": [],
+      "shots": [
+        {
+          "name": "outcome-timeout",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/jobs/sw_7414b418fe7573e983807983f900ab47",
+          "captured_at": "2026-11-03T09:19:34.813Z",
+          "file": "docs/current-captures/timeout-outcome-timeout.jpg"
+        }
+      ]
     }
   ]
 }

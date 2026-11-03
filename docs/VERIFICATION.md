@@ -12,6 +12,8 @@ Observed November 3, 2026. Tests are implementation evidence, not a security aud
 - A fresh deliberately faulty worker was [rejected and refunded](https://sealwork-next.vercel.app/jobs/sw_e86fb3a2d9e154854be2fb07ced52b66).
 - The interrupted first job was [expired and refunded](https://sealwork-next.vercel.app/jobs/sw_0539cd8e51f1ef265868525e94721a69). It consumed an admitted worker execution; refund covers the worker fee and the unused reserved verifier compute. OutLayer separately returns unused admitted compute to its payer.
 
+- A fresh hosted timeout workflow clicked **Request deadline refund** and confirmed [expired and refunded](https://sealwork-next.vercel.app/jobs/sw_7414b418fe7573e983807983f900ab47), with no browser page errors.
+
 ## Gas-budget correction found by the hosted test
 
 The first new bank job's worker completed successfully, but the `on_agent_result` callback exceeded prepaid gas while scheduling the verifier for the larger result. Transaction: [`428psBjA1pVvpY17JPfGhJwqVR1YzE2ykaD7vaUxQmre`](https://testnet.nearblocks.io/txns/428psBjA1pVvpY17JPfGhJwqVR1YzE2ykaD7vaUxQmre). The new deployment now allocates **80 Tgas to each OutLayer request and 200 Tgas to the agent-result callback**, preserving space for the verifier call under NEAR's transaction ceiling.
