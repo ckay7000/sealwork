@@ -1,0 +1,98 @@
+{
+  "schema": "sealwork.public-fictional-bank-example.v1",
+  "example_uses_fictional_data": true,
+  "model_evidence": {
+    "model": "z-ai/glm-5.3-flash",
+    "response_id": "c9d8150733214e9494fd522f5a0ddec2",
+    "request_hash": "4a69f5cb3cb4a1fdf329a03d1675217330d75dc53f6d26c7da7a8806d205e60a",
+    "response_hash": "d18adb7d1bf2164c9a1564679fdbd8a185dab296c0b12b0b10d9710bb5dabe62",
+    "prompt_hash": "5eafa20c3b7616bc1fc3d8c03b5d71a477b2dcf8db169f0b1e1d6ed69eb617fb",
+    "quote_hash": "fc51687dfbc29cb2a30be08765320275330cd84ce71cbdd98c7174b4ad02c602",
+    "config_hash": "5f7ebd85cf1f480a118f75dd10fd0cb277e4ddbb23845f1c20d8ea0f1e87efa6",
+    "signer": "5a0210f2442c79355784f9de021985429561da5bacc3a4424b01ac52b7e0caff",
+    "signature": "261d3723148cdc4b728a4d0a9c5764e73a3422b3afceb4a1a9474a8d0adc7c7e494b6daa5dfe966033bef7d526dd5121c0347578ccf677d4bdb9c640e31fc701",
+    "signature_text": "z-ai/glm-5.3-flash:4a69f5cb3cb4a1fdf329a03d1675217330d75dc53f6d26c7da7a8806d205e60a:d18adb7d1bf2164c9a1564679fdbd8a185dab296c0b12b0b10d9710bb5dabe62",
+    "signature_kind": "provider_tee",
+    "verified_at": "2026-10-31T19:04:32.364Z",
+    "instance_binding": false
+  },
+  "proposal": {
+    "decisions": [
+      {
+        "payment_id": "PAY-01",
+        "status": "proposed",
+        "allocations": [
+          {
+            "invoice_id": "NS-APR-1",
+            "amount_minor": 50000
+          },
+          {
+            "invoice_id": "NS-APR-2",
+            "amount_minor": 40000
+          }
+        ],
+        "evidence": "Northstar Studio April settlement",
+        "rationale": "Payment of 900.00 USD matches Northstar Studio's April invoices NS-APR-1 (500.00) and NS-APR-2 (400.00) exactly."
+      },
+      {
+        "payment_id": "PAY-02",
+        "status": "review",
+        "allocations": [],
+        "evidence": "Fern Cafe settlement no invoice reference",
+        "rationale": "Two equally plausible Fern Cafe invoices of 250.00 USD each; cannot determine which one this payment covers."
+      },
+      {
+        "payment_id": "PAY-03",
+        "status": "proposed",
+        "allocations": [
+          {
+            "invoice_id": "PP-FEB",
+            "amount_minor": 12500
+          }
+        ],
+        "evidence": "Paper Plane February retainer",
+        "rationale": "Payment of 125.00 USD matches Paper Plane invoice PP-FEB (125.00 USD); February aligns with the invoice reference."
+      },
+      {
+        "payment_id": "PAY-04",
+        "status": "unmatched",
+        "allocations": [],
+        "evidence": "",
+        "rationale": "No invoice corresponds to this unrecognized 99.00 USD subscription."
+      }
+    ]
+  },
+  "success": true,
+  "checked_at": "2026-10-31T19:05:53.493Z",
+  "contract_id": "market.sealwork-ai.testnet",
+  "cases": [
+    {
+      "job_id": "sw_61d5c23989d10f9d1c7271265fc329ad",
+      "outcome": "accepted",
+      "settlement": "paid",
+      "receipt_url": "https://sealwork.vercel.app/jobs/sw_61d5c23989d10f9d1c7271265fc329ad"
+    },
+    {
+      "kind": "faulty",
+      "job_id": "sw_cd527cf5498aca5edb472294ca72ade1",
+      "outcome": "rejected",
+      "settlement": "refunded",
+      "receipt_url": "https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1"
+    },
+    {
+      "kind": "invalid-allocation",
+      "job_id": "sw_105b376d09fc4c79f17f115b0c1b9ed0",
+      "outcome": "execution_error",
+      "settlement": "refunded",
+      "receipt_url": "https://sealwork.vercel.app/jobs/sw_105b376d09fc4c79f17f115b0c1b9ed0"
+    }
+  ],
+  "encrypted_inference": true,
+  "model_signature_verified": true,
+  "independent_bank_checks": true,
+  "ambiguity_preserved": true,
+  "private_recovery_verified": true,
+  "public_receipt_excludes_plaintext": true,
+  "desktop_and_mobile_checked": true,
+  "page_errors": []
+}

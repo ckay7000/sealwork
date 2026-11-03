@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-02T15:04:15.558Z",
+  "checks": [
+    {
+      "project": "facet",
+      "status": "passed",
+      "duration": 128.797,
+      "time": 1.042517,
+      "width": 1920,
+      "height": 1080,
+      "source": "https://facet-near.vercel.app/media/facet-demo.mp4",
+      "error": null,
+      "mobile_width": 390,
+      "browser_errors": []
+    },
+    {
+      "project": "sealwork",
+      "status": "passed",
+      "duration": 137.245,
+      "time": 4.061189,
+      "width": 1920,
+      "height": 1080,
+      "source": "https://sealwork.vercel.app/media/sealwork-hackathon-demo.mp4",
+      "error": null,
+      "mobile_width": 390,
+      "browser_errors": []
+    },
+    {
+      "project": "sealwork",
+      "recording": "Fresh paid job",
+      "status": "passed",
+      "mobile_width": 390,
+      "duration": 109.08,
+      "time": 1.51879,
+      "width": 1280,
+      "height": 800,
+      "source": "https://sealwork.vercel.app/media/sealwork-live-paid.mp4",
+      "error": null
+    },
+    {
+      "project": "sealwork",
+      "recording": "Fresh refund",
+      "status": "passed",
+      "mobile_width": 390,
+      "duration": 75.04,
+      "time": 1.364677,
+      "width": 1280,
+      "height": 800,
+      "source": "https://sealwork.vercel.app/media/sealwork-live-refund.mp4",
+      "error": null
+    }
+  ]
+}

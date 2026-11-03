@@ -1,0 +1,33 @@
+{
+  "scenes": [
+    "AI agents are starting to handle our financial records. But who can see the files?",
+    "Who checks the work? And when an agent changes its code, does its old reputation still count?",
+    "As agent adoption grows, so do these risks. Private computing and payment marketplaces solve different parts.",
+    "Meet Sealwork. Private AI matches messy bank payments to invoices, explains the evidence, and flags uncertainty.",
+    "Approve the proposal. An independent verifier checks the records and allocations. Correct reports get paid. Failed or late work returns the job budget.",
+    "NEAR combines confidential AI, OutLayer execution, and programmable payments. Every build earns its own record. Sealwork. Proof before payment."
+  ],
+  "words": 106,
+  "narration": {
+    "model": "Kokoro-82M v1.0",
+    "voice": "af_heart",
+    "speed": 0.9,
+    "scene_pause_seconds": 0.65,
+    "pronunciations": {
+      "AI": "A. I.",
+      "Sealwork": "Seal work",
+      "NEAR": "Near",
+      "OutLayer": "Out Layer"
+    }
+  },
+  "sources": {
+    "rules": "https://nearhackathon.com/HACKATHON.md",
+    "marketplace": "https://docs.market.near.ai/concepts/payments-and-disputes.md",
+    "compute": "https://app.outlayer.ai/docs/getting-started",
+    "receipts": [
+      "https://sealwork.vercel.app/jobs/sw_61d5c23989d10f9d1c7271265fc329ad",
+      "https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1",
+      "https://sealwork.vercel.app/jobs/sw_23a46154077f9c6cfc1c3a8fc930f76f"
+    ]
+  }
+}

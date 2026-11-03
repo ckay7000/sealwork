@@ -1,0 +1,65 @@
+{
+  "schema": "sealwork.continuous-demo.v1",
+  "scenario": "rejected",
+  "capture_report": "deployments/continuous-rejected-capture.json",
+  "job_id": "sw_aa52b5907359ecd885e1a239a87ace6b",
+  "duration_seconds": 75.04,
+  "width": 1280,
+  "height": 800,
+  "video_processing": "Continuous input video transcoded to H264; no cuts, speed changes or skipped waits. Local synthetic narration added. Explanatory overlay was present during capture.",
+  "source_webm_sha256": "2d15cccd0352b2b174aecee85c9626d1ccff42a7bb100883227ab3022fbdd4f5",
+  "file": "public/media/sealwork-live-refund.mp4",
+  "sha256": "6dfbb8ec1e4d79196fad5932e7363607412cb97274153fb12eaead5fb59e305a",
+  "bytes": 1883534,
+  "narration": {
+    "model": "Kokoro-82M v1.0",
+    "voice": "af_heart",
+    "captions": [
+      {
+        "start": 0.941,
+        "end": 3.949,
+        "text": "This fresh job hires a deliberately faulty worker."
+      },
+      {
+        "start": 6.959,
+        "end": 9.007,
+        "text": "This faulty version corrupts a result."
+      },
+      {
+        "start": 11.127,
+        "end": 15.841666666666669,
+        "text": "The budget is reserved under independent checks. Failed work must not be paid."
+      },
+      {
+        "start": 24.843,
+        "end": 30.795,
+        "text": "The new job is funded. Both executions run privately. This recording includes the real wait."
+      },
+      {
+        "start": 45.596,
+        "end": 49.00933333333333,
+        "text": "The checker rejected the result. The budget was refunded."
+      },
+      {
+        "start": 50.695,
+        "end": 53.297666666666665,
+        "text": "This is the refund for the job just created."
+      },
+      {
+        "start": 55.789,
+        "end": 57.367666666666665,
+        "text": "Check directly against Near."
+      },
+      {
+        "start": 58.826,
+        "end": 61.620666666666665,
+        "text": "The outcome, recipient and downloaded code match."
+      },
+      {
+        "start": 65.502,
+        "end": 72.26466666666666,
+        "text": "This checks public consistency. Full hardware verification and invoice authenticity remain separate checks."
+      }
+    ]
+  }
+}

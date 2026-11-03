@@ -1,0 +1,17 @@
+.local
+.env
+.env.*
+!.env.example
+.git
+**/node_modules
+**/target
+**/build
+reports
+public/diagnostics
+test-results
+playwright-report
+*.log
+*.key
+*.pem
+*credentials*.json
+*keypair*.json

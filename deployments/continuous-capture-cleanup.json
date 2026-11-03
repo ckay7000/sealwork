@@ -1,0 +1,12 @@
+{
+  "status": "removed",
+  "project": "near-hackathon-capture",
+  "deployments": [
+    "dpl_42H3jkHpomot7wkMkfyQvx7Hw1Hm",
+    "dpl_BDZ52LDmKqFMQLiHpZ5J15awbBB9",
+    "dpl_BAiAqJQg5DRnvbqNLNQ7DfrjAxrH",
+    "dpl_GL3CbiNMLVHJfP7D4V7VfjUZsPsA"
+  ],
+  "credential_removed_with_project": true,
+  "checked_at": "2026-11-02T15:04:47.385Z"
+}

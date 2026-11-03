@@ -1,0 +1,186 @@
+{
+  "status": "passed",
+  "project": "Sealwork",
+  "source": "Actual hosted UI captures, edited into a narrated walkthrough",
+  "fictional_data": true,
+  "private_recovery_excluded": true,
+  "paid_live_bank_workflow": true,
+  "live_private_ai": true,
+  "checked_at": "2026-11-02T11:57:07.669Z",
+  "evidence": [
+    {
+      "name": "new accepted bank job",
+      "receipt_url": "https://sealwork.vercel.app/jobs/sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+      "job_id": "sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+      "build_hash": "cc21a3926edbeeab16daa59bc07685f7ee576a04987a387a4f2c43eca776b06f",
+      "verifier_hash": "acdf1a8c39fe9574b31d79c600c14026605c6e22dc2b1fcd6de8a2a133599a78",
+      "outcome": "accepted",
+      "settlement": "paid"
+    },
+    {
+      "name": "earlier deliberately faulty build example",
+      "receipt_url": "https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1",
+      "originally_verified_at": "2026-10-31",
+      "captured_as_existing_example": true
+    }
+  ],
+  "browser_errors": [],
+  "shots": [
+    {
+      "name": "01-bank-job",
+      "focus": {
+        "x": 257,
+        "y": 260.234375,
+        "width": 826,
+        "height": 447.578125
+      },
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent",
+      "captured_at": "2026-11-02T11:56:11.746Z",
+      "file": "docs/demo-captures/01-bank-job.jpg",
+      "sha256": "96aefafd95537faefedec97eaec94922aa7e7d1588d353df90b3c0d5d91f6f5d"
+    },
+    {
+      "name": "02-hiring-decision",
+      "focus": {
+        "x": 302,
+        "y": 643.015625,
+        "width": 736,
+        "height": 177.1875
+      },
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent",
+      "captured_at": "2026-11-02T11:56:17.339Z",
+      "file": "docs/demo-captures/02-hiring-decision.jpg",
+      "sha256": "f827363a369e81c99a7885615dd25b8d2a93658be1b3bc5264ae98e85a923f19"
+    },
+    {
+      "name": "03-private-records",
+      "focus": {
+        "x": 282,
+        "y": 398.1875,
+        "width": 776,
+        "height": 202.75
+      },
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent",
+      "captured_at": "2026-11-02T11:56:17.779Z",
+      "file": "docs/demo-captures/03-private-records.jpg",
+      "sha256": "79250eaf449b4d785f7f9efa43ad5dbe1a918c4a99df92f3ce6d2bd4d04ca4d9"
+    },
+    {
+      "name": "04-ai-bank-proposal",
+      "focus": {
+        "x": 302,
+        "y": 190.984375,
+        "width": 736,
+        "height": 618.3125
+      },
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent",
+      "captured_at": "2026-11-02T11:56:26.362Z",
+      "file": "docs/demo-captures/04-ai-bank-proposal.jpg",
+      "sha256": "5f499fc5e17728b881b478776bc5315ffc40b116bda2fc49c2e9bc225f3c32a1"
+    },
+    {
+      "name": "05-acceptance-rules",
+      "focus": {
+        "x": 282,
+        "y": 470.875,
+        "width": 776,
+        "height": 332.84375
+      },
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent",
+      "captured_at": "2026-11-02T11:56:26.722Z",
+      "file": "docs/demo-captures/05-acceptance-rules.jpg",
+      "sha256": "14039d5c3c365c9a0fc2744aa042cb2ceb5c038e93f3184d1eb2ae1e97a5a5ea"
+    },
+    {
+      "name": "06-job-budget",
+      "focus": {
+        "x": 1105,
+        "y": 22,
+        "width": 300,
+        "height": 659.703125
+      },
+      "url": "https://sealwork.vercel.app/new?task=bank&mode=agent",
+      "captured_at": "2026-11-02T11:56:26.909Z",
+      "file": "docs/demo-captures/06-job-budget.jpg",
+      "sha256": "14039d5c3c365c9a0fc2744aa042cb2ceb5c038e93f3184d1eb2ae1e97a5a5ea"
+    },
+    {
+      "name": "07-paid-receipt",
+      "focus": {
+        "x": 257,
+        "y": 140,
+        "width": 1148,
+        "height": 91.234375
+      },
+      "url": "https://sealwork.vercel.app/jobs/sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+      "captured_at": "2026-11-02T11:56:59.665Z",
+      "file": "docs/demo-captures/07-paid-receipt.jpg",
+      "sha256": "4ca5d96fc9f00fbdb127eb6415fd7c95f5745ab54c57bcc1c41a49143764bbcc"
+    },
+    {
+      "name": "08-checked-private-result",
+      "focus": {
+        "x": 258,
+        "y": 191.265625,
+        "width": 850,
+        "height": 618.3125
+      },
+      "url": "https://sealwork.vercel.app/jobs/sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+      "captured_at": "2026-11-02T11:57:00.039Z",
+      "file": "docs/demo-captures/08-checked-private-result.jpg",
+      "sha256": "21e166c916b3eab931588444ef19dcef1fec48d6b7649e41081594d7d6e66b70"
+    },
+    {
+      "name": "09-attestation-checks",
+      "focus": {
+        "x": 299,
+        "y": 651.34375,
+        "width": 359.5,
+        "height": 17
+      },
+      "url": "https://sealwork.vercel.app/jobs/sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+      "captured_at": "2026-11-02T11:57:03.508Z",
+      "file": "docs/demo-captures/09-attestation-checks.jpg",
+      "sha256": "585b4bf6a71f2d066f5fadcc5e81a59e4c65703c000ce178d59e5d1cea7622b9"
+    },
+    {
+      "name": "10-encrypted-public-delivery",
+      "focus": {
+        "x": 258,
+        "y": 379.359375,
+        "width": 850,
+        "height": 240.484375
+      },
+      "url": "https://sealwork.vercel.app/jobs/sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+      "captured_at": "2026-11-02T11:57:05.287Z",
+      "file": "docs/demo-captures/10-encrypted-public-delivery.jpg",
+      "sha256": "9658adbe1a09686d99929cb9b2c18a8142ccf876e80446f8da234a277c6fa901"
+    },
+    {
+      "name": "11-recovered-private-delivery",
+      "focus": {
+        "x": 258,
+        "y": 381.265625,
+        "width": 850,
+        "height": 618.3125
+      },
+      "url": "https://sealwork.vercel.app/jobs/sw_ff38ff3fb1bffdbe977722e432bfc5e2",
+      "captured_at": "2026-11-02T11:57:06.279Z",
+      "file": "docs/demo-captures/11-recovered-private-delivery.jpg",
+      "sha256": "c90aba7f8ed7aa11aa9b4883aa5c3c6fc232d8e0def636d85f9d485f2d7987e9"
+    },
+    {
+      "name": "12-rejected-refunded",
+      "focus": {
+        "x": 258,
+        "y": 921.09375,
+        "width": 850,
+        "height": 79.140625
+      },
+      "url": "https://sealwork.vercel.app/jobs/sw_cd527cf5498aca5edb472294ca72ade1",
+      "captured_at": "2026-11-02T11:57:07.667Z",
+      "file": "docs/demo-captures/12-rejected-refunded.jpg",
+      "sha256": "0bff9470a739efb69dd79e9afbcf50cbfbabd2d77e5fd0e7e602175cd147b30d"
+    }
+  ]
+}

@@ -1,0 +1,1590 @@
+@media (min-width: 1450px) {
+  .marketing-nav,
+  .marketing-hero,
+  .marketing-principles,
+  .marketing-example,
+  .marketing-footer {
+    max-width: 1440px;
+  }
+  .marketing-build-section,
+  .marketing-cta {
+    max-width: 1336px;
+  }
+  .hero-copy h1 {
+    font-size: 96px;
+  }
+  .hero-description {
+    font-size: 17px !important;
+    max-width: 470px;
+  }
+}
+@media (max-width: 1250px) {
+  .marketing-nav {
+    padding-left: 38px;
+    padding-right: 38px;
+  }
+  .marketing-hero {
+    padding-left: 38px;
+    padding-right: 38px;
+    gap: 25px;
+  }
+  .marketing-principles {
+    padding-left: 38px;
+    padding-right: 38px;
+  }
+  .marketing-build-section,
+  .marketing-cta {
+    margin-left: 38px;
+    margin-right: 38px;
+  }
+  .marketing-build-section {
+    padding: 52px 38px;
+    gap: 36px;
+  }
+  .marketing-example {
+    gap: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  .marketing-cta {
+    padding: 45px;
+  }
+  .marketing-footer {
+    padding-left: 38px;
+    padding-right: 38px;
+  }
+  .app-main {
+    padding-left: 27px;
+    padding-right: 27px;
+  }
+  .app-header {
+    padding: 0 27px;
+  }
+  .overview-feature-copy {
+    padding: 27px;
+  }
+  .mini-receipt {
+    width: 265px;
+  }
+  .floating-lock {
+    right: 16px;
+    bottom: 34px;
+  }
+  .new-job-grid {
+    grid-template-columns: minmax(0, 1fr) 280px;
+  }
+  .job-summary-card {
+    padding: 19px;
+  }
+  .agent-card {
+    padding: 18px;
+  }
+  .agent-card-top .pill {
+    font-size: 9px;
+  }
+  .job-detail-grid {
+    grid-template-columns: minmax(0, 1fr) 255px;
+  }
+  .receipt-sidebar .surface {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .job-detail-heading h1 {
+    font-size: 28px;
+  }
+  .job-detail-heading > div:last-child {
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .build-detail-grid {
+    grid-template-columns: minmax(0, 1fr) 250px;
+  }
+  .search-trigger > span {
+    display: none;
+  }
+  .search-trigger kbd {
+    margin-left: 1px;
+  }
+  .header-right {
+    gap: 12px;
+  }
+  .marketing-nav nav {
+    gap: 20px;
+  }
+}
+@media (max-width: 1050px) {
+  .sidebar {
+    width: 198px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .sidebar .brand > span {
+    font-size: 22px;
+  }
+  .nav-item {
+    font-size: 12px;
+    padding-left: 10px;
+    gap: 8px;
+  }
+  .nav-item.active:before {
+    left: -14px;
+  }
+  .app-body {
+    margin-left: 198px;
+  }
+  .app-main {
+    padding: 28px 24px 40px;
+  }
+  .app-header {
+    padding: 0 24px;
+  }
+  .overview-feature {
+    grid-template-columns: 1.25fr 1fr;
+  }
+  .overview-feature-visual {
+    min-height: 260px;
+  }
+  .mini-receipt {
+    width: 240px;
+    padding: 16px;
+    transform: rotate(-5deg) translateX(15px);
+  }
+  .floating-lock {
+    right: 10px;
+    font-size: 9px;
+    padding: 10px;
+  }
+  .overview-feature h2 {
+    font-size: 26px;
+  }
+  .stats-grid {
+    gap: 11px;
+  }
+  .stat-card {
+    padding: 16px;
+  }
+  .stat-value {
+    font-size: 29px;
+  }
+  .agents-grid {
+    gap: 12px;
+  }
+  .agent-card-top {
+    flex-direction: column;
+    gap: 13px;
+  }
+  .agent-card > p {
+    min-height: 75px;
+  }
+  .new-job-grid,
+  .job-detail-grid,
+  .build-detail-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .job-summary {
+    position: static;
+    max-width: 100%;
+  }
+  .job-summary-card {
+    padding: 24px;
+  }
+  .job-summary-card .summary-agent {
+    max-width: 360px;
+  }
+  .agreement-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 35px;
+  }
+  .summary-budget {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .summary-budget > span {
+    margin: 0;
+  }
+  .summary-budget > p {
+    flex-basis: 100%;
+    margin: 0;
+  }
+  .sponsor-note {
+    max-width: 550px;
+  }
+  .timeout-option {
+    max-width: 600px;
+  }
+  .job-summary-card .create-job-button {
+    max-width: 440px;
+  }
+  .summary-private-note {
+    max-width: 550px;
+  }
+  .receipt-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .receipt-sidebar .receipt-metadata {
+    grid-column: 1/-1;
+  }
+  .receipt-metadata dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 30px;
+  }
+  .build-detail-grid > aside {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .build-detail-heading {
+    flex-wrap: wrap;
+  }
+  .build-detail-heading > .button {
+    margin-left: 85px;
+  }
+  .catalog-toolbar {
+    align-items: flex-start;
+    gap: 14px;
+    flex-direction: column;
+  }
+  .catalog-search {
+    width: 100%;
+    max-width: 340px;
+  }
+  .build-principle {
+    flex-wrap: wrap;
+  }
+  .build-principle .text-link {
+    margin-left: 62px;
+  }
+  .protocol-intro {
+    gap: 25px;
+  }
+  .protocol-flow > article {
+    padding: 20px 16px;
+  }
+  .protocol-columns {
+    grid-template-columns: 1fr;
+  }
+  .marketing-hero {
+    gap: 20px;
+  }
+  .hero-copy h1 {
+    font-size: 64px;
+    letter-spacing: -3.2px;
+  }
+  .hero-art {
+    min-height: 584px;
+  }
+  .private-file-card {
+    left: 10px;
+    width: 268px;
+    top: 23px;
+  }
+  .execution-card {
+    width: 302px;
+    right: 0;
+    top: 200px;
+    padding: 18px;
+  }
+  .hero-settlement {
+    width: 315px;
+    left: 12px;
+    top: 474px;
+  }
+  .hero-flow-connector {
+    left: 46px;
+    top: 181px;
+  }
+  .hero-description {
+    font-size: 15px !important;
+  }
+  .hero-assurance {
+    gap: 14px;
+  }
+  .marketing-feature-grid {
+    gap: 23px;
+  }
+  .marketing-build-section {
+    gap: 28px;
+  }
+  .build-section-copy h2 {
+    font-size: 42px;
+  }
+  .comparison-card {
+    padding: 16px;
+  }
+  .marketing-build-comparison {
+    gap: 12px;
+  }
+  .marketing-cta h2 {
+    font-size: 38px;
+  }
+  .marketing-example {
+    gap: 40px;
+  }
+  .example-visual {
+    padding: 20px 18px 42px;
+  }
+  .example-sheet-heading {
+    padding: 15px 12px;
+  }
+  .example-sheet-heading .pill {
+    font-size: 8px;
+  }
+  .example-sheet-heading > span {
+    font-size: 11px;
+  }
+  .marketing-section-title h2 {
+    font-size: 36px;
+  }
+}
+@media (max-width: 800px) {
+  .marketing-nav {
+    height: 78px;
+    padding: 0 28px;
+  }
+  .marketing-nav nav {
+    display: none;
+  }
+  .source-link {
+    display: none;
+  }
+  .marketing-hero {
+    grid-template-columns: 1fr;
+    max-width: 690px;
+    padding: 52px 28px 66px;
+    gap: 30px;
+  }
+  .hero-copy h1 {
+    font-size: 74px;
+    letter-spacing: -3.7px;
+  }
+  .hero-description {
+    max-width: 500px !important;
+  }
+  .hero-art {
+    max-width: 450px;
+    min-height: 585px;
+    margin: 0 auto;
+  }
+  .private-file-card {
+    left: 34px;
+    top: 20px;
+    width: 285px;
+  }
+  .execution-card {
+    right: 4px;
+    top: 198px;
+    width: 335px;
+  }
+  .hero-settlement {
+    left: 38px;
+    width: 346px;
+    top: 473px;
+  }
+  .hero-flow-connector {
+    left: 80px;
+    top: 180px;
+  }
+  .built-with {
+    margin-top: 27px;
+  }
+  .marketing-principles {
+    padding: 56px 28px;
+  }
+  .marketing-section-title {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .marketing-section-title .eyebrow {
+    margin: 0;
+  }
+  .marketing-section-title > p:last-child {
+    justify-self: start;
+    max-width: 450px;
+  }
+  .marketing-feature-grid {
+    gap: 24px;
+    margin-top: 37px;
+    grid-template-columns: 1fr;
+  }
+  .marketing-feature-grid > article {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    column-gap: 20px;
+  }
+  .marketing-feature-top {
+    grid-row: 1/3;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: flex-start;
+    padding-top: 5px;
+  }
+  .marketing-feature-grid h3 {
+    margin: 0 0 11px;
+    font-size: 23px;
+  }
+  .marketing-feature-grid p {
+    max-width: 530px;
+    font-size: 14px;
+  }
+  .marketing-build-section {
+    grid-template-columns: 1fr;
+    margin: 0 28px;
+    padding: 45px 34px;
+    gap: 45px;
+  }
+  .build-section-copy h2 {
+    font-size: 48px;
+  }
+  .build-section-copy > p {
+    max-width: 520px;
+  }
+  .marketing-build-comparison {
+    max-width: 460px;
+    margin: 0 auto 24px;
+    gap: 22px;
+  }
+  .comparison-card {
+    padding: 23px;
+  }
+  .comparison-card > p {
+    min-height: 60px;
+  }
+  .comparison-caption {
+    bottom: -43px;
+  }
+  .marketing-example {
+    grid-template-columns: 1fr;
+    padding: 64px 38px;
+    gap: 40px;
+    max-width: 690px;
+  }
+  .example-visual {
+    max-width: 465px;
+    width: 100%;
+    padding: 27px 29px 45px;
+    margin: auto;
+  }
+  .example-copy h2 {
+    font-size: 38px;
+  }
+  .example-copy p:not(.eyebrow) {
+    max-width: 520px;
+  }
+  .marketing-cta {
+    margin: 0 28px 45px;
+    padding: 40px 34px;
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .marketing-cta h2 {
+    font-size: 41px;
+  }
+  .marketing-footer {
+    padding: 33px 28px;
+    flex-wrap: wrap;
+    gap: 35px;
+  }
+  .footer-note {
+    width: 100%;
+    align-items: flex-start;
+    border-top: 1px solid #e2e9d8;
+    padding-top: 24px;
+  }
+  .footer-links {
+    column-gap: 28px;
+  }
+  .protocol-flow {
+    grid-template-columns: 1fr 1fr;
+  }
+  .protocol-flow article:nth-child(2) {
+    border-right: 0;
+  }
+  .protocol-flow article:nth-child(-n + 2) {
+    border-bottom: 1px solid #e8efdc;
+  }
+  .protocol-flow > article {
+    padding: 24px;
+  }
+  .protocol-intro {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .protocol-callout {
+    padding: 24px;
+  }
+  .protocol-intro h2 {
+    font-size: 30px;
+  }
+  .agents-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .agent-card-top {
+    flex-direction: row;
+  }
+  .agent-card > p {
+    min-height: 60px;
+  }
+  .agent-card:last-child {
+    grid-column: auto;
+  }
+  .agent-section-heading {
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .agent-section-heading h2 {
+    font-size: 18px;
+  }
+  .agent-section-heading .text-link {
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .build-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .job-detail-heading {
+    align-items: flex-start;
+    gap: 20px;
+    flex-direction: column;
+  }
+  .job-detail-heading > div:last-child {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .sidebar {
+    width: 208px;
+  }
+  .app-body {
+    margin-left: 208px;
+  }
+  .header-right .pill {
+    font-size: 9px;
+  }
+  .header-left {
+    font-size: 11px;
+  }
+  .workspace-label {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .sidebar {
+    width: 235px;
+    transform: translateX(-100%);
+    transition: transform 0.2s;
+    z-index: 90;
+    padding-top: 25px;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 15px 0 50px #1e38132b;
+  }
+  .sidebar .brand > span {
+    font-size: 26px;
+  }
+  .sidebar .nav-item {
+    font-size: 13px;
+  }
+  .sidebar-scrim {
+    position: fixed;
+    inset: 0;
+    background: #14281155;
+    border: 0;
+    z-index: 80;
+  }
+  .app-body {
+    margin-left: 0;
+  }
+  .app-header {
+    height: 61px;
+    min-height: 61px;
+    padding: 0 20px;
+  }
+  .mobile-menu {
+    display: flex;
+    margin-left: -7px;
+  }
+  .header-left {
+    gap: 9px;
+    font-size: 11px;
+  }
+  .header-right {
+    gap: 10px;
+  }
+  .header-right .pill {
+    font-size: 10px;
+  }
+  .search-trigger,
+  .header-divider {
+    display: none;
+  }
+  .app-main {
+    padding: 28px 22px 37px;
+  }
+  .page-heading h1 {
+    font-size: 30px;
+  }
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .page-heading p {
+    max-width: 570px;
+  }
+  .overview-feature-visual {
+    min-height: 275px;
+  }
+  .mini-receipt {
+    transform: rotate(-4deg);
+    width: 250px;
+  }
+  .overview-feature-copy {
+    padding: 27px;
+  }
+  .overview-feature h2 {
+    font-size: 28px;
+  }
+  .overview-feature-copy p {
+    font-size: 13px;
+  }
+  .agent-card-top {
+    flex-direction: row;
+  }
+  .agent-card > p {
+    min-height: 65px;
+  }
+  .app-footer {
+    padding: 16px 22px;
+    line-height: 1.7;
+    font-size: 9px;
+  }
+  .form-section {
+    padding: 23px;
+  }
+  .job-detail-grid,
+  .build-detail-grid {
+    gap: 22px;
+  }
+  .job-detail-heading h1 {
+    font-size: 31px;
+  }
+  .job-timeline {
+    padding: 0 23px 24px;
+  }
+  .job-timeline strong {
+    font-size: 10px;
+  }
+  .job-timeline p {
+    font-size: 9px;
+  }
+  .protocol-intro h2 {
+    font-size: 32px;
+  }
+  .protocol-intro p:not(.eyebrow) {
+    font-size: 14px;
+  }
+  .protocol-callout p {
+    font-size: 13px !important;
+  }
+  .receipt-check {
+    padding: 17px 23px;
+  }
+  .receipt-check strong {
+    font-size: 12px;
+  }
+  .receipt-check p {
+    font-size: 11px;
+  }
+  .build-detail-heading > .button {
+    margin-left: 85px;
+  }
+  .build-detail-heading h1 {
+    font-size: 31px;
+  }
+  .search-dialog {
+    max-height: 76vh;
+  }
+  .dialog-backdrop {
+    padding-top: 12vh;
+  }
+}
+@media (max-width: 560px) {
+  .marketing-nav {
+    padding: 0 21px;
+    gap: 15px;
+    height: 75px;
+  }
+  .marketing-nav .brand > span {
+    font-size: 24px;
+  }
+  .marketing-nav .brand > svg {
+    width: 29px;
+  }
+  .marketing-nav .button {
+    font-size: 10px;
+    min-height: 36px;
+    padding: 9px 11px;
+    gap: 7px;
+  }
+  .marketing-nav .button > svg {
+    width: 13px;
+  }
+  .marketing-hero {
+    padding: 41px 22px 52px;
+    gap: 25px;
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    font-size: 8px;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
+    gap: 8px;
+  }
+  .hero-copy h1 {
+    font-size: 54px;
+    letter-spacing: -2.9px;
+    line-height: 1.12;
+  }
+  .hero-description {
+    font-size: 14px !important;
+    line-height: 1.9 !important;
+    margin: 24px 0 22px !important;
+  }
+  .hero-buttons {
+    gap: 2px;
+  }
+  .hero-button {
+    font-size: 11px !important;
+    padding: 13px 13px !important;
+    min-height: 43px !important;
+    gap: 8px !important;
+  }
+  .hero-assurance {
+    font-size: 9px;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+  .built-with {
+    margin-top: 29px;
+    gap: 16px;
+  }
+  .built-with > span:first-child {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  .hero-art {
+    max-width: 365px;
+    min-height: 580px;
+    margin-top: 17px;
+  }
+  .private-file-card {
+    left: 10px;
+    width: 268px;
+    top: 12px;
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+  .private-file-card > .pill {
+    font-size: 8px;
+  }
+  .private-file-card strong {
+    font-size: 11px;
+  }
+  .private-file-card > div:nth-child(2) > span {
+    font-size: 8px;
+  }
+  .execution-card {
+    width: 295px;
+    right: 0;
+    top: 193px;
+    padding: 18px;
+  }
+  .hero-flow-connector {
+    top: 173px;
+    left: 42px;
+  }
+  .hero-flow-connector > span {
+    font-size: 8px;
+  }
+  .hero-settlement {
+    left: 10px;
+    width: 295px;
+    top: 467px;
+    padding: 18px 16px;
+  }
+  .hero-settlement strong {
+    font-size: 17px;
+  }
+  .hero-settlement small {
+    font-size: 9px;
+  }
+  .hero-settlement > div:nth-child(2) > span {
+    font-size: 8px;
+  }
+  .art-caption {
+    bottom: 0;
+    font-size: 7px;
+    letter-spacing: 0.65px;
+  }
+  .hero-art-grid {
+    inset: 0 -10px 12px;
+  }
+  .art-orbit-one {
+    left: 0;
+    width: 310px;
+    height: 310px;
+    top: 120px;
+  }
+  .art-orbit-two {
+    width: 420px;
+    height: 420px;
+    left: -55px;
+    top: 65px;
+  }
+  .marketing-principles {
+    padding: 43px 22px;
+  }
+  .marketing-section-title h2 {
+    font-size: 32px;
+    letter-spacing: -1.3px;
+  }
+  .marketing-section-title > p:last-child {
+    font-size: 13px;
+  }
+  .marketing-feature-grid > article {
+    grid-template-columns: 41px 1fr;
+    column-gap: 15px;
+  }
+  .marketing-feature-grid h3 {
+    font-size: 19px;
+  }
+  .marketing-feature-grid p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .marketing-feature-top > span {
+    font-size: 9px;
+  }
+  .marketing-feature-top > svg {
+    width: 21px;
+  }
+  .marketing-build-section {
+    margin: 0 18px;
+    padding: 35px 23px;
+    border-radius: 8px;
+    gap: 38px;
+  }
+  .build-section-copy h2 {
+    font-size: 41px;
+    letter-spacing: -1.7px;
+  }
+  .build-section-copy > p {
+    font-size: 13px;
+  }
+  .build-section-copy .pill {
+    font-size: 8px;
+  }
+  .marketing-build-comparison {
+    gap: 11px;
+    width: 100%;
+    margin-bottom: 27px;
+  }
+  .comparison-card {
+    padding: 14px 12px;
+    transform: rotate(-2deg);
+  }
+  .comparison-card.changed {
+    transform: rotate(3deg) translateY(14px);
+  }
+  .comparison-top {
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .comparison-top .pill {
+    font-size: 8px;
+    padding: 4px 5px;
+  }
+  .comparison-card h3 {
+    font-size: 15px;
+  }
+  .comparison-card h3 span {
+    font-size: 9px;
+  }
+  .comparison-hash {
+    font-size: 8px;
+    gap: 4px;
+    overflow: hidden;
+  }
+  .comparison-hash code {
+    font-size: 7px;
+    white-space: nowrap;
+  }
+  .comparison-history {
+    gap: 9px;
+    padding: 15px 0;
+  }
+  .comparison-history > div > span {
+    font-size: 9px;
+  }
+  .comparison-history strong {
+    font-size: 23px;
+  }
+  .comparison-card > p {
+    font-size: 10px;
+    min-height: 81px;
+  }
+  .comparison-card > a {
+    font-size: 9px;
+    gap: 5px;
+  }
+  .comparison-card > a > svg {
+    width: 12px;
+  }
+  .comparison-caption {
+    font-size: 8px;
+    bottom: -45px;
+  }
+  .marketing-example {
+    padding: 53px 27px;
+    gap: 38px;
+  }
+  .example-visual {
+    padding: 20px 15px 43px;
+    min-height: 340px;
+  }
+  .example-sheet-heading {
+    padding: 16px 12px;
+    gap: 6px;
+  }
+  .example-sheet-heading > span {
+    font-size: 10px;
+  }
+  .example-sheet-heading .pill {
+    font-size: 7px;
+    padding: 4px 5px;
+  }
+  .example-table > div {
+    padding: 12px 16px;
+  }
+  .example-check-note {
+    right: 6px;
+    padding: 12px 13px;
+  }
+  .example-check-note strong {
+    font-size: 11px;
+  }
+  .example-check-note span {
+    font-size: 9px;
+  }
+  .example-sheet-footer {
+    font-size: 8px;
+    line-height: 1.8;
+  }
+  .example-copy h2 {
+    font-size: 31px;
+    letter-spacing: -1.2px;
+  }
+  .example-copy p:not(.eyebrow) {
+    font-size: 13px;
+  }
+  .marketing-cta {
+    margin: 0 18px 42px;
+    padding: 34px 26px;
+    gap: 24px;
+  }
+  .marketing-cta h2 {
+    font-size: 36px;
+    letter-spacing: -1.5px;
+  }
+  .marketing-cta > div:nth-child(2) > p {
+    font-size: 13px;
+  }
+  .marketing-footer {
+    padding: 30px 23px;
+    gap: 30px;
+  }
+  .footer-links {
+    font-size: 11px;
+    gap: 16px 35px;
+    padding: 0;
+  }
+  .marketing-footer > div:first-child > p {
+    font-size: 11px;
+  }
+  .footer-note {
+    gap: 12px;
+    font-size: 10px;
+  }
+  .footer-note .pill {
+    font-size: 10px;
+  }
+  .app-main {
+    padding: 24px 18px 35px;
+  }
+  .header-right .workspace-avatar {
+    display: none;
+  }
+  .header-right .pill {
+    font-size: 9px;
+  }
+  .header-left {
+    font-size: 10px;
+  }
+  .app-header {
+    padding: 0 18px;
+  }
+  .overview-feature {
+    grid-template-columns: 1fr;
+    min-height: unset;
+  }
+  .overview-feature-visual {
+    display: none;
+  }
+  .overview-feature-copy {
+    padding: 25px;
+  }
+  .overview-feature h2 {
+    font-size: 27px;
+  }
+  .overview-feature-copy > p {
+    font-size: 12px;
+    max-width: 350px;
+  }
+  .overview-feature .button-row {
+    gap: 13px;
+  }
+  .overview-feature .button {
+    font-size: 11px;
+  }
+  .overview-feature .text-link {
+    font-size: 10px;
+  }
+  .feature-footnote {
+    font-size: 9px;
+  }
+  .stats-grid {
+    gap: 11px;
+  }
+  .stat-card {
+    padding: 16px;
+  }
+  .stat-label {
+    font-size: 10px !important;
+    gap: 4px;
+  }
+  .stat-label > svg {
+    width: 13px;
+  }
+  .stat-card > p {
+    font-size: 9px !important;
+    line-height: 1.7;
+  }
+  .stat-value {
+    font-size: 29px;
+    margin-top: 14px;
+  }
+  .section-heading {
+    padding: 19px 20px;
+    gap: 12px;
+  }
+  .section-heading h2 {
+    font-size: 16px;
+  }
+  .section-heading p {
+    font-size: 11px;
+  }
+  .section-heading .text-link {
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .agent-section-heading {
+    padding: 26px 0 17px;
+    flex-direction: column;
+  }
+  .agents-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .agent-card {
+    padding: 22px;
+  }
+  .agent-card-top .pill {
+    font-size: 10px;
+  }
+  .agent-card .agent-name h3 {
+    font-size: 19px;
+  }
+  .agent-card > p {
+    font-size: 12px;
+    min-height: unset;
+  }
+  .agent-specialties > span {
+    font-size: 9px;
+  }
+  .agent-card-stats {
+    margin: 20px 0;
+  }
+  .agent-card-stats strong {
+    font-size: 17px;
+  }
+  .agent-card-stats small {
+    font-size: 10px;
+  }
+  .agent-card > .button {
+    font-size: 12px;
+    min-height: 40px;
+  }
+  .build-card-fingerprint {
+    font-size: 10px;
+  }
+  .build-card-fingerprint code {
+    font-size: 10px;
+  }
+  .catalog-toolbar {
+    margin: 15px 0 22px;
+    gap: 14px;
+  }
+  .tabs {
+    gap: 3px;
+    flex-wrap: wrap;
+  }
+  .tabs > button {
+    padding: 8px 9px;
+    font-size: 10px;
+  }
+  .catalog-search {
+    max-width: none;
+    font-size: 11px;
+  }
+  .catalog-search input {
+    font-size: 11px;
+  }
+  .build-principle {
+    padding: 21px;
+    gap: 13px;
+  }
+  .build-principle h3 {
+    font-size: 16px;
+  }
+  .build-principle p {
+    font-size: 12px;
+  }
+  .build-principle .text-link {
+    margin-left: 0;
+    font-size: 11px;
+  }
+  .build-principle .principle-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .privacy-note {
+    align-items: flex-start;
+  }
+  .privacy-note > svg {
+    margin-top: 4px;
+  }
+  .privacy-note p {
+    font-size: 11px;
+  }
+  .app-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 16px 18px;
+    font-size: 9px;
+  }
+  .form-section {
+    padding: 20px;
+  }
+  .form-section-heading h2 {
+    font-size: 15px;
+  }
+  .form-section-heading p {
+    font-size: 11px;
+  }
+  .build-option {
+    padding: 11px;
+    gap: 9px;
+  }
+  .build-option strong {
+    font-size: 12px;
+  }
+  .build-option small {
+    font-size: 10px;
+  }
+  .build-option code {
+    font-size: 8px;
+  }
+  .build-option .agent-avatar {
+    width: 34px;
+    height: 34px;
+  }
+  .input-mode-bar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .input-mode-bar > span {
+    font-size: 10px;
+  }
+  .field-label {
+    font-size: 11px;
+  }
+  .field-label > span {
+    font-size: 9px;
+  }
+  .text-input {
+    font-size: 12px;
+  }
+  .field-hint {
+    font-size: 10px;
+  }
+  .csv-input-card textarea {
+    font-size: 10px;
+    line-height: 1.9;
+    padding: 11px;
+    min-height: 140px;
+  }
+  .csv-input-card > div {
+    font-size: 11px;
+  }
+  .csv-input-card button {
+    font-size: 10px;
+  }
+  .input-summary {
+    font-size: 10px;
+    line-height: 1.7;
+    align-items: flex-start;
+  }
+  .input-summary > svg {
+    margin-top: 3px;
+  }
+  .agreed-checks strong {
+    font-size: 12px;
+  }
+  .agreed-checks p {
+    font-size: 11px;
+  }
+  .agreement-checkbox {
+    font-size: 11px;
+    line-height: 1.8;
+    align-items: flex-start;
+    padding: 15px 10px;
+  }
+  .agreement-checkbox input {
+    margin-top: 3px;
+  }
+  .agreement-summary {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .agreement-summary > div {
+    font-size: 11px;
+  }
+  .summary-budget {
+    gap: 13px;
+  }
+  .summary-budget strong {
+    font-size: 32px;
+  }
+  .summary-budget p {
+    font-size: 11px;
+  }
+  .sponsor-note strong {
+    font-size: 11px;
+  }
+  .sponsor-note p {
+    font-size: 11px;
+  }
+  .timeout-option strong {
+    font-size: 11px;
+  }
+  .timeout-option span {
+    font-size: 10px;
+  }
+  .timeout-option input {
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+  }
+  .summary-private-note {
+    font-size: 10px;
+  }
+  .create-job-button {
+    font-size: 12px !important;
+    min-height: 46px !important;
+  }
+  .summary-fingerprint-note p {
+    font-size: 10px;
+  }
+  .job-detail-heading h1 {
+    font-size: 28px;
+  }
+  .job-detail-heading > div > p:last-child {
+    font-size: 12px;
+  }
+  .job-detail-heading > div:last-child .button {
+    font-size: 10px;
+  }
+  .job-detail-heading .pill {
+    font-size: 10px;
+  }
+  .job-timeline {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+    padding: 0 20px 22px;
+  }
+  .timeline-step:nth-child(2):after {
+    display: none;
+  }
+  .timeline-step strong {
+    font-size: 11px;
+  }
+  .timeline-step p {
+    font-size: 10px;
+    max-width: 145px;
+  }
+  .execution-message {
+    padding: 13px 20px;
+  }
+  .execution-message p {
+    font-size: 11px;
+  }
+  .receipt-check {
+    padding: 16px 20px;
+    gap: 10px;
+  }
+  .receipt-check strong {
+    font-size: 12px;
+  }
+  .receipt-check p {
+    font-size: 10px;
+  }
+  .receipt-check small {
+    font-size: 9px;
+  }
+  .delivery-summary {
+    padding: 12px 20px;
+    font-size: 10px;
+  }
+  .locked-delivery {
+    padding: 26px 20px;
+  }
+  .locked-delivery p {
+    font-size: 11px;
+  }
+  .delivery-recovery-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 16px 20px;
+  }
+  .delivery-recovery-bar > span {
+    font-size: 10px;
+    align-items: flex-start;
+    line-height: 1.7;
+  }
+  .delivery-recovery-bar button {
+    font-size: 11px;
+  }
+  .proof-cards {
+    grid-template-columns: 1fr;
+    padding: 0 20px 17px;
+  }
+  .proof-cards > article {
+    padding: 20px;
+  }
+  .proof-card-heading {
+    font-size: 12px;
+  }
+  .proof-hash > span {
+    font-size: 10px;
+  }
+  .proof-hash code {
+    font-size: 10px;
+  }
+  .proof-cards article > p {
+    font-size: 11px;
+  }
+  .proof-cards .button {
+    font-size: 11px;
+  }
+  .proof-note {
+    font-size: 10px;
+    padding: 0 20px 19px;
+  }
+  .proof-dashboard {
+    font-size: 10px;
+  }
+  .attestation-result {
+    font-size: 10px;
+  }
+  .receipt-sidebar {
+    display: flex;
+  }
+  .receipt-metadata dl {
+    display: block;
+  }
+  .settlement-card {
+    padding: 27px !important;
+  }
+  .settlement-card > p:not(.eyebrow) {
+    font-size: 12px;
+  }
+  .receipt-build-card p:not(.eyebrow) {
+    font-size: 11px;
+  }
+  .receipt-metadata dt {
+    font-size: 10px;
+  }
+  .receipt-metadata dd {
+    font-size: 11px;
+  }
+  .receipt-metadata .text-link {
+    font-size: 11px;
+  }
+  .build-detail-heading {
+    gap: 15px;
+  }
+  .build-detail-heading h1 {
+    font-size: 29px;
+  }
+  .build-detail-heading h1 > span {
+    font-size: 18px;
+  }
+  .build-detail-heading > div {
+    flex: 1;
+    min-width: 0;
+  }
+  .build-detail-heading p:not(.eyebrow) {
+    font-size: 12px;
+  }
+  .build-detail-heading > .button {
+    margin-left: 0;
+  }
+  .agent-avatar.large {
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+  }
+  .build-detail-grid > aside {
+    grid-template-columns: 1fr;
+  }
+  .build-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .full-fingerprint {
+    font-size: 11px;
+    margin: 0 20px 17px;
+    padding: 13px;
+  }
+  .fingerprint-actions {
+    padding: 0 20px 20px;
+    gap: 10px;
+  }
+  .fingerprint-actions .button,
+  .fingerprint-actions .text-link {
+    font-size: 10px;
+  }
+  .build-specification dd {
+    font-size: 12px;
+  }
+  .build-specification dt {
+    font-size: 10px;
+  }
+  .version-note p {
+    font-size: 12px;
+  }
+  .protocol-intro h2 {
+    font-size: 29px;
+  }
+  .protocol-intro p:not(.eyebrow) {
+    font-size: 13px;
+  }
+  .protocol-flow {
+    grid-template-columns: 1fr;
+  }
+  .protocol-flow article {
+    padding: 24px;
+    border-right: 0 !important;
+    border-bottom: 1px solid #e8efdc;
+  }
+  .protocol-flow article:last-child {
+    border-bottom: 0;
+  }
+  .protocol-flow h3 {
+    font-size: 17px;
+  }
+  .protocol-flow p {
+    font-size: 12px;
+  }
+  .protocol-checks,
+  .trust-card {
+    padding: 24px;
+  }
+  .protocol-checks h2 {
+    font-size: 22px;
+  }
+  .protocol-checks > p:not(.eyebrow) {
+    font-size: 12px;
+  }
+  .protocol-check h4 {
+    font-size: 12px;
+  }
+  .protocol-check p {
+    font-size: 11px;
+  }
+  .trust-card > p:not(.eyebrow) {
+    font-size: 12px;
+  }
+  .protocol-links > a {
+    font-size: 11px;
+  }
+  .protocol-links > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .page-heading > .button {
+    font-size: 11px;
+  }
+  .search-dialog input {
+    font-size: 12px;
+  }
+  .search-results > a {
+    font-size: 12px;
+  }
+  .search-note {
+    font-size: 10px;
+  }
+  .toast {
+    font-size: 11px;
+    gap: 12px;
+  }
+  .form-error {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

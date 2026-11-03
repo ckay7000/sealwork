@@ -1,0 +1,23 @@
+{
+  "schema": "sealwork.public-verification-release.v1",
+  "checked_at": "2026-11-02T15:05:25.408083+00:00",
+  "site": "https://sealwork.vercel.app",
+  "deployment_id": "dpl_J3RbcUSJfxkYJ6y2FGAoUY9kZZQg",
+  "unit_tests": {
+    "command": "npm test",
+    "passed": 61,
+    "files": 9
+  },
+  "build": {
+    "command": "npm run build",
+    "status": "passed"
+  },
+  "live_bank_job": "sw_0d581be7aa22c51183f620896a188c16",
+  "live_refunded_job": "sw_aa52b5907359ecd885e1a239a87ace6b",
+  "direct_near_mobile_evidence": "deployments/public-receipt-browser-checks.json",
+  "hosted_video_playback": "deployments/continuous-demo-playback.json",
+  "capture_service_removed": "deployments/continuous-capture-cleanup.json",
+  "independent_bookkeeper_feedback_collected": false,
+  "hardware_quote_verified_by_public_checker": false,
+  "private_result_recomputed_by_public_checker": false
+}

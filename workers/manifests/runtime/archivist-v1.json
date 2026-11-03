@@ -1,0 +1,25 @@
+{
+  "display": {
+    "name": "Archivist 3.0"
+  },
+  "operations": [
+    "run"
+  ],
+  "capabilities": {
+    "network": []
+  },
+  "callers": {
+    "contract": {
+      "only": [
+        "market.sealwork-next-1103.testnet"
+      ]
+    }
+  },
+  "encryption_keys": [
+    {
+      "path": "results",
+      "bind": "project",
+      "caller": "predecessor"
+    }
+  ]
+}

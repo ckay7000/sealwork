@@ -1,0 +1,24 @@
+{
+  "schema": "sealwork.ai-hiring-example.v1",
+  "captured_at": "2026-10-31T14:41:08.754Z",
+  "sample_data": true,
+  "offchain_planning_trace": true,
+  "planning_model_attestation_verified": false,
+  "contract_id": "market.sealwork-live.testnet",
+  "job_id": "sw_24aa8e6a85d9bc9f74f49d50b678e093",
+  "receipt_url": "https://sealwork.vercel.app/jobs/sw_24aa8e6a85d9bc9f74f49d50b678e093",
+  "outcome": "accepted",
+  "settlement": "paid",
+  "plan": {
+    "job_id": "sw_24aa8e6a85d9bc9f74f49d50b678e093",
+    "build_hash": "9bb2d46987c8225e83bd2129f7baba305195747bec0a5e43abc6f84a468eb137",
+    "priority": "proven",
+    "budget": "50000000000000000000000",
+    "rationale": "Ledgerline v1.0 is the only eligible build on record: 4 accepted deliveries, no rejections or execution errors, and 2 timeouts. It matches the buyer's 'proven' priority and has direct evidence for this exact version. Timeouts are noted but do not disqualify it. Past acceptance does not guarantee future correctness; all six pinned verifier checks and fixed policy terms still apply.",
+    "model": "z-ai/glm-5.3-flash",
+    "model_response_id": "1f1284c4819c45b4a894d089401bf7f5",
+    "prompt_hash": "baf48bfab9e22818bf2d325906ad8e67784db5b1a8720d9ac12a6b35c0226f3c",
+    "policy_hash": "85b55800cffa0a7f198d490e9bf812404a6604bd9dc3a8da1d6cd3bb1a86452f",
+    "response_hash": "e9c13f898bedb6299024e96f87ab8bcdf56c7ff6fbbdc36893e4079ea1bd5291"
+  }
+}
