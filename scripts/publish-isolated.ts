@@ -45,10 +45,11 @@ try{
   if(!repo)repo=await api('/user/repos','POST',{name,private:false,auto_init:true,description:name==='sealwork-next'?'Private, reviewed bank-receipt reconciliation with checked balances, source fingerprints and NEAR testnet processing-fee settlement.':'Software milestone payments: private invoices, exact GitHub delivery evidence and bounded NEAR treasury settlement.',homepage:`https://${name}.vercel.app`});
   if(repo.private)throw Error('Expected the authorized public comparison repository.');
   const base=`/repos/NSEVEjk0/${name}`,ref=await api(base+'/git/ref/heads/main'),parent=ref.object.sha;
+  const parentCommit=await api(base+'/git/commits/'+parent);const remoteTree=await api(base+'/git/trees/'+parentCommit.tree.sha+'?recursive=1');const previous=new Map(remoteTree.tree.filter((e:any)=>e.type==='blob').map((e:any)=>[e.path,e.sha]));
   const paths=(await readFile('.local/publication-paths.bin')).toString().split('\0').filter(Boolean);
   const tree:any[]=[];for(const file of [...new Set(paths)]){
    if(/^\.local\/|^\.env(?!\.example)|credentials|keypair|\.pem$|\.key$/.test(file))throw Error('Unexpected private file in publication.');
-   const raw=await readFile(path.join(root,file));const binary=raw.includes(0)||!Buffer.from(raw.toString('utf8')).equals(raw);
+   const raw=await readFile(path.join(root,file));const gitSha=createHash('sha1').update(Buffer.from('blob '+raw.length+'\0')).update(raw).digest('hex');if(previous.get(file)===gitSha){tree.push({path:file,mode:'100644',type:'blob',sha:gitSha});continue;}const binary=raw.includes(0)||!Buffer.from(raw.toString('utf8')).equals(raw);
    if(binary){const b=await api(base+'/git/blobs','POST',{content:raw.toString('base64'),encoding:'base64'});tree.push({path:file,mode:'100644',type:'blob',sha:b.sha});console.log('Published binary:',file);}else tree.push({path:file,mode:'100644',type:'blob',content:raw.toString('utf8')});
   }
   const t=await api(base+'/git/trees','POST',{tree});const commit=await api(base+'/git/commits','POST',{message:'Build focused '+name+' with reproducible checks and explicit baseline disclosure',tree:t.sha,parents:[parent]});

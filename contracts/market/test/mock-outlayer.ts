@@ -51,7 +51,7 @@ export class MockOutLayer {
             ? "f".repeat(64)
             : input.agent_manifest_hash,
         result_commitment: "d".repeat(64),
-        sealed_result: "fixture_ciphertext",
+        sealed_result: this.mode === "large_delivery" ? "A".repeat(32000) : "fixture_ciphertext",
         ...reference,
       };
     const accepted = this.mode !== "rejected";

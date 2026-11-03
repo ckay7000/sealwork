@@ -27,4 +27,4 @@ The first customer is a bookkeeper matching bank receipts to invoices. The produ
 
 ## Status
 
-Research and implementation audit in progress. Features above are acceptance targets, not completion claims.
+Research, implementation, separate publication and deployment completed. Fresh accepted and rejected hosted jobs verified; final browser/accessibility, private-AI and maximum-envelope checks are being finished. See VERIFICATION.md for evidence and limits.

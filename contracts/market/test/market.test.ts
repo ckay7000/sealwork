@@ -149,7 +149,7 @@ describe("Sealwork escrow, authenticated outcomes, and exact-build reputation", 
     expect(job.agent_transaction_hash).toBe("HKPL27raNxkJwYNZs6uX8xcPEai5S7aqTfD47wG9xQfF");
     expect(job.verifier_transaction_hash).toBe(job.agent_transaction_hash);
   });
-  it("keeps the full allowed encrypted delivery within its funded storage", async () => {
+  it("keeps the largest agent envelope and encrypted delivery within gas and funded storage", async () => {
     const f = await fixture();
     const id = await fund(f);
     const before = await f.market.accountView();

@@ -171,7 +171,7 @@ export class SealworkMarket {
     job.state = 'agent_running';
     save(`job:${job.id}`, job);
     event('agent_started', { job_id, build_hash: job.build_hash });
-    this.request(job, job.build_hash, input, payment, 'on_agent_result', 180n * TGAS);
+    this.request(job, job.build_hash, input, payment, 'on_agent_result', 200n * TGAS);
   }
 
   @call({ privateFunction: true })
@@ -366,7 +366,7 @@ export class SealworkMarket {
       resource_limits: { max_instructions: 1_000_000_000, max_memory_mb: 128, max_execution_seconds: 60 },
       input_data: JSON.stringify(input), secrets_ref: { profile: job.profile, account_id: job.buyer_id },
       response_format: 'Json', payer_account_id: job.buyer_id,
-    }), payment, 100n * TGAS);
+    }), payment, 80n * TGAS);
     const promise = near.promiseThen(request, near.currentAccountId(), callback, JSON.stringify({ job_id: job.id }), 0n, gas);
     near.promiseReturn(promise);
   }

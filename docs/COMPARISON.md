@@ -17,6 +17,7 @@ The original source checkout and site are preserved. This new repository is a de
 | Exports | Invoice CSV and decisions | Expanded invoice CSV, bank-receipt CSV and private reconciliation JSON pack |
 | Spreadsheet text | Plain CSV text | Formula-leading cells neutralized; original values remain in JSON |
 | Batch size | Input limits | Expanded encrypted-output preflight against the existing contract's 12,000-character bound |
+| Callback gas | Original allocation failed on the expanded bank report | Rebalanced request/callback gas; subsequent bank job paid |
 | Testnet state | Original accounts/contract/worker histories | Separate accounts, contract and four current build fingerprints |
 | Video | Original narrated and continuous recordings | Original recordings explicitly labeled baseline; current checks documented separately |
 

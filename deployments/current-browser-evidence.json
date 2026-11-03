@@ -1,0 +1,184 @@
+{
+  "network": "testnet",
+  "fictional_data": true,
+  "reports": [
+    {
+      "status": "passed",
+      "project": "Sealwork Next",
+      "scenario": "bank",
+      "checked_at": "2026-11-03T09:03:44.430Z",
+      "evidence": [
+        {
+          "job_id": "sw_738acb849746cb7198291abb6f392be3",
+          "outcome": "accepted",
+          "settlement": "paid",
+          "receipt_url": "https://sealwork-next.vercel.app/jobs/sw_738acb849746cb7198291abb6f392be3",
+          "schema": "sealwork.invoice-reconciliation.v2",
+          "review_fingerprints_differ": true,
+          "invoice_csv": true,
+          "bank_csv": true,
+          "private_pack": true,
+          "recovery": true
+        }
+      ],
+      "browser_errors": [],
+      "shots": [
+        {
+          "name": "01-suggestions",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/new?task=bank",
+          "captured_at": "2026-11-03T09:03:07.653Z",
+          "file": "docs/current-captures/bank-01-suggestions.jpg"
+        },
+        {
+          "name": "02-reviewed-allocation",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/new?task=bank",
+          "captured_at": "2026-11-03T09:03:08.848Z",
+          "file": "docs/current-captures/bank-02-reviewed-allocation.jpg"
+        },
+        {
+          "name": "03-paid-report",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/jobs/sw_738acb849746cb7198291abb6f392be3",
+          "captured_at": "2026-11-03T09:03:39.065Z",
+          "file": "docs/current-captures/bank-03-paid-report.jpg"
+        },
+        {
+          "name": "04-attestations",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/jobs/sw_738acb849746cb7198291abb6f392be3",
+          "captured_at": "2026-11-03T09:03:44.428Z",
+          "file": "docs/current-captures/bank-04-attestations.jpg"
+        }
+      ]
+    },
+    {
+      "status": "passed",
+      "project": "Sealwork Next",
+      "scenario": "ai",
+      "checked_at": "2026-11-03T09:08:15.591Z",
+      "evidence": [
+        {
+          "job_id": "sw_ecc167bf4b0b981b881cf78e56e12649",
+          "outcome": "accepted",
+          "settlement": "paid",
+          "receipt_url": "https://sealwork-next.vercel.app/jobs/sw_ecc167bf4b0b981b881cf78e56e12649",
+          "schema": "sealwork.invoice-reconciliation.v2",
+          "review_fingerprints_differ": true,
+          "invoice_csv": true,
+          "bank_csv": true,
+          "private_pack": true,
+          "recovery": true
+        }
+      ],
+      "browser_errors": [],
+      "shots": [
+        {
+          "name": "01-suggestions",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/new?task=bank",
+          "captured_at": "2026-11-03T09:07:43.230Z",
+          "file": "docs/current-captures/ai-01-suggestions.jpg"
+        },
+        {
+          "name": "02-reviewed-allocation",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/new?task=bank",
+          "captured_at": "2026-11-03T09:07:44.280Z",
+          "file": "docs/current-captures/ai-02-reviewed-allocation.jpg"
+        },
+        {
+          "name": "03-paid-report",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/jobs/sw_ecc167bf4b0b981b881cf78e56e12649",
+          "captured_at": "2026-11-03T09:08:10.652Z",
+          "file": "docs/current-captures/ai-03-paid-report.jpg"
+        },
+        {
+          "name": "04-attestations",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/jobs/sw_ecc167bf4b0b981b881cf78e56e12649",
+          "captured_at": "2026-11-03T09:08:15.589Z",
+          "file": "docs/current-captures/ai-04-attestations.jpg"
+        }
+      ]
+    },
+    {
+      "status": "passed",
+      "project": "Sealwork Next",
+      "scenario": "rejected",
+      "checked_at": "2026-11-03T09:06:17.403Z",
+      "evidence": [
+        {
+          "job_id": "sw_e86fb3a2d9e154854be2fb07ced52b66",
+          "outcome": "rejected",
+          "settlement": "refunded",
+          "receipt_url": "https://sealwork-next.vercel.app/jobs/sw_e86fb3a2d9e154854be2fb07ced52b66"
+        }
+      ],
+      "browser_errors": [],
+      "shots": [
+        {
+          "name": "outcome-rejected",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/jobs/sw_e86fb3a2d9e154854be2fb07ced52b66",
+          "captured_at": "2026-11-03T09:06:17.401Z",
+          "file": "docs/current-captures/rejected-outcome-rejected.jpg"
+        }
+      ]
+    },
+    {
+      "status": "passed",
+      "project": "Sealwork Next",
+      "scenario": "layout",
+      "checked_at": "2026-11-03T09:14:48.067Z",
+      "evidence": [],
+      "browser_errors": [],
+      "shots": [
+        {
+          "name": "layout-1440-home",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/",
+          "captured_at": "2026-11-03T09:14:38.452Z",
+          "file": "docs/current-captures/layout-1440-home.jpg"
+        },
+        {
+          "name": "layout-1440-bank",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/new?task=bank",
+          "captured_at": "2026-11-03T09:14:42.659Z",
+          "file": "docs/current-captures/layout-1440-bank.jpg"
+        },
+        {
+          "name": "layout-390-home",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/",
+          "captured_at": "2026-11-03T09:14:43.488Z",
+          "file": "docs/current-captures/layout-390-home.jpg"
+        },
+        {
+          "name": "layout-390-bank",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/new?task=bank",
+          "captured_at": "2026-11-03T09:14:45.219Z",
+          "file": "docs/current-captures/layout-390-bank.jpg"
+        },
+        {
+          "name": "layout-320-home",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/",
+          "captured_at": "2026-11-03T09:14:45.684Z",
+          "file": "docs/current-captures/layout-320-home.jpg"
+        },
+        {
+          "name": "layout-320-bank",
+          "focus": null,
+          "url": "https://sealwork-next.vercel.app/new?task=bank",
+          "captured_at": "2026-11-03T09:14:47.070Z",
+          "file": "docs/current-captures/layout-320-bank.jpg"
+        }
+      ]
+    }
+  ]
+}

@@ -45,5 +45,12 @@
   "deployed_at": "2026-11-03T08:51:36.850Z",
   "bank_supported": true,
   "site_url": "https://sealwork-next.vercel.app",
-  "contract_sha256": "12869955b9c3132a9942eaae76c76bc06f9981315a5aa7df9d8c20edca65540f"
+  "contract_sha256": "ed18b92d38d92f7152fcdc3d4c106c28c3cfd6c4fe5e770ef76d507f7d952994",
+  "gas_budget_upgrade": {
+    "transaction_hash": "HBLGyX4r7gqrHPwPu5BAPBJPm6Qh7PhydtkXz7WynPAu",
+    "at": "2026-11-03T09:02:58.821Z",
+    "request_tgas": 80,
+    "agent_callback_tgas": 200,
+    "storage_schema_changed": false
+  }
 }

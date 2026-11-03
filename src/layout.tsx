@@ -146,7 +146,7 @@ export function AppLayout() {
             <span>{section}</span>
           </div>
           <div className="header-right">
-            <button className="search-trigger" onClick={() => setSearch(true)}>
+            <button className="search-trigger" aria-label="Search workspace" onClick={() => setSearch(true)}>
               <Search size={16} />
               <span>Search workspace</span>
               <kbd>
