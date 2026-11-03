@@ -1386,3 +1386,13 @@
 .bank-decision blockquote { margin:10px 0 0; padding-left:12px; border-left:2px solid #629b7a; color:#617066; overflow-wrap:anywhere; }
 .bank-allocations { display:flex; flex-wrap:wrap; gap:8px; font-size:13px; font-weight:600; }
 .bank-analysis-panel h3 { margin-top:0; }
+.reconciliation-review { margin-top: 20px; }
+.reconciliation-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.reconciliation-totals article { border: 1px solid var(--border, #dce5de); border-radius: 12px; padding: 16px; background: var(--surface, #fff); }
+.reconciliation-totals dl { margin-bottom: 0; }
+.reconciliation-totals dl div { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; margin-top: 10px; }
+.reconciliation-totals dd { margin: 0; font-variant-numeric: tabular-nums; }
+.review-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.allocation-editor { padding: 16px 0 4px; }
+.allocation-fields { display: grid; grid-template-columns: minmax(0, 1fr) 110px auto; gap: 8px; margin: 12px 0; }
+@media (max-width: 650px) { .allocation-fields { grid-template-columns: minmax(0, 1fr); } }

@@ -1,3 +1,5 @@
+> Inherited reference from the original Sealwork baseline. Deployment IDs, screenshots, counts and recordings on this page may refer to the original version. See [current behavior](../README.md), [comparison](COMPARISON.md) and [current verification](VERIFICATION.md).
+
 # Sealwork product film
 
 [Watch or download the MP4](https://sealwork.vercel.app/media/sealwork-demo.mp4?v=3).

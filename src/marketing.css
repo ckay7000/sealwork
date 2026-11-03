@@ -929,3 +929,18 @@
 .demo-video-dialog > div { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding-bottom: 14px; font-size: 13px; }
 .demo-video-dialog video { width: 100%; display: block; border-radius: 8px; }
 .demo-video-dialog > a { margin-top: 14px; font-size: 12px; }
+.receipt-preview { align-self: center; border: 1px solid #d7e2da; border-radius: 24px; background: #fff; box-shadow: 0 24px 70px #143c2410; padding: 28px; min-width: 0; }
+.receipt-preview-heading { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; color: #18462c; }
+.receipt-preview-heading span { font-size: 10px; letter-spacing: .12em; }
+.receipt-preview-heading h2 { font-size: 24px; margin: 6px 0 0; letter-spacing: -.04em; }
+.receipt-preview-row { display: flex; gap: 16px; justify-content: space-between; border-top: 1px solid #e7eee9; padding: 19px 0; }
+.receipt-preview-row > div { display: flex; flex-direction: column; gap: 8px; }
+.receipt-preview-row > div:last-child { align-items: flex-end; text-align: right; }
+.receipt-preview-row strong { font-size: 24px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.receipt-preview-row span:not(.pill) { font-size: 12px; color: #607267; }
+.receipt-preview-footer { display: flex; gap: 12px; padding: 16px; background: #eff7f0; border-radius: 12px; color: #254d33; }
+.receipt-preview-footer svg { flex-shrink: 0; margin-top: 2px; }
+.receipt-preview-footer p { font-size: 13px; line-height: 1.6; margin: 0; }
+.receipt-preview-note { display: block; margin-top: 16px; color: #607267; line-height: 1.5; font-size: 11px; }
+@media (max-width: 600px) { .receipt-preview { padding: 20px; } .receipt-preview-row { gap: 10px; } .receipt-preview-row strong { font-size: 20px; } .receipt-preview-heading h2 { font-size: 21px; } }
+@media (max-width: 450px) { .marketing-hero h1 { font-size: clamp(32px, 10vw, 44px); } .receipt-preview-row { display: grid; grid-template-columns: minmax(0, 1fr); } .receipt-preview-row > div:last-child { align-items: flex-start; text-align: left; } .receipt-preview-heading h2 { font-size: 20px; } }

@@ -126,7 +126,7 @@ export async function openResult(
   const raw = text.decode(plaintext);
   const result = JSON.parse(raw) as PrivateResult;
   if (
-    result.schema !== "sealwork.invoice-reconciliation.v1" ||
+    !["sealwork.invoice-reconciliation.v1", "sealwork.invoice-reconciliation.v2"].includes(result.schema) ||
     !Array.isArray(result.rows) ||
     result.rows.length < 1 ||
     result.rows.length > 16 ||
@@ -142,9 +142,19 @@ export async function openResult(
         Number.isSafeInteger(row.amount_minor) &&
         row.amount_minor >= 0 &&
         ["USD", "EUR", "GBP"].includes(row.currency) &&
-        ["matched", "unpaid", "mismatch"].includes(row.status),
+        ["matched", "partial", "unpaid", "mismatch"].includes(row.status) &&
+        (result.schema === "sealwork.invoice-reconciliation.v1" ||
+          (Number.isSafeInteger(row.paid_minor) && row.paid_minor! >= 0 && Number.isSafeInteger(row.remaining_minor) && row.remaining_minor === Math.max(0,row.amount_minor-row.paid_minor!))),
     )
   )
     throw new Error("The agent returned an unsupported delivery format.");
+  if (result.schema === "sealwork.invoice-reconciliation.v2") {
+    if (!result.sources || !/^[a-f0-9]{64}$/.test(result.sources.source_sha256) || !/^[a-f0-9]{64}$/.test(result.sources.ledger_sha256)) throw Error('The delivery is missing source fingerprints.');
+    if (result.bank && (!Array.isArray(result.payments) || result.payments.length !== result.bank.decisions.length || !result.payments.every(p =>
+      typeof p.payment_id === 'string' && typeof p.description === 'string' && ['USD','EUR','GBP'].includes(p.currency) &&
+      Number.isSafeInteger(p.amount_minor) && p.amount_minor > 0 && Number.isSafeInteger(p.allocated_minor) && p.allocated_minor >= 0 &&
+      Number.isSafeInteger(p.remaining_minor) && p.remaining_minor === p.amount_minor-p.allocated_minor &&
+      result.bank!.decisions.some(d=>d.payment_id===p.payment_id)))) throw Error('The checked bank records are incomplete.');
+  }
   return { result, bytes: raw };
 }

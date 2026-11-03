@@ -1,3 +1,5 @@
+import {BridgeProvider} from './bridge-provider.mjs';
+import {bridgeRequest,closeBridge} from './tool-bridge.mjs';
 import { Account, JsonRpcProvider, actions } from "near-api-js";
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
@@ -47,7 +49,7 @@ if (
     "The account identities and compiled manifests do not match.",
   );
 const rpcUrl = process.env.SEALWORK_RPC_URL || "https://test.rpc.fastnear.com";
-const rpc = new JsonRpcProvider({ url: rpcUrl });
+const rpc = process.env.PACKAGE_TOOL_BRIDGE === "1" ? new BridgeProvider(rpcUrl) : new JsonRpcProvider({ url: rpcUrl });
 const root = new Account(
   accounts.root.account_id,
   rpc,
@@ -109,12 +111,11 @@ for (const build of built.builds) {
     throw new Error(
       "A published binary or build manifest does not match its fingerprint.",
     );
-  const response = await fetch(wasmUrl(build), {
-    signal: AbortSignal.timeout(20000),
-  });
+  const bridged=process.env.PACKAGE_TOOL_BRIDGE === "1";
+  const response = bridged ? await bridgeRequest(wasmUrl(build), "GET",undefined,undefined,undefined,"binary") : await fetch(wasmUrl(build), {signal: AbortSignal.timeout(20000)});
   if (
-    !response.ok ||
-    digest(Buffer.from(await response.arrayBuffer())) !== build.hash
+    (!bridged && !response.ok) ||
+    digest(bridged ? response : Buffer.from(await response.arrayBuffer())) !== build.hash
   )
     throw new Error(
       "Publish the matching worker binaries on the website before deploying their registry.",
@@ -269,3 +270,5 @@ await writeFile(
   JSON.stringify(deployment, null, 2) + "\n",
 );
 console.log("Verified NEAR testnet deployment:", deployment.contract_id);
+
+closeBridge();

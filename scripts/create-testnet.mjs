@@ -1,3 +1,5 @@
+import {BridgeProvider} from './bridge-provider.mjs';
+import {bridgeRequest,closeBridge} from './tool-bridge.mjs';
 import {
   Account,
   JsonRpcProvider,
@@ -22,12 +24,14 @@ try {
 } catch {
   saved = null;
 }
-const rpc = new JsonRpcProvider({ url: "https://test.rpc.fastnear.com" });
+const rpc = process.env.PACKAGE_TOOL_BRIDGE === "1" ? new BridgeProvider() : new JsonRpcProvider({ url: "https://test.rpc.fastnear.com" });
 if (saved && saved.root?.account_id !== accountId)
   throw new Error("The saved identities belong to another deployment. Choose a separate private accounts file.");
 if (!saved) {
   const key = KeyPair.fromRandom("ed25519");
-  const response = await fetch("https://helper.testnet.near.org/account", {
+  const requestBody={newAccountId: accountId,newAccountPublicKey: key.getPublicKey().toString()};
+  const bridged=process.env.PACKAGE_TOOL_BRIDGE === "1";
+  const response = bridged ? await bridgeRequest("https://helper.testnet.near.org/account","POST",requestBody) : await fetch("https://helper.testnet.near.org/account", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -36,8 +40,8 @@ if (!saved) {
     }),
     signal: AbortSignal.timeout(30000),
   });
-  const body = await response.json();
-  if (!response.ok || body.error)
+  const body = bridged ? response : await response.json();
+  if ((!bridged && !response.ok) || body.error)
     throw new Error(
       `The official testnet helper could not create the account (HTTP ${response.status}).`,
     );
@@ -84,3 +88,5 @@ for (const [role, account] of Object.entries(saved)) {
     "testnet NEAR",
   );
 }
+
+closeBridge();

@@ -88,5 +88,9 @@ export function inspectInputs(
   const ids = invoices.slice(1).map((row) => row[idColumn]);
   if (ids.some((id) => !id) || new Set(ids).size !== ids.length)
     throw new Error("Source invoice identifiers must be present and unique.");
+  const paymentIdColumn=payments[0].map(header=>header.toLowerCase()).indexOf('invoice_id');
+  if (payments.slice(1).some(row=>!ids.includes(row[paymentIdColumn]))) throw Error('A ledger row references an invoice that is not in the source file.');
+  const invoiceAmountColumn=invoices[0].map(header=>header.toLowerCase()).indexOf('amount');
+  if (invoices.slice(1).some(row=>Number(row[invoiceAmountColumn])===0)) throw Error('Invoice amounts must be greater than zero.');
   return { invoices: invoices.length - 1, payments: payments.length - 1 };
 }

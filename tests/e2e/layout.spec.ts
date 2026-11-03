@@ -19,6 +19,7 @@ test("desktop and narrow layouts render every page without errors or page overfl
       "/protocol",
       "/new",
       "/new?mode=agent",
+      "/new?task=bank",
     ]) {
       const response = await page.goto(route);
       expect(response?.status()).toBe(200);
@@ -83,15 +84,15 @@ test("CSV preflight catches invalid amounts and the unconfigured demo explains w
   ).toBeDisabled();
 });
 
-test("the narrated demo plays as an under-a-minute video and its dialog closes", async ({ page }) => {
+test("the inherited narrated demo plays and its dialog closes", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Watch the 50-second demo" }).click();
+  await page.getByRole("button", { name: "Watch the original workflow" }).click();
   const dialog = page.getByRole("dialog", { name: "Sealwork product demo" });
   await expect(dialog).toBeVisible();
   const video = dialog.locator("video");
   await expect.poll(() => video.evaluate(element => (element as HTMLVideoElement).duration)).toBeGreaterThan(40);
-  expect(await video.evaluate(element => (element as HTMLVideoElement).duration)).toBeLessThan(60);
-  await expect(dialog.getByRole("link", { name: "Download the demo video" })).toBeVisible();
+  expect(await video.evaluate(element => (element as HTMLVideoElement).duration)).toBeLessThan(180);
+  await expect(dialog.getByRole("link", { name: "Download this recording" })).toBeVisible();
   await page.getByRole("button", { name: "Close demo video" }).click();
   await expect(dialog).toHaveCount(0);
 });

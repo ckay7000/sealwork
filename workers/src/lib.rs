@@ -33,7 +33,18 @@ pub struct ResultRow {
     pub vendor: String,
     pub amount_minor: u64,
     pub currency: String,
+    pub paid_minor: u64,
+    pub remaining_minor: u64,
     pub status: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct SourceHashes {
+    pub source_sha256: String,
+    pub ledger_sha256: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub payments_sha256: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
@@ -43,6 +54,9 @@ pub struct PrivateResult {
     pub rows: Vec<ResultRow>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub bank: Option<BankProposal>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub payments: Option<Vec<bank::CheckedBankPayment>>,
+    pub sources: SourceHashes,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -162,6 +176,8 @@ pub fn expected_result(input: &PrivateInput) -> Result<PrivateResult, &'static s
         if vendor.is_empty() || vendor.len() > 120 { return Err("vendor_invalid"); }
         let c = currency(&invoice["currency"])?;
         let amount = minor_units(&invoice["amount"])?;
+        if amount == 0 { return Err("amount_invalid"); }
+        let paid_minor = ledger.get(&invoice_id).map(|payments| payments.iter().try_fold(0u64, |sum,(_,n)| sum.checked_add(*n).ok_or("amount_invalid"))).transpose()?.unwrap_or(0);
         let status = match ledger.get(&invoice_id) {
             None => "unpaid",
             Some(payments) => {
@@ -171,12 +187,16 @@ pub fn expected_result(input: &PrivateInput) -> Result<PrivateResult, &'static s
                     sum = sum.checked_add(*paid_amount).ok_or("amount_invalid")?;
                     same_currency &= paid_currency == &c;
                 }
-                if same_currency && sum == amount { "matched" } else { "mismatch" }
+                if same_currency && sum == amount { "matched" } else if same_currency && sum > 0 && sum < amount { "partial" } else { "mismatch" }
             }
         };
-        rows.push(ResultRow { invoice_id, vendor, amount_minor: amount, currency: c, status: status.to_owned() });
+        rows.push(ResultRow { invoice_id, vendor, amount_minor: amount, currency: c, paid_minor, remaining_minor:amount.saturating_sub(paid_minor), status: status.to_owned() });
     }
-    Ok(PrivateResult { schema: "sealwork.invoice-reconciliation.v1".to_owned(), rows, bank: input.bank.as_ref().map(|b|b.proposal.clone()) })
+    if ledger.keys().any(|key| !seen.contains(key)) { return Err("ledger_unknown_invoice"); }
+    Ok(PrivateResult { schema: "sealwork.invoice-reconciliation.v2".to_owned(), rows,
+        bank: input.bank.as_ref().map(|b|b.proposal.clone()),
+        payments:input.bank.as_ref().map(bank::payment_rows).transpose()?,
+        sources:SourceHashes { source_sha256:digest(input.source_csv.as_bytes()), ledger_sha256:digest(input.ledger_csv.as_bytes()), payments_sha256:input.bank.as_ref().map(|b|digest(b.payments_csv.as_bytes())) } })
 }
 
 pub fn produce(input: &PrivateInput, faulty: bool) -> Result<PrivateResult, &'static str> {
@@ -224,7 +244,7 @@ pub fn verify(input: &PrivateInput, commitment: &str, artifact: &Artifact) -> Re
     let expected_ids = expected.rows.iter().map(|r| &r.invoice_id).collect::<BTreeSet<_>>();
     let by_id = actual.rows.iter().map(|r| (r.invoice_id.clone(), r)).collect::<BTreeMap<_, _>>();
     let matches = |which: u8| expected.rows.iter().all(|e| by_id.get(&e.invoice_id).is_some_and(|a| match which {
-        0 => a.amount_minor == e.amount_minor && a.currency == e.currency,
+        0 => a.amount_minor == e.amount_minor && a.currency == e.currency && a.paid_minor == e.paid_minor && a.remaining_minor == e.remaining_minor,
         1 => a.vendor == e.vendor,
         _ => a.status == e.status,
     }));
@@ -234,7 +254,7 @@ pub fn verify(input: &PrivateInput, commitment: &str, artifact: &Artifact) -> Re
         Check { id: "unique_ids".to_owned(), passed: actual_ids.len() == actual.rows.len() && actual_ids == expected_ids },
         Check { id: "amounts_preserved".to_owned(), passed: matches(0) },
         Check { id: "vendor_integrity".to_owned(), passed: matches(1) },
-        Check { id: "ledger_matches".to_owned(), passed: matches(2) && actual.bank == expected.bank },
+        Check { id: "ledger_matches".to_owned(), passed: matches(2) && actual.bank == expected.bank && actual.payments == expected.payments && actual.sources == expected.sources },
         Check { id: "delivery_integrity".to_owned(), passed: delivery_matches },
     ])
 }
@@ -280,8 +300,9 @@ mod tests {
     }
     #[test] fn statuses_are_recomputed_from_all_payments() {
         let r=expected_result(&input()).unwrap();
-        assert_eq!(r.rows.iter().map(|r|r.status.as_str()).collect::<Vec<_>>(),vec!["matched","mismatch","unpaid"]);
+        assert_eq!(r.rows.iter().map(|r|r.status.as_str()).collect::<Vec<_>>(),vec!["matched","partial","unpaid"]);
         assert_eq!(r.rows[0].vendor,"Fern Studio");
+        assert_eq!((r.rows[1].paid_minor,r.rows[1].remaining_minor),(7999,1));
     }
     #[test] fn honest_and_faulty_builds_are_distinguished() {
         let i=input();let c=input_commitment(&i).unwrap();
@@ -320,8 +341,23 @@ mod tests {
     }
     #[test] fn quoted_unicode_vendors_and_invalid_source_are_handled() {
         let mut i=input();i.source_csv="invoice_id,vendor,amount,currency\nI-1,\"Fern, café\",12.35,USD".to_owned();
+        i.ledger_csv="invoice_id,amount,currency\nI-1,12.35,USD".to_owned();
         assert_eq!(expected_result(&i).unwrap().rows[0].vendor,"Fern, café");
         i.source_csv.push_str("\nI-1,Fern,12.35,USD");assert_eq!(expected_result(&i).unwrap_err(),"source_duplicate");
         i.source_csv="invoice_id,vendor,amount,currency\nI-1,Fern,12.35,JPY".to_owned();assert_eq!(expected_result(&i).unwrap_err(),"currency_unsupported");
+    }
+    #[test] fn unknown_ledger_rows_cannot_disappear_from_a_paid_report() {
+        let mut i=input();i.ledger_csv.push_str("\nUNKNOWN,5.00,USD");
+        assert_eq!(expected_result(&i).unwrap_err(),"ledger_unknown_invoice");
+    }
+    #[test] fn fabricated_outstanding_balances_and_source_hashes_fail_verification() {
+        let i=input();let c=input_commitment(&i).unwrap();let mut a=artifact(&i,false);
+        let mut r:PrivateResult=serde_json::from_str(&a.result).unwrap();r.rows[1].remaining_minor=0;
+        r.sources.source_sha256="00".repeat(32);
+        a.result=serde_json::to_string(&r).unwrap();a.result_commitment=result_commitment(&a.result,&i.salt);
+        a.result_ciphertext=encrypt_delivery(&i,&c,&a.result).unwrap();
+        let checks=verify(&i,&c,&a).unwrap();
+        assert!(!checks.iter().find(|c|c.id=="amounts_preserved").unwrap().passed);
+        assert!(!checks.iter().find(|c|c.id=="ledger_matches").unwrap().passed);
     }
 }

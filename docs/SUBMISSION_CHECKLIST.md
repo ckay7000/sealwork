@@ -1,3 +1,5 @@
+> Inherited reference from the original Sealwork baseline. Deployment IDs, screenshots, counts and recordings on this page may refer to the original version. See [current behavior](../README.md), [comparison](COMPARISON.md) and [current verification](VERIFICATION.md).
+
 # Sealwork: human submission checklist
 
 Deadline: **November 14, 2026, 23:59 UTC**. Use the [official form](https://nearhackathon.com/#apply) or the API after final exact-payload confirmation. Re-read [the live guide](https://nearhackathon.com/HACKATHON.md) first. Submissions are immutable and each repository can be submitted once.

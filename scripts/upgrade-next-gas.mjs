@@ -1,0 +1,15 @@
+import {Account,actions} from 'near-api-js';
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {BridgeProvider} from './bridge-provider.mjs';
+import {closeBridge} from './tool-bridge.mjs';
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const d=JSON.parse(await readFile('deployments/testnet.json','utf8'));
+if(d.contract_id!=='market.sealwork-next-1103.testnet')throw Error('This upgrade is limited to the new comparison deployment.');
+const rpc=new BridgeProvider(),keys=JSON.parse(await readFile('.local/testnet-accounts.json','utf8')),binary=await readFile('contracts/market/build/market.wasm');
+const code=await rpc.query({request_type:'view_code',account_id:d.contract_id,finality:'final'});
+if(hash(Buffer.from(code.code_base64,'base64'))!==d.contract_sha256)throw Error('The current contract differs from the reviewed deployment.');
+const market=new Account(d.contract_id,rpc,keys.contract.secret_key);
+const r=await market.signAndSendTransaction({receiverId:d.contract_id,actions:[actions.deployContract(binary)],waitUntil:'FINAL'});
+if(typeof r.status==='object'&&'Failure'in r.status)throw Error('The separate gas-budget upgrade failed.');
+d.contract_sha256=hash(binary);d.gas_budget_upgrade={transaction_hash:r.transaction.hash,at:new Date().toISOString(),request_tgas:80,agent_callback_tgas:200,storage_schema_changed:false};await writeFile('deployments/testnet.json',JSON.stringify(d,null,2)+'\n');console.log('Updated only the separate comparison contract:',r.transaction.hash);closeBridge();

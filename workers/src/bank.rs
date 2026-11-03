@@ -16,6 +16,23 @@ pub struct BankProposal { pub decisions: Vec<BankDecision> }
 #[serde(deny_unknown_fields)]
 pub struct BankInput { pub payments_csv: String, pub proposal: BankProposal }
 
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct CheckedBankPayment {
+    pub payment_id: String, pub description: String, pub currency: String,
+    pub amount_minor: u64, pub allocated_minor: u64, pub remaining_minor: u64,
+}
+
+pub fn payment_rows(bank: &BankInput) -> Result<Vec<CheckedBankPayment>, &'static str> {
+    let payments = csv_rows(&bank.payments_csv, &["payment_id", "description", "amount", "currency"])?;
+    payments.into_iter().map(|p| {
+        let decision = bank.proposal.decisions.iter().find(|d| d.payment_id == p["payment_id"]).ok_or("bank_completeness_failed")?;
+        let amount = minor_units(&p["amount"])?;
+        let allocated = decision.allocations.iter().try_fold(0u64, |sum,a| sum.checked_add(a.amount_minor).ok_or("amount_invalid"))?;
+        Ok(CheckedBankPayment { payment_id:p["payment_id"].clone(), description:p["description"].clone(), currency:currency(&p["currency"])?, amount_minor:amount, allocated_minor:allocated, remaining_minor:amount.checked_sub(allocated).ok_or("bank_payment_total_failed")? })
+    }).collect()
+}
+
 pub fn approved_ledger(input: &PrivateInput, bank: &BankInput) -> Result<String, &'static str> {
     if bank.payments_csv.len() > 10000 { return Err("input_too_large"); }
     let invoices = csv_rows(&input.source_csv, &["invoice_id", "vendor", "amount", "currency"])?;
@@ -24,7 +41,9 @@ pub fn approved_ledger(input: &PrivateInput, bank: &BankInput) -> Result<String,
     let mut invoice_map = BTreeMap::new();
     for i in invoices {
         let key = id(&i["invoice_id"])?;
-        if invoice_map.insert(key, (currency(&i["currency"])?, minor_units(&i["amount"])?)).is_some() { return Err("source_duplicate"); }
+        let amount = minor_units(&i["amount"])?;
+        if amount == 0 { return Err("amount_invalid"); }
+        if invoice_map.insert(key, (currency(&i["currency"])?, amount)).is_some() { return Err("source_duplicate"); }
     }
     let mut payment_map = BTreeMap::new();
     for p in payments {
@@ -89,5 +108,14 @@ mod tests {
         let mut i=input();i.bank.as_mut().unwrap().proposal.decisions[0].evidence="invented receipt".to_owned();assert!(expected_result(&i).is_err());
         let mut i=input();i.bank.as_mut().unwrap().payments_csv=i.bank.as_ref().unwrap().payments_csv.replace("900.00,USD","900.00,EUR");assert!(expected_result(&i).is_err());
         let mut i=input();i.bank.as_mut().unwrap().proposal.decisions.pop();assert_eq!(expected_result(&i).unwrap_err(),"bank_completeness_failed");
+    }
+    #[test] fn unresolved_bank_amounts_are_part_of_the_checked_delivery() {
+        let i=input();let c=input_commitment(&i).unwrap();
+        let mut r=expected_result(&i).unwrap();
+        assert_eq!(r.payments.as_ref().unwrap()[1].remaining_minor,25000);
+        r.payments.as_mut().unwrap()[1].remaining_minor=0;
+        let raw=serde_json::to_string(&r).unwrap();
+        let a=Artifact{job_id:i.job_id.clone(),input_commitment:c.clone(),manifest_hash:"55".repeat(32),result_commitment:result_commitment(&raw,&i.salt),result_ciphertext:encrypt_delivery(&i,&c,&raw).unwrap(),result:raw};
+        assert!(!verify(&i,&c,&a).unwrap().iter().find(|c|c.id=="ledger_matches").unwrap().passed);
     }
 }

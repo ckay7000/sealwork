@@ -1,3 +1,5 @@
+> Inherited reference from the original Sealwork baseline. Deployment IDs, screenshots, counts and recordings on this page may refer to the original version. See [current behavior](../README.md), [comparison](COMPARISON.md) and [current verification](VERIFICATION.md).
+
 # A 15-minute bookkeeper test
 
 **Status: prepared worksheet. No independent bookkeeper feedback has been collected or claimed.**

@@ -16,13 +16,13 @@ import {
 } from "lucide-react";
 import { CHECKS, LEDGER_SAMPLE, SOURCE_SAMPLE } from "../shared/types";
 import type { HiringPlan, Job, PrivateInput, PrivatePacket } from "../shared/types";
-import { inputCommitment, randomHex, sealToKeystore } from "../shared/crypto";
+import { canonicalJson, inputCommitment, randomHex, sealToKeystore } from "../shared/crypto";
 import { inspectInputs } from "../shared/inputs";
-import { BANK_INVOICES, BANK_PAYMENTS, bankRecords, approvedLedger } from "../shared/bank";
+import { BANK_INVOICES, BANK_PAYMENTS, bankRecords, approvedLedger, suggestBankMatches } from "../shared/bank";
 import type { BankProposal } from "../shared/bank";
 import { analyzeBank, digestText } from "../shared/private-ai";
 import type { AnalysisProof } from "../shared/private-ai";
-import { BankDecisions } from "./bank-decisions";
+import { ReconciliationReview } from "./reconciliation-review";
 import { nearAmount, shortHash } from "../shared/format";
 import { AgentAvatar, PageHeading, Pill } from "./components";
 import { ApiError, post, privateSession, savePrivate, useData } from "./data";
@@ -40,7 +40,7 @@ export function NewJob() {
   const [bankMode, setBankMode] = useState(params.get("task") === "bank");
   const [source, setSource] = useState(params.get("task") === "bank" ? BANK_INVOICES : SOURCE_SAMPLE);
   const [ledger, setLedger] = useState(params.get("task") === "bank" ? BANK_PAYMENTS : LEDGER_SAMPLE);
-  const [analysis, setAnalysis] = useState<{proposal:BankProposal;proof:AnalysisProof;input_hash:string}|null>(null);
+  const [analysis, setAnalysis] = useState<{proposal:BankProposal;proof?:AnalysisProof;input_hash:string;method:'local'|'private_ai';original_hash:string}|null>(null);
   const [analyzing,setAnalyzing] = useState(false);
   const [analysisPhase,setAnalysisPhase] = useState("");
   const [agreed, setAgreed] = useState(false);
@@ -50,7 +50,7 @@ export function NewJob() {
   const [error, setError] = useState("");
   const [mode, setMode] = useState("sample");
   const [autonomous, setAutonomous] = useState(params.get("mode") === "agent");
-  const [priority, setPriority] = useState<"proven" | "balanced">("proven");
+  const [priority, setPriority] = useState<"proven" | "balanced">("balanced");
   const [plan, setPlan] = useState<HiringPlan | null>(null);
   const [planning, setPlanning] = useState(false);
   const sourceUpload = useRef<HTMLInputElement>(null);
@@ -139,6 +139,9 @@ export function NewJob() {
         input_commitment: commitment,
         hiring_plan: autonomous && plan ? plan : undefined,
         bank_proof: bankMode ? analysis?.proof : undefined,
+        reconciliation_method:bankMode?analysis?.method:undefined,
+        original_proposal_hash:bankMode?analysis?.original_hash:undefined,
+        approved_proposal_hash:bankMode&&analysis?digestText(canonicalJson(analysis.proposal)):undefined,
       });
       setPhase("Funding escrow & storing the encrypted packet…");
       const response = await post<{
@@ -164,6 +167,9 @@ export function NewJob() {
         transaction_hash: response.transaction_hash,
         hiring_plan: autonomous && plan ? plan : undefined,
         bank_proof: bankMode ? analysis?.proof : undefined,
+        reconciliation_method:bankMode?analysis?.method:undefined,
+        original_proposal_hash:bankMode?analysis?.original_hash:undefined,
+        approved_proposal_hash:bankMode&&analysis?digestText(canonicalJson(analysis.proposal)):undefined,
       });
       void refresh();
       navigate(`/jobs/${id}`, {
@@ -204,24 +210,12 @@ export function NewJob() {
       setError(error instanceof Error ? error.message : "The hiring agent could not complete. No job was funded.");
     } finally { setPlanning(false); }
   }
-  return (
-    <>
-      <Link to="/workspace" className="back-link">
-        <ArrowLeft size={14} />
-        Back to workspace
-      </Link>
-      <PageHeading
-        eyebrow="A CLEAR AGREEMENT, BEFORE WORK STARTS"
-        title={autonomous ? "Let your agent hire safely." : "Create a private job."}
-        description={autonomous ? "Set the constraints. AI selects a worker. Independent checks control the payment." : "Choose the exact build, add your files, and agree on what a correct delivery means."}
-      />
-      <form className="new-job-grid" onSubmit={(event) => void submit(event)}>
-        <div className="job-form-main">
+  const workerSection = (
           <section className="surface form-section">
             <div className="form-section-heading">
-              <span className="step-number">1</span>
+              <span className="step-number">{bankMode ? 2 : 1}</span>
               <div>
-                <h2>Choose your agent build</h2>
+                <h2>{bankMode ? "Processing worker" : "Choose your agent build"}</h2>
                 <p>A fingerprint binds the job to the code you select.</p>
               </div>
             </div>
@@ -284,9 +278,24 @@ export function NewJob() {
               ))}
             </div>}
           </section>
+  );
+  return (
+    <>
+      <Link to="/workspace" className="back-link">
+        <ArrowLeft size={14} />
+        Back to workspace
+      </Link>
+      <PageHeading
+        eyebrow="A CLEAR AGREEMENT, BEFORE WORK STARTS"
+        title={bankMode ? "Reconcile private bank receipts." : autonomous ? "Let your agent hire safely." : "Create a private job."}
+        description={bankMode ? "Import records, review the matches, and receive a checked report with unresolved receipts and outstanding invoices." : autonomous ? "Set the constraints. AI selects a worker. Independent checks control the payment." : "Choose the exact build, add your files, and agree on what a correct delivery means."}
+      />
+      <form className="new-job-grid" onSubmit={(event) => void submit(event)}>
+        <div className="job-form-main">
+          {!bankMode && workerSection}
           <section className="surface form-section">
             <div className="form-section-heading">
-              <span className="step-number">2</span>
+              <span className="step-number">{bankMode ? 1 : 2}</span>
               <div>
                 <h2>Add the confidential files</h2>
                 <p>
@@ -315,7 +324,7 @@ export function NewJob() {
                 const enabled=event.target.checked;setBankMode(enabled);setSource(enabled?BANK_INVOICES:SOURCE_SAMPLE);
                 setLedger(enabled?BANK_PAYMENTS:LEDGER_SAMPLE);setAnalysis(null);setAgreed(false);setMode("sample");
                 setTitle(enabled?"Private bank payment matching":"Invoice reconciliation");
-              }}/><span>Match messy bank payments with private AI</span>
+              }}/><span>Reconcile bank receipts against invoices</span>
             </label>
             {bankMode && <p className="field-hint">Use payment IDs and bank descriptions. AI proposes matches through encrypted inference; uncertain payments stay open for review.</p>}
             <div className="input-mode-bar">
@@ -423,20 +432,25 @@ export function NewJob() {
               </div>
             )}
             {bankMode && <div className="hiring-agent-panel bank-analysis-panel">
-              <h3>Understand the bank records</h3>
+              <h3>Suggest matches, then resolve the exceptions</h3>
               <p>The model’s key and signed response are checked. A separate verifier checks the original records, allocation totals and your encrypted report.</p>
+              <button type="button" className="button secondary full" disabled={analyzing||busy||!!preflight} onClick={()=>{
+                try{const proposal=suggestBankMatches(source,ledger);setAnalysis({proposal,input_hash:digestText(source+'\0'+ledger),method:'local',original_hash:digestText(canonicalJson(proposal))});setAgreed(false);setError('');}catch(e){setError(e instanceof Error?e.message:'Check the source records.');}
+              }}>Suggest exact matches locally</button>
+              <p className="field-hint">Local suggestions use invoice references, vendor names and exact amounts. They do not send records to an inference service.</p>
               <button type="button" className="button secondary full" disabled={analyzing||busy||!!preflight||!config?.private_ai?.ready||!config.bank_supported} onClick={()=>void(async()=>{
                 setAnalyzing(true);setError("");setAnalysis(null);setAgreed(false);
                 const inputHash=digestText(source+'\0'+ledger);
-                try{const value=await analyzeBank(source,ledger,config!.create_challenge!,post,setAnalysisPhase);setAnalysis({...value,input_hash:inputHash});}
+                try{const value=await analyzeBank(source,ledger,config!.create_challenge!,post,setAnalysisPhase);setAnalysis({...value,input_hash:inputHash,method:'private_ai',original_hash:digestText(canonicalJson(value.proposal))});}
                 catch(error){setError(error instanceof Error?error.message:"Private analysis could not complete.");}
                 finally{setAnalyzing(false);setAnalysisPhase("");}
               })()}>{analyzing?<><Loader2 size={15} className="spin"/>{analysisPhase}</>:<><Sparkles size={15}/>Analyze bank payments privately</>}</button>
               {!config?.bank_supported && <p>This workflow is awaiting its dedicated verifier deployment.</p>}
-              {analysisReady && analysis && <><p role="status">Model evidence and response verified. Allocation checks passed. Review every proposed match before approval.</p><BankDecisions proposal={analysis.proposal}/>
+              {analysisReady && analysis && <><p role="status">{analysis.method==='private_ai'?'Original model evidence and response verified.':'Local exact-match suggestions ready.'} Allocation checks passed. Review every proposed match before approval.</p><ReconciliationReview proposal={analysis.proposal} source={source} payments={ledger} disabled={analyzing||busy} onChange={proposal=>{setAnalysis({...analysis,proposal});setAgreed(false);}}/>
                 <p className="field-hint">Evidence checks prove record consistency. They cannot prove the payer’s intended meaning. Uncertain payments receive no allocation.</p></>}
             </div>}
           </section>
+          {bankMode && workerSection}
           <section className="surface form-section">
             <div className="form-section-heading">
               <span className="step-number">3</span>

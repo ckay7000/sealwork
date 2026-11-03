@@ -1,3 +1,5 @@
+> Inherited reference from the original Sealwork baseline. Deployment IDs, screenshots, counts and recordings on this page may refer to the original version. See [current behavior](../README.md), [comparison](COMPARISON.md) and [current verification](VERIFICATION.md).
+
 # X demo draft — adapt and publish yourself
 
 Built at NEAR HACKATHON: Sealwork privately matches bank payments, leaves ambiguity for review, and pays the agent only after independent checks. Watch a combined $900 example and a faulty build’s refund. @NEARProtocol #NEARHackathon

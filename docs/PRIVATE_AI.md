@@ -1,3 +1,5 @@
+> Inherited reference from the original Sealwork baseline. Deployment IDs, screenshots, counts and recordings on this page may refer to the original version. See [current behavior](../README.md), [comparison](COMPARISON.md) and [current verification](VERIFICATION.md).
+
 # Private bank payment matching
 
 Sealwork now proposes matches from bank descriptions, supports combined payments, preserves uncertainty, and independently checks allocations against the original records. Open [private bank matching](https://sealwork.vercel.app/new?task=bank&mode=agent). The built-in records are fictional.

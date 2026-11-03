@@ -19,11 +19,10 @@ import { SOURCE_URL, useData } from "./data";
 import { shortHash } from "../shared/format";
 
 export function Landing() {
-  const [accepted, setAccepted] = useState(true);
   const [watch, setWatch] = useState(false);
   const [videoChoice, setVideoChoice] = useState('sealwork-hackathon-demo');
   const videoChoices = [
-    { id: 'sealwork-hackathon-demo', label: 'Explained overview' },
+    { id: 'sealwork-hackathon-demo', label: 'Original explained overview' },
     { id: 'sealwork-live-paid', label: 'Fresh paid job' },
     { id: 'sealwork-live-refund', label: 'Fresh refund' },
   ];
@@ -35,7 +34,6 @@ export function Landing() {
     (build) => build.agent_id === "ledgerline" && build.version.endsWith(".1"),
   );
   const receipt = jobs.find((job) => job.outcome === "accepted");
-  const bankReady = Boolean(config?.bank_supported && config?.private_ai?.ready);
   return (
     <div className="marketing">
       <a className="skip-link" href="#main">
@@ -68,13 +66,13 @@ export function Landing() {
           <div className="hero-copy">
             <div className="hero-eyebrow">
               <span className="live-dot" />
-              PRIVATE FINANCIAL AGENT WORK
+              PRIVATE BANK RECONCILIATION
             </div>
-            <h1>Proof before<br/><span className="proof-word">payment<svg viewBox="0 0 270 18" aria-hidden="true"><path d="M3 12C70 2 181 1 266 8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/></svg></span>.</h1>
-            <p className="hero-description">Match bank payments to invoices while keeping your files private. A separate verifier checks the report. Correct work gets paid; failed work returns the worker’s budget.</p>
+            <h1>Match receipts.<br/><span className="proof-word">Privately<svg viewBox="0 0 270 18" aria-hidden="true"><path d="M3 12C70 2 181 1 266 8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/></svg></span>.</h1>
+            <p className="hero-description">Match combined receipts, review ambiguous payments, and export checked invoice balances. Your records stay encrypted. The separate verifier checks your reviewed report before the processing worker earns its fee.</p>
             <div className="hero-buttons">
-              <Link to={bankReady ? "/new?task=bank&mode=agent" : config?.planner?.ready ? "/new?mode=agent" : "/new"} className="button primary hero-button">
-                {bankReady ? "Try private bank matching" : config?.planner?.ready ? "Try safe agent hiring" : "Try a private job"} <ArrowUpRight size={19} />
+              <Link to="/new?task=bank" className="button primary hero-button">
+                Reconcile a sample batch <ArrowUpRight size={19} />
               </Link>
               <Link
                 to={receipt ? `/jobs/${receipt.id}` : "/protocol"}
@@ -106,131 +104,30 @@ export function Landing() {
               </strong>
             </div>
             <button type="button" className="text-link demo-video-trigger" onClick={() => setWatch(true)}>
-              Watch the practical demo <ArrowRight size={15} />
+              Watch the original workflow <ArrowRight size={15} />
             </button>
           </div>
-          <div
-            className="hero-art"
-            aria-label="Interactive illustration of the verification outcome"
-          >
-            <div className="hero-art-grid" />
-            <div className="art-orbit art-orbit-one" />
-            <div className="art-orbit art-orbit-two" />
-            <div className="private-file-card">
-              <div className="file-card-icon">
-                <Lock size={19} />
-              </div>
-              <div>
-                <strong>Your private files</strong>
-                <span>invoices.csv + payments.csv</span>
-              </div>
-              <Pill tone="green">Encrypted</Pill>
-              <div className="file-obscured-lines">
-                <i />
-                <i />
-                <i />
-                <i />
-              </div>
-              <div className="file-packet-foot">
-                <span>Contents stay private</span>
-                <Check size={13} />
-              </div>
-            </div>
-            <div className="hero-flow-connector">
-              <CornerDownRight size={31} />
-              <span>Attested execution</span>
-            </div>
-            <div className="execution-card">
-              <div className="execution-card-header">
-                <AgentAvatar id="ledgerline" />
-                <div>
-                  <strong>
-                    Ledgerline <span>v{accepted ? stable?.version || "2.0" : changed?.version || "2.1"}</span>
-                  </strong>
-                  <small>The exact build you hire</small>
-                </div>
-                <Fingerprint size={17} />
-              </div>
-              <div className="execution-fingerprint">
-                <span>BUILD FINGERPRINT</span>
-                <code>
-                  {shortHash(
-                    (accepted ? stable : changed)?.hash || "ab7840d6581891f6",
-                    7,
-                  )}
-                </code>
-              </div>
-              <div className="hero-verifier">
-                <span className="verifier-icon">
-                  <ShieldCheck size={19} />
-                </span>
-                <div>
-                  <strong>Independent verifier</strong>
-                  <small>
-                    {accepted
-                      ? "All six acceptance checks pass"
-                      : "Amount preservation check fails"}
-                  </small>
-                </div>
-                {accepted ? (
-                  <Check className="green-text" size={20} />
-                ) : (
-                  <X className="red-text" size={20} />
-                )}
-              </div>
-              <div
-                className="illustration-controls"
-                aria-label="Try an illustrated outcome"
-              >
-                <button
-                  onClick={() => setAccepted(true)}
-                  className={accepted ? "active" : ""}
-                >
-                  Correct build
-                </button>
-                <button
-                  onClick={() => setAccepted(false)}
-                  className={!accepted ? "active" : ""}
-                >
-                  Changed amount
-                </button>
-              </div>
-            </div>
-            <div
-              className={`hero-settlement ${accepted ? "accepted" : "rejected"}`}
-            >
-              <div className="settlement-stamp">
-                {accepted ? <Check size={24} /> : <CornerDownRight size={24} />}
-              </div>
-              <div>
-                <span>{accepted ? "ACCEPTED WORK" : "REJECTED WORK"}</span>
-                <strong>
-                  {accepted ? "Pay the agent." : "Refund the buyer."}
-                </strong>
-                <small>
-                  {accepted
-                    ? `Outcome → Ledgerline v${stable?.version || "2.0"}`
-                    : `Failure → Ledgerline v${changed?.version || "2.1"}`}
-                </small>
-              </div>
-              <ArrowUpRight size={21} />
-            </div>
-            <span className="art-caption">
-              INTERACTIVE ILLUSTRATION · REAL RECEIPTS IN THE WORKSPACE
-            </span>
+          <div className="receipt-preview" aria-label="Illustration of a fictional reconciliation batch">
+            <div className="receipt-preview-heading"><Lock size={20}/><div><span>FICTIONAL SAMPLE BATCH</span><h2>Every receipt accounted for.</h2></div></div>
+            <div className="receipt-preview-row"><div><strong>$900.00</strong><span>Northstar April settlement</span></div><div><Pill tone="green">Combined match</Pill><span>$500 + $400 invoices</span></div></div>
+            <div className="receipt-preview-row"><div><strong>$250.00</strong><span>Fern Cafe settlement</span></div><div><Pill tone="amber">Needs review</Pill><span>Two equally plausible invoices</span></div></div>
+            <div className="receipt-preview-row"><div><strong>$125.00</strong><span>Paper Plane February retainer</span></div><div><Pill tone="green">Proposed match</Pill><span>One matching invoice</span></div></div>
+            <div className="receipt-preview-row"><div><strong>$99.00</strong><span>Unrecognized subscription</span></div><div><Pill tone="neutral">Unmatched</Pill><span>No supplied invoice</span></div></div>
+            <div className="receipt-preview-footer"><ShieldCheck size={20}/><p>Review the decisions. Get a separately checked report and export the unresolved items.</p></div>
+            <small className="receipt-preview-note">Illustration only · the live workspace runs real testnet jobs with fictional records.</small>
           </div>
         </section>
         <section className="marketing-principles" id="workflow">
           <div className="marketing-section-title">
             <p className="eyebrow">THE WHOLE JOB, CONNECTED</p>
             <h2>
-              Trust has been doing
+              Import. Review.
               <br />
-              too much of the work.
+              Export a checked report.
             </h2>
             <p>
-              Private inputs, verifiable acceptance, and build-specific history
-              belong in the same workflow.
+              Resolve the receipts you can explain. Keep the rest visible.
+              An independent checker validates the complete batch.
             </p>
           </div>
           <div className="marketing-feature-grid">
@@ -394,7 +291,7 @@ export function Landing() {
               No forced guesses.
             </h2>
             <p>
-              A $900 payment covers $500 and $400 invoices. The private AI proposes that match and leaves an ambiguous $250 payment open for review. You approve the proposal before the report-processing fee is reserved.
+              A $900 payment covers $500 and $400 invoices. Local matching or private AI proposes that match and leaves an ambiguous $250 payment open for review. You approve the proposal before the report-processing fee is reserved.
             </p>
             <p>
               A separate verifier checks the original records, allocation and encrypted report before payment. The dollar amounts are fictional bank data; the worker fee is separate testnet NEAR.
@@ -461,7 +358,7 @@ export function Landing() {
             <div className="demo-video-choices" role="group" aria-label="Choose a demo recording">
               {videoChoices.map(choice => <button key={choice.id} className={`button small ${videoChoice === choice.id ? 'primary' : 'secondary'}`} aria-pressed={videoChoice === choice.id} onClick={() => setVideoChoice(choice.id)}>{choice.label}</button>)}
             </div>
-            <p className="demo-recording-note">{videoChoice === 'sealwork-hackathon-demo' ? 'Edited, narrated walkthrough using genuine hosted screenshots.' : 'Uninterrupted screen recording of a fresh testnet job. Real waits included; narration added.'}</p>
+            <p className="demo-recording-note">{videoChoice === 'sealwork-hackathon-demo' ? 'Baseline recording from the original Sealwork. The review editor and expanded exports in this version are newer than this video.' : 'Original Sealwork testnet recording. Real waits included; the current version uses a separate deployment.'}</p>
             <video key={videoChoice} controls autoPlay playsInline poster={`/media/${videoChoice}-poster.jpg`}>
               <source src={`/media/${videoChoice}.mp4`} type="video/mp4" />
               <track kind="captions" src={`/media/${videoChoice}.vtt`} srcLang="en" label="English" />

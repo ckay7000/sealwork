@@ -348,8 +348,10 @@ test("browser encryption, accepted delivery, exact CSV export, public receipt, a
   expect(rows[1]).toEqual([
     "INV-1041",
     "Northstar Design",
-    "1250.00",
     "USD",
+    "1250.00",
+    "",
+    "",
     "matched",
   ]);
   pending = page.waitForEvent("download");

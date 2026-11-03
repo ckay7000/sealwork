@@ -1,6 +1,6 @@
 {
   "display": {
-    "name": "Ledgerline 2.1"
+    "name": "Ledgerline 3.1"
   },
   "operations": [
     "run"
@@ -11,7 +11,7 @@
   "callers": {
     "contract": {
       "only": [
-        "market.sealwork-ai.testnet"
+        "market.sealwork-next-1103.testnet"
       ]
     }
   },

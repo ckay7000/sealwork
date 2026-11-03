@@ -85,13 +85,26 @@ export interface ResultRow {
   vendor: string;
   amount_minor: number;
   currency: string;
-  status: "matched" | "unpaid" | "mismatch";
+  paid_minor?: number;
+  remaining_minor?: number;
+  status: "matched" | "partial" | "unpaid" | "mismatch";
+}
+
+export interface CheckedBankPayment {
+  payment_id: string;
+  description: string;
+  currency: string;
+  amount_minor: number;
+  allocated_minor: number;
+  remaining_minor: number;
 }
 
 export interface PrivateResult {
-  schema: "sealwork.invoice-reconciliation.v1";
+  schema: "sealwork.invoice-reconciliation.v1" | "sealwork.invoice-reconciliation.v2";
   rows: ResultRow[];
   bank?: import('./bank').BankProposal;
+  payments?: CheckedBankPayment[];
+  sources?: {source_sha256:string;ledger_sha256:string;payments_sha256?:string};
 }
 
 export interface Deployment {

@@ -1,3 +1,5 @@
+> Inherited reference from the original Sealwork baseline. Deployment IDs, screenshots, counts and recordings on this page may refer to the original version. See [current behavior](../README.md), [comparison](COMPARISON.md) and [current verification](VERIFICATION.md).
+
 # Sealwork: official hackathon alignment
 
 Source: [official HACKATHON.md](https://nearhackathon.com/HACKATHON.md), read November 2, 2026. [Preserved copy](HACKATHON.md) and [retrieval/hash metadata](hackathon-source.json). Re-read the live file before submitting.

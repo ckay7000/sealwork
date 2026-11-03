@@ -29,7 +29,7 @@ const specs = [
     feature: "ledgerline-v1",
     agent_id: "ledgerline",
     name: "Ledgerline",
-    version: "2.0",
+    version: "3.0",
     provider_id: `ledgerline.${rootId}`,
     description:
       "Reconcile confidential invoices against a payment ledger, with exact amount and currency checks.",
@@ -38,7 +38,7 @@ const specs = [
     feature: "ledgerline-v2",
     agent_id: "ledgerline",
     name: "Ledgerline",
-    version: "2.1",
+    version: "3.1",
     provider_id: `ledgerline.${rootId}`,
     description:
       "A deliberately faulty demo update that changes one amount. Its results belong to a separate build history.",
@@ -47,7 +47,7 @@ const specs = [
     feature: "archivist-v1",
     agent_id: "archivist",
     name: "Archivist",
-    version: "2.0",
+    version: "3.0",
     provider_id: `archivist.${rootId}`,
     description:
       "Turn private invoice and ledger files into a structured reconciliation report checked before payment.",
@@ -56,7 +56,7 @@ const specs = [
     feature: "verifier",
     agent_id: "sealwork-verifier",
     name: "Sealwork acceptance verifier",
-    version: "2.0",
+    version: "3.0",
     provider_id: contract,
     description:
       "Independently checks completeness, identifiers, amounts, vendors, payment statuses, and encrypted delivery.",
@@ -86,7 +86,7 @@ for (const spec of specs) {
     version: spec.version,
     engine: {
       kind: "deterministic",
-      recipe: "invoice-and-bank-reconciliation/v2",
+      recipe: "reviewed-bank-reconciliation/v3",
       source_digest: sourceDigest,
       feature: spec.feature,
     },

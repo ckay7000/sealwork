@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BankDecisions } from "./bank-decisions";
+import { invoiceCsv, paymentsCsv, minorAmount } from '../shared/reconciliation';
 import type { ChangeEvent } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import {
@@ -185,7 +186,7 @@ export function JobDetail() {
     const file = event.target.files?.[0];
     if (!file || !job) return;
     try {
-      if (file.size > 5000)
+      if (file.size > 10000)
         throw new Error(
           "Choose the small JSON recovery file saved for this job.",
         );
@@ -212,29 +213,16 @@ export function JobDetail() {
   }
   function exportCsv() {
     if (!result) return;
-    const safe = (value: string) =>
-      `"${(/^[=+@\-\t\r]/.test(value) ? "'" : "") + value.replace(/"/g, '""')}"`;
-    const lines = [
-      "invoice_id,vendor,amount,currency,status",
-      ...result.rows.map((row) => {
-        const minor = BigInt(row.amount_minor);
-        const amount = `${minor / 100n}.${(minor % 100n).toString().padStart(2, "0")}`;
-        return [
-          safe(row.invoice_id),
-          safe(row.vendor),
-          amount,
-          safe(row.currency),
-          safe(row.status),
-        ].join(",");
-      }),
-    ];
-    const blob = new Blob([lines.join("\r\n") + "\r\n"], {
+    downloadCsv(invoiceCsv(result.rows), `${id}-reconciliation.csv`);
+  }
+  function downloadCsv(csv: string, filename: string) {
+    const blob = new Blob([csv], {
       type: "text/csv;charset=utf-8",
     });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${id}-reconciliation.csv`;
+    link.download = filename;
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
@@ -521,7 +509,15 @@ export function JobDetail() {
                   <h3>Bank payment decisions</h3>
                   <p>Allocation totals were checked against the original bank records. Payments marked for review remain unallocated; invoice status alone does not resolve their meaning.</p>
                   <BankDecisions proposal={result.bank}/>
-                  <button className="button secondary" onClick={()=>downloadJson(`${id}-PRIVATE-bank-decisions.json`,{decisions:result.bank!.decisions,model_evidence:own?.bank_proof})}>Download private decisions</button>
+                  {job.outcome==='accepted'&&<div className="review-actions">
+                    {result.payments&&<button className="button secondary" onClick={()=>downloadCsv(paymentsCsv(result),`${id}-PRIVATE-bank-receipts.csv`)}>Export checked bank receipts</button>}
+                    <button className="button secondary" onClick={()=>downloadJson(`${id}-PRIVATE-reconciliation-pack.json`,{
+                      schema:'sealwork.private-reconciliation-pack.v1',job_id:id,input_commitment:job.input_commitment,result_commitment:job.result_commitment,
+                      build_hash:job.build_hash,verifier_hash:job.verifier_hash,report:result,model_evidence:own?.bank_proof,
+                      review:{method:own?.reconciliation_method,original_proposal_hash:own?.original_proposal_hash,approved_proposal_hash:own?.approved_proposal_hash},
+                      scope:'Checked consistency with the supplied records and approved allocations. Source fingerprints and financial details are private; this export contains no delivery key.'
+                    })}>Export private reconciliation pack</button>
+                  </div>}
                   {own?.bank_proof && <p className="field-hint">The model evidence is saved in your private recovery file. Shared model keys do not identify a unique serving instance.</p>}
                 </div>}
                 <div className="table-scroll">
@@ -531,6 +527,8 @@ export function JobDetail() {
                         <th>Invoice</th>
                         <th>Vendor</th>
                         <th>Amount</th>
+                        <th>Allocated</th>
+                        <th>Outstanding</th>
                         <th>Status</th>
                       </tr>
                     </thead>
@@ -559,6 +557,8 @@ export function JobDetail() {
                               .padStart(2, "0")}{" "}
                             <small>{row.currency}</small>
                           </td>
+                          <td className="numeric">{row.paid_minor===undefined?'—':`${minorAmount(row.paid_minor)} ${row.currency}`}</td>
+                          <td className="numeric">{row.remaining_minor===undefined?'—':`${minorAmount(row.remaining_minor)} ${row.currency}`}</td>
                           <td>
                             <Pill
                               tone={
