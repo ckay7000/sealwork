@@ -1,5 +1,6 @@
 import { createInterface } from 'node:readline';
-import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 let sequence = 0; let waiting = null;
@@ -13,7 +14,19 @@ export async function bridgeRequest(url, method, payload, headerFile, binaryFile
   if (!['https://api.vercel.com', 'https://api.github.com', 'https://test.rpc.fastnear.com', 'https://helper.testnet.near.org', 'https://sealwork-next.vercel.app', 'https://accord-near.vercel.app', 'https://testnet-api.outlayer.ai'].includes(new URL(url).origin)) throw new Error('Unapproved bridge origin.');
   await mkdir('.local/bridge', { recursive: true, mode: 0o700 }); const prefix = path.resolve(`.local/bridge/request-${process.pid}-${randomUUID()}-${++sequence}`);
   const file = binaryFile || `${prefix}.json`; const response = `${prefix}-response.json`;
+  try {
   if (payload !== undefined) await writeFile(file, JSON.stringify(payload), { mode: 0o600 });
+  if (!enabled) {
+    const args = ['-fsSL', '--max-time', '60', '-X', method];
+    args.push('--header', headerFile ? `@${headerFile}` : 'Content-Type: application/json');
+    if (payload !== undefined || binaryFile) args.push('--data-binary', `@${file}`);
+    args.push(url);
+    const raw = await new Promise((resolve, reject) => execFile('curl', args, { encoding: responseType === 'binary' ? 'buffer' : 'utf8', maxBuffer: 16 * 1024 * 1024 }, (error, stdout) => error ? reject(new Error('The HTTPS service request failed.')) : resolve(stdout)));
+    if (responseType === 'binary') return raw;
+    const result = raw.trim() ? JSON.parse(raw) : {};
+    if (result.error) throw new Error('The HTTPS service declined this request.');
+    return result;
+  }
   const ready = new Promise(resolve => { waiting = resolve; });
   console.log('PACKAGE_HTTP_REQUEST ' + JSON.stringify({ url, method, file: payload !== undefined || binaryFile ? file : null, response, headerFile: headerFile || null, responseType }));
   await ready;
@@ -21,6 +34,10 @@ export async function bridgeRequest(url, method, payload, headerFile, binaryFile
   const raw = await readFile(response, 'utf8'); const result = raw.trim() ? JSON.parse(raw) : {};
   if (result.error) throw new Error(JSON.stringify(result.error));
   return result;
+  } finally {
+    if (payload !== undefined && !binaryFile) await rm(file, { force: true });
+    await rm(response, { force: true });
+  }
   } finally { release(); }
 }
 export function closeBridge() { input?.close(); }

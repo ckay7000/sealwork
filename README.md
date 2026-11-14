@@ -1,10 +1,14 @@
-# Sealwork Next
+# Sealwork
 
 **Match receipts. Review exceptions. Export checked balances.**
 
 Sealwork helps a bookkeeper reconcile private bank receipts against invoices. It suggests combined and exact matches, keeps ambiguity visible, and lets the bookkeeper correct allocations before approving a confidential report. A separate verifier checks the result before the processing worker earns its reserved NEAR fee.
 
-[Open the separate app](https://sealwork-next.vercel.app/new?task=bank) · [Compare the original](docs/COMPARISON.md) · [Dated research and competitors](docs/RESEARCH_2026-11-03.md)
+[Open the app](https://sealwork-next.vercel.app/new?task=bank) · [Watch the narrated baseline demo](https://sealwork-next.vercel.app/media/sealwork-hackathon-demo.mp4) · [Compare the original](docs/COMPARISON.md) · [Dated research and competitors](docs/RESEARCH_2026-11-03.md)
+
+[![Watch the Sealwork video with sound](public/media/sealwork-hackathon-demo-poster.jpg)](https://sealwork-next.vercel.app/media/sealwork-hackathon-demo.mp4)
+
+The narrated video shows the original workflow. The current review editor, balances and expanded exports are newer; try the live sample below to inspect them.
 
 ## Try a complete batch
 
@@ -29,8 +33,8 @@ The verifier checks the reviewed allocations, invoice balances, bank receipt rec
 Use Node 24. Source, application tests and the frontend build need no keys.
 
 ```bash
-git clone https://github.com/NSEVEjk0/sealwork-next.git
-cd sealwork-next
+git clone https://github.com/NSEVEjk0/sealwork.git
+cd sealwork
 npm ci
 npm test
 npm run build
@@ -46,9 +50,9 @@ Small, bounded CSV batches; split larger expanded reports before funding. No ban
 
 ## Hackathon baseline and related work
 
-This is the improved version of **[Sealwork](https://github.com/NSEVEjk0/sealwork)**, based on [`bc4e402`](https://github.com/NSEVEjk0/sealwork/commit/bc4e40289b6b1a964b39ad1a7c2d309b93bf809c). Original work began October 31, inside the eligible October 19–November 14 window. This version adds the November 3 review/balance/export/correctness work listed in [comparison](docs/COMPARISON.md). React/Vite/NEAR infrastructure, confidential inference and escrow foundations are reused, with AI assistance and libraries identified in [NOTICE](NOTICE).
+This is the improved version of **the original Sealwork**, based on [`bc4e402`](https://github.com/NSEVEjk0/sealwork/commit/bc4e40289b6b1a964b39ad1a7c2d309b93bf809c). Original work began October 31, inside the eligible October 19–November 14 window. This version adds the November 3 review/balance/export/correctness work listed in [comparison](docs/COMPARISON.md). React/Vite/NEAR infrastructure, confidential inference and escrow foundations are reused, with AI assistance and libraries identified in [NOTICE](NOTICE).
 
-Original and new Sealwork are alternative versions of **one project**, not two entries. The author's intended other independent product is **[Accord](https://github.com/NSEVEjk0/accord-near)**, software-contractor milestone payments with a separate treasury, delivery verifier and workflow. Existing Facet and Kiosk repositories/sites are preserved; they are not proposed as additional entries in this two-project plan. Submission status must be checked by the human before any application is sent.
+The original and upgraded Sealwork builds are versions of **one project**, not two entries. This repository was renamed from `sealwork-next` to `sealwork`; the original repository is preserved privately as `sealwork-baseline`, while its eligible baseline commits remain in this public project’s history. The author's other intended independent entry is **[Facet](https://github.com/NSEVEjk0/facet)**, holder-controlled private credentials and scoped agent access with a separate contract and workflow. Submission status must be checked by the human before any application is sent.
 
 Strongest proposed track: **Privacy & Private AI** (`privacy`), with Agent Economy (`agents`) where appropriate. The [live rules](https://nearhackathon.com/HACKATHON.md) allow testnet and impose no integration checklist. Deadline: **November 14, 2026, 23:59 UTC**. This work publishes code and a demo deployment; it does not submit an application or publish an X post.
 

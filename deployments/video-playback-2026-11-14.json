@@ -1,0 +1,32 @@
+{
+  "project": "Sealwork",
+  "status": "passed",
+  "checked_at": "2026-11-14T17:10:17.519Z",
+  "page": "https://sealwork-next.vercel.app",
+  "range": {
+    "status": 206,
+    "content_type": "video/mp4",
+    "bytes": 1024
+  },
+  "sha256": null,
+  "playback": {
+    "source": "https://sealwork-next.vercel.app/media/sealwork-hackathon-demo.mp4",
+    "duration": 137.245,
+    "current_time": 2.713503,
+    "paused": false,
+    "muted": false,
+    "volume": 1,
+    "width": 1920,
+    "height": 1080,
+    "error": null,
+    "audio_decoded_bytes": 62705,
+    "captions_ready": 0
+  },
+  "audio": {
+    "peak": 0.6033593416213989,
+    "stream_audio_tracks": 1
+  },
+  "mobile_width": 390,
+  "browser_errors": [],
+  "source_version": "Original Sealwork baseline recording; current review and export improvements are not recorded."
+}

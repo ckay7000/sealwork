@@ -3,9 +3,9 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {bridgeRequest,closeBridge} from './tool-bridge.mjs';
-const name=process.argv[2], mode=process.argv[3];
-if(!['sealwork-next','accord-near'].includes(name))throw Error('Expected a separate project name.');
-const root=name==='sealwork-next'?'/root/sealwork-next':'/root/accord';
+const requestedName=process.argv[2], name=requestedName==='sealwork-next'?'sealwork':requestedName==='accord-near'?'accord':requestedName, hostingName=name==='sealwork'?'sealwork-next':name==='accord'?'accord-near':name, mode=process.argv[3];
+if(!['sealwork','accord'].includes(name))throw Error('Expected a separate project name.');
+const root=name==='sealwork'?'/root/sealwork-next':'/root/accord';
 if(process.cwd()!==root)throw Error('Run inside the matching separate checkout.');
 const team='team_osASFxy0lZFhvkPehOUzYAXS';await mkdir('.local/bridge',{recursive:true,mode:0o700});
 let headerFile='';
@@ -15,15 +15,15 @@ try{
   if(!token)throw Error('Saved Vercel connection unavailable.');headerFile=path.resolve('.local/bridge/vercel.headers');
   await writeFile(headerFile,`Authorization: Bearer ${token}\nContent-Type: application/json\n`,{mode:0o600});
   const api=(r:string,m='GET',b?:unknown)=>bridgeRequest(`https://api.vercel.com${r}${r.includes('?')?'&':'?'}teamId=${team}`,m,b,headerFile);
-  const projects=await api('/v9/projects?limit=100');let project=projects.projects.find((p:any)=>p.name===name);
-  if(!project){if(mode==='status')throw Error('Project has not been created.');project=await api('/v11/projects','POST',{name,framework:'vite',buildCommand:'npm run build',installCommand:'npm ci',outputDirectory:'dist'});}
+  const projects=await api('/v9/projects?limit=100');let project=projects.projects.find((p:any)=>p.name===hostingName);
+  if(!project){if(mode==='status')throw Error('Project has not been created.');project=await api('/v11/projects','POST',{name:hostingName,framework:'vite',buildCommand:'npm run build',installCommand:'npm ci',outputDirectory:'dist'});}
   if(mode==='status'){
    const saved=JSON.parse(await readFile('deployments/web.json','utf8'));const d=await api(`/v13/deployments/${saved.deployment_id}`);
    console.log('Deployment:',d.readyState,d.url);
    if(d.readyState==='ERROR'){const e=await api(`/v3/deployments/${saved.deployment_id}/events`);console.log(e.filter((x:any)=>/error|failed|cannot|ENOENT/i.test(x.text||'')).map((x:any)=>x.text).join('\n').slice(0,4000));}
   }else if(mode==='env'){
    const values=Object.fromEntries((await readFile('.env.local','utf8')).split('\n').filter(l=>l&&!l.startsWith('#')&&l.includes('=')).map(l=>{const i=l.indexOf('=');return[l.slice(0,i),l.slice(i+1)];}));
-   const keys=name==='sealwork-next'?['SEALWORK_BUYER_ID','SEALWORK_BUYER_KEY','SEALWORK_CONTROL_SECRET','SEALWORK_RPC_URL','SEALWORK_READ_ONLY','NEAR_AI_API_KEY','NEAR_AI_MODEL']:['ACCORD_OPERATOR_ID','ACCORD_OPERATOR_KEY','ACCORD_CONTROL_SECRET','ACCORD_RPC_URL','ACCORD_READ_ONLY','NEAR_AI_API_KEY','NEAR_AI_MODEL'];
+   const keys=name==='sealwork'?['SEALWORK_BUYER_ID','SEALWORK_BUYER_KEY','SEALWORK_CONTROL_SECRET','SEALWORK_RPC_URL','SEALWORK_READ_ONLY','NEAR_AI_API_KEY','NEAR_AI_MODEL']:['ACCORD_OPERATOR_ID','ACCORD_OPERATOR_KEY','ACCORD_CONTROL_SECRET','ACCORD_RPC_URL','ACCORD_READ_ONLY','NEAR_AI_API_KEY','NEAR_AI_MODEL'];
    const current=await api(`/v10/projects/${project.id}/env`);
    for(const key of keys){if(values[key]===undefined)continue;const existing=current.envs.find((e:any)=>e.key===key);await api(`/v10/projects/${project.id}/env${existing?'/'+existing.id:''}`,existing?'PATCH':'POST',{key,value:values[key],type:'encrypted',target:['production']});console.log('Configured:',key);}
   }else{
@@ -32,8 +32,8 @@ try{
    const walk=async(dir:string)=>{for(const e of await readdir(path.join(root,dir),{withFileTypes:true})){if(e.name==='node_modules'||e.name.startsWith('.'))continue;const f=dir+'/'+e.name;if(e.isDirectory())await walk(f);else await add(f);}};
    for(const f of ['package.json','package-lock.json','tsconfig.json','vite.config.ts','vercel.json','index.html'])await add(f);
    for(const d of ['src','shared','server','api','public','deployments','scripts'])await walk(d);
-   const d=await api('/v13/deployments','POST',{name,project:project.id,target:'production',files,projectSettings:{framework:'vite',nodeVersion:'24.x',installCommand:'npm ci',buildCommand:'npm run build',outputDirectory:'dist'}});
-   await writeFile('deployments/web.json',JSON.stringify({project:name,project_id:project.id,deployment_id:d.id,alias:`https://${name}.vercel.app`,state:d.readyState,created_at:new Date().toISOString()},null,2)+'\n');console.log('Queued separate site:',name,d.id);
+   const d=await api('/v13/deployments','POST',{name:hostingName,project:project.id,target:'production',files,projectSettings:{framework:'vite',nodeVersion:'24.x',installCommand:'npm ci',buildCommand:'npm run build',outputDirectory:'dist'}});
+   await writeFile('deployments/web.json',JSON.stringify({project:name,project_id:project.id,deployment_id:d.id,url:`https://${d.url}`,alias:`https://${hostingName}.vercel.app`,state:d.readyState,created_at:new Date().toISOString()},null,2)+'\n');console.log('Queued separate site:',name,d.id);
   }
  }else if(mode==='repo'){
   let credential='';try{credential=execFileSync('git',['credential','fill'],{cwd:'/root/~/sealwork',input:'protocol=https\nhost=github.com\n\n',encoding:'utf8',env:{...process.env,GIT_TERMINAL_PROMPT:'0'},stdio:['pipe','pipe','pipe']});}catch(e:any){if(typeof e.stdout==='string'&&e.stdout.includes('password='))credential=e.stdout;else throw Error('Saved GitHub connection unavailable.');}
@@ -42,7 +42,7 @@ try{
   const api=(r:string,m='GET',b?:unknown)=>bridgeRequest('https://api.github.com'+r,m,b,headerFile);
   const user=await api('/user');if(user.login.toLowerCase()!=='nsevejk0')throw Error('Unexpected repository owner.');
   const repos=await api('/user/repos?type=owner&per_page=100');let repo=repos.find((r:any)=>r.name===name);
-  if(!repo)repo=await api('/user/repos','POST',{name,private:false,auto_init:true,description:name==='sealwork-next'?'Private, reviewed bank-receipt reconciliation with checked balances, source fingerprints and NEAR testnet processing-fee settlement.':'Software milestone payments: private invoices, exact GitHub delivery evidence and bounded NEAR treasury settlement.',homepage:`https://${name}.vercel.app`});
+  if(!repo)repo=await api('/user/repos','POST',{name,private:false,auto_init:true,description:name==='sealwork'?'Private, reviewed bank-receipt reconciliation with checked balances, source fingerprints and NEAR testnet processing-fee settlement.':'Software milestone payments: private invoices, exact GitHub delivery evidence and bounded NEAR treasury settlement.',homepage:`https://${hostingName}.vercel.app`});
   if(repo.private)throw Error('Expected the authorized public comparison repository.');
   const base=`/repos/NSEVEjk0/${name}`,ref=await api(base+'/git/ref/heads/main'),parent=ref.object.sha;
   const parentCommit=await api(base+'/git/commits/'+parent);const remoteTree=await api(base+'/git/trees/'+parentCommit.tree.sha+'?recursive=1');const previous=new Map(remoteTree.tree.filter((e:any)=>e.type==='blob').map((e:any)=>[e.path,e.sha]));

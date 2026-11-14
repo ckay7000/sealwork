@@ -1,8 +1,9 @@
 {
-  "project": "sealwork-next",
+  "project": "sealwork",
   "project_id": "prj_k31YqJgo98j0GYQDfwzLCczmmUGo",
-  "deployment_id": "dpl_GkxvvpAM3hUqb6t1S2qpap4q9AQa",
+  "deployment_id": "dpl_9aXNr3CXYaWKTcMUjWq5SdJEfQHB",
+  "url": "https://sealwork-next-pmsx04c02-ckay.vercel.app",
   "alias": "https://sealwork-next.vercel.app",
-  "state": "INITIALIZING",
-  "created_at": "2026-11-03T09:07:30.902Z"
+  "state": "READY",
+  "created_at": "2026-11-14T17:07:57.267Z"
 }

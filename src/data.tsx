@@ -9,7 +9,7 @@ import type { PropsWithChildren } from "react";
 import type { AgentBuild, HiringPlan, Job, PublicConfig } from "../shared/types";
 import built from "../deployments/builds.json" with { type: "json" };
 
-export const SOURCE_URL = "https://github.com/NSEVEjk0/sealwork-next";
+export const SOURCE_URL = "https://github.com/NSEVEjk0/sealwork";
 export interface PrivateSession {
   job_id: string;
   buyer_key: string;
