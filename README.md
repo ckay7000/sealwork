@@ -4,11 +4,11 @@
 
 Sealwork helps a bookkeeper reconcile private bank receipts against invoices. It suggests combined and exact matches, keeps ambiguity visible, and lets the bookkeeper correct allocations before approving a confidential report. A separate verifier checks the result before the processing worker earns its reserved NEAR fee.
 
-[Open the app](https://sealwork-next.vercel.app/new?task=bank) · [Watch the narrated baseline demo](https://sealwork-next.vercel.app/media/sealwork-hackathon-demo.mp4) · [Compare the original](docs/COMPARISON.md) · [Dated research and competitors](docs/RESEARCH_2026-11-03.md)
+[Open the app](https://sealwork-next.vercel.app/new?task=bank) · [Watch the narrated workflow demo](https://sealwork-next.vercel.app/media/sealwork-hackathon-demo.mp4)
 
 [![Watch the Sealwork video with sound](public/media/sealwork-hackathon-demo-poster.jpg)](https://sealwork-next.vercel.app/media/sealwork-hackathon-demo.mp4)
 
-The narrated video shows the original workflow. The current review editor, balances and expanded exports are newer; try the live sample below to inspect them.
+The video introduces private processing and verification. Try the live sample for allocation review, balances and exports.
 
 ## Try a complete batch
 
@@ -20,7 +20,7 @@ The sample invoices and receipts are fictional. The $900/$250/$125/$99 records a
 4. Download the invoice CSV, bank-receipt CSV and private reconciliation pack. Invoice rows include allocated/outstanding balances; receipt rows include unresolved amounts. Source fingerprints and reviewed-proposal provenance are inside the private pack.
 5. Save a **private recovery file**. Open the receipt in a new browser: its financial result remains encrypted. Import the recovery file to reopen it. Keep that file private.
 
-Choose the deliberately faulty Ledgerline 3.1 build to demonstrate rejection. A missed deadline demonstrates refund of the worker budget and unspent reserved compute. Actual fresh deployment evidence is recorded in [verification status](docs/VERIFICATION.md); inherited examples and videos refer to the original version and are labeled accordingly.
+Choose the deliberately faulty Ledgerline 3.1 build to demonstrate rejection. A missed deadline demonstrates refund of the worker budget and unspent reserved compute. Execution results and testnet receipts are recorded in [verification status](docs/VERIFICATION.md).
 
 ## NEAR's role
 
