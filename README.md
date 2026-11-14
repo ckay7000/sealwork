@@ -44,16 +44,4 @@ npm run dev
 
 Open `http://127.0.0.1:5190`. Local suggestions and review are usable without a sponsor. Complete confidential execution needs your own isolated testnet accounts, an OutLayer project and optional prepaid inference credits. The hosted sample is the easiest full run. `npm run test:e2e` requires a browser-capable environment. Rust tests and binary recipes are described in [development](docs/DEVELOPMENT.md).
 
-## Limits
-
-Small, bounded CSV batches; split larger expanded reports before funding. No bank connection, production accounting ledger, bank-dollar movement or mainnet settlement. Public metadata includes job IDs, fingerprints, fees and outcomes; financial contents remain encrypted. Testnet sponsor and contract upgrade authorities are explicit trust boundaries. Failed/pending transfers must be resolved through the documented recovery path. No customer validation or independent security audit is claimed.
-
-## Hackathon baseline and related work
-
-This is the improved version of **the original Sealwork**, based on [`bc4e402`](https://github.com/ckay7000/sealwork/commit/bc4e40289b6b1a964b39ad1a7c2d309b93bf809c). Original work began October 31, inside the eligible October 19–November 14 window. This version adds the November 3 review/balance/export/correctness work listed in [comparison](docs/COMPARISON.md). React/Vite/NEAR infrastructure, confidential inference and escrow foundations are reused, with AI assistance and libraries identified in [NOTICE](NOTICE).
-
-The original and upgraded Sealwork builds are versions of **one project**, not two entries. This repository was renamed from `sealwork-next` to `sealwork` and moved to `ckay7000`. Previous repository copies are private; the eligible baseline commits remain in this public project’s history. The author's other intended independent entry is **[Facet](https://github.com/ckay7000/facet)**, holder-controlled private credentials and scoped agent access with a separate contract and workflow. Submission status must be checked by the human before any application is sent.
-
-Strongest proposed track: **Privacy & Private AI** (`privacy`), with Agent Economy (`agents`) where appropriate. The [live rules](https://nearhackathon.com/HACKATHON.md) allow testnet and impose no integration checklist. Deadline: **November 14, 2026, 23:59 UTC**. This work publishes code and a demo deployment; it does not submit an application or publish an X post.
-
-[MIT license](LICENSE) · [Third-party notices](NOTICE). Documentation retained from the original is reference material; current behavior and evidence are identified above.
+[MIT license](LICENSE) · [Third-party notices](NOTICE).
