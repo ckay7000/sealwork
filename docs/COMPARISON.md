@@ -1,6 +1,6 @@
 # Original Sealwork compared with this version
 
-Original baseline: [`bc4e40289b6b1a964b39ad1a7c2d309b93bf809c`](https://github.com/NSEVEjk0/sealwork/commit/bc4e40289b6b1a964b39ad1a7c2d309b93bf809c).
+Original baseline: [`bc4e40289b6b1a964b39ad1a7c2d309b93bf809c`](https://github.com/ckay7000/sealwork/commit/bc4e40289b6b1a964b39ad1a7c2d309b93bf809c).
 
 The original source checkout and site are preserved. This new repository is a derivative comparison version of the same product, not a second independent hackathon entry. Its public repository snapshot discloses that baseline; the local checkout retains original Git history. The author’s other intended independent entry is Facet.
 

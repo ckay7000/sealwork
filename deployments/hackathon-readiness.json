@@ -82,5 +82,8 @@
     "deadline_utc": "2026-11-14T23:59:00Z",
     "human_steps": "See docs/SUBMISSION_CHECKLIST.md",
     "independent_other_entry": "Facet"
-  }
+  },
+  "historical_record": true,
+  "current_repository": "https://github.com/ckay7000/sealwork",
+  "repository_note": "This November 2 report describes the original baseline. Previous-account repositories are now private; current code, history and CI are in ckay7000/sealwork. Historical CI run URLs do not move with a code import."
 }

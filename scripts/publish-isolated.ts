@@ -40,11 +40,11 @@ try{
   const creds=Object.fromEntries(credential.trim().split('\n').map(l=>{const i=l.indexOf('=');return[l.slice(0,i),l.slice(i+1)];}));if(!creds.password)throw Error('GitHub connection unavailable.');
   headerFile=path.resolve('.local/bridge/github.headers');await writeFile(headerFile,`Authorization: Bearer ${creds.password}\nAccept: application/vnd.github+json\nContent-Type: application/json\nUser-Agent: separate NEAR project publication\n`,{mode:0o600});
   const api=(r:string,m='GET',b?:unknown)=>bridgeRequest('https://api.github.com'+r,m,b,headerFile);
-  const user=await api('/user');if(user.login.toLowerCase()!=='nsevejk0')throw Error('Unexpected repository owner.');
+  const user=await api('/user');if(user.login.toLowerCase()!=='ckay7000')throw Error('Unexpected repository owner.');
   const repos=await api('/user/repos?type=owner&per_page=100');let repo=repos.find((r:any)=>r.name===name);
   if(!repo)repo=await api('/user/repos','POST',{name,private:false,auto_init:true,description:name==='sealwork'?'Private, reviewed bank-receipt reconciliation with checked balances, source fingerprints and NEAR testnet processing-fee settlement.':'Software milestone payments: private invoices, exact GitHub delivery evidence and bounded NEAR treasury settlement.',homepage:`https://${hostingName}.vercel.app`});
   if(repo.private)throw Error('Expected the authorized public comparison repository.');
-  const base=`/repos/NSEVEjk0/${name}`,ref=await api(base+'/git/ref/heads/main'),parent=ref.object.sha;
+  const base=`/repos/ckay7000/${name}`,ref=await api(base+'/git/ref/heads/main'),parent=ref.object.sha;
   const parentCommit=await api(base+'/git/commits/'+parent);const remoteTree=await api(base+'/git/trees/'+parentCommit.tree.sha+'?recursive=1');const previous=new Map(remoteTree.tree.filter((e:any)=>e.type==='blob').map((e:any)=>[e.path,e.sha]));
   const paths=(await readFile('.local/publication-paths.bin')).toString().split('\0').filter(Boolean);
   const tree:any[]=[];for(const file of [...new Set(paths)]){
